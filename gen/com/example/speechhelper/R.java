@@ -341,6 +341,8 @@ containing a value of this type.
         public static final int project_video_list=0x7f09000b;
     }
     public static final class string {
+        public static final int action_location=0x7f050041;
+        public static final int action_location_default=0x7f050042;
         public static final int action_people=0x7f05003a;
         public static final int action_people_default=0x7f05003b;
         public static final int action_settings=0x7f05001a;

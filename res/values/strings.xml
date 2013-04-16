@@ -41,4 +41,6 @@
     <string name="single_user_selected">%1$s</string>
     <string name="two_users_selected">%1$s and %2$s</string>
     <string name="multiple_users_selected">%1$s and %2$s others</string>
+    <string name="action_location">Where are you?</string>
+    <string name="action_location_default">Select one</string>
 </resources>

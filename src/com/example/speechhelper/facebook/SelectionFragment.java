@@ -57,14 +57,16 @@ public class SelectionFragment extends Fragment {
 
 	    // Find the user's name view
 	    userNameView = (TextView) view.findViewById(R.id.selection_user_name);
-	 // Find the list view
+	    // Find the list view
 	    listView = (ListView) view.findViewById(R.id.selection_list);
 
 	    // Set up the list view items, based on a list of
 	    // BaseListElement items
 	    listElements = new ArrayList<BaseListElement>();
+	    // Add an item for the place picker
+	    listElements.add(new LocationListElement(0));
 	    // Add an item for the friend picker
-	    listElements.add(new PeopleListElement(0));
+	    listElements.add(new PeopleListElement(1));
 	    if (savedInstanceState != null) {
 	        // Restore the state for each list element
 	        for (BaseListElement listElement : listElements) {
@@ -334,5 +336,27 @@ public class SelectionFragment extends Fragment {
 	        Log.e(TAG, "Unable to deserialize users.", e); 
 	    }   
 	    return null;
+	}
+	private class LocationListElement extends BaseListElement {
+
+	    public LocationListElement(int requestCode) {
+	        super(getActivity().getResources()
+	              .getDrawable(R.drawable.action_location),
+	              getActivity().getResources()
+	              .getString(R.string.action_location),
+	              getActivity().getResources()
+	              .getString(R.string.action_location_default),
+	              requestCode);
+	    }
+
+	    @Override
+	    protected View.OnClickListener getOnClickListener() {
+	        return new View.OnClickListener() {
+	            @Override
+	            public void onClick(View view) {
+	                // Do nothing for now
+	            }
+	        };
+	    }
 	}
 }

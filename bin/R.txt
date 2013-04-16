@@ -188,6 +188,8 @@ int menu presentation 0x7f090008
 int menu project_note_list 0x7f090009
 int menu project_tab_host 0x7f09000a
 int menu project_video_list 0x7f09000b
+int string action_location 0x7f050041
+int string action_location_default 0x7f050042
 int string action_people 0x7f05003a
 int string action_people_default 0x7f05003b
 int string action_settings 0x7f05001a
