@@ -232,7 +232,7 @@ containing a value of this type.
         public static final int icon=0x7f020027;
     }
     public static final class id {
-        public static final int action_settings=0x7f04003e;
+        public static final int action_settings=0x7f04003f;
         public static final int addNewNote=0x7f04001b;
         public static final int addNote=0x7f04001d;
         public static final int addVideo=0x7f04001f;
@@ -259,7 +259,7 @@ containing a value of this type.
         public static final int facebook=0x7f04000e;
         public static final int icon=0x7f040035;
         public static final int large=0x7f040002;
-        public static final int login_button=0x7f04003d;
+        public static final int login_button=0x7f04003e;
         public static final int myProjects=0x7f040007;
         public static final int myProjectsBack=0x7f04000c;
         public static final int newNoteBack=0x7f04000f;
@@ -269,22 +269,23 @@ containing a value of this type.
         public static final int normal=0x7f040001;
         public static final int noteContentText=0x7f040010;
         public static final int notesBack=0x7f04001a;
+        public static final int picker_fragment=0x7f040038;
         public static final int picker_subtitle=0x7f040031;
         public static final int presentation=0x7f040008;
         public static final int presentationBack=0x7f04001c;
-        public static final int profile_name=0x7f04003c;
+        public static final int profile_name=0x7f04003d;
         public static final int projectNameText=0x7f040018;
         public static final int projectNoteBack=0x7f04000d;
         public static final int projectVideoBack=0x7f04001e;
         public static final int search_box=0x7f040030;
         public static final int selectionFragment=0x7f040003;
-        public static final int selection_list=0x7f04003a;
-        public static final int selection_profile_pic=0x7f040038;
-        public static final int selection_user_name=0x7f040039;
+        public static final int selection_list=0x7f04003b;
+        public static final int selection_profile_pic=0x7f040039;
+        public static final int selection_user_name=0x7f04003a;
         public static final int small=0x7f040000;
         public static final int speechLengthText=0x7f040019;
         public static final int splashFragment=0x7f040004;
-        public static final int splash_icon=0x7f04003b;
+        public static final int splash_icon=0x7f04003c;
         public static final int startTimeText=0x7f040014;
         public static final int text1=0x7f040036;
         public static final int text2=0x7f040037;
@@ -321,8 +322,9 @@ containing a value of this type.
         public static final int com_facebook_placepickerfragment_list_row=0x7f030015;
         public static final int com_facebook_usersettingsfragment=0x7f030016;
         public static final int listitem=0x7f030017;
-        public static final int selection=0x7f030018;
-        public static final int splash=0x7f030019;
+        public static final int pickers=0x7f030018;
+        public static final int selection=0x7f030019;
+        public static final int splash=0x7f03001a;
     }
     public static final class menu {
         public static final int existing_project=0x7f090000;
