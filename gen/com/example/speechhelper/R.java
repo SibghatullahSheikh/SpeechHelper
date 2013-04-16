@@ -381,6 +381,7 @@ containing a value of this type.
         public static final int get_started=0x7f050036;
         public static final int hello_world=0x7f05001b;
         public static final int min=0x7f050025;
+        public static final int multiple_users_selected=0x7f050040;
         public static final int myProjects=0x7f050020;
         public static final int newProject=0x7f050021;
         public static final int new_note=0x7f05002b;
@@ -389,6 +390,7 @@ containing a value of this type.
         public static final int project_name=0x7f050023;
         public static final int sec=0x7f05002f;
         public static final int settings=0x7f050038;
+        public static final int single_user_selected=0x7f05003e;
         public static final int speech_length=0x7f050024;
         public static final int start=0x7f05002d;
         public static final int title_activity_existing_project=0x7f050030;
@@ -402,6 +404,7 @@ containing a value of this type.
         public static final int title_activity_project_note_list=0x7f050031;
         public static final int title_activity_project_tab_host=0x7f050033;
         public static final int title_activity_project_video_list=0x7f050032;
+        public static final int two_users_selected=0x7f05003f;
         public static final int welcome=0x7f050039;
     }
     public static final class style {

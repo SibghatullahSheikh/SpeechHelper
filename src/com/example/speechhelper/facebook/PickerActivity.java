@@ -83,6 +83,12 @@ public class PickerActivity extends FragmentActivity {
 	}
 
 	private void finishActivity() {
+		ScrumptiousApplication app = (ScrumptiousApplication) getApplication();
+		if (FRIEND_PICKER.equals(getIntent().getData())) {
+		    if (friendPickerFragment != null) {
+		        app.setSelectedUsers(friendPickerFragment.getSelection());
+		    }   
+		}  
 	    setResult(RESULT_OK, null);
 	    finish();
 	}

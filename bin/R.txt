@@ -228,6 +228,7 @@ int string facebook 0x7f050034
 int string get_started 0x7f050036
 int string hello_world 0x7f05001b
 int string min 0x7f050025
+int string multiple_users_selected 0x7f050040
 int string myProjects 0x7f050020
 int string newProject 0x7f050021
 int string new_note 0x7f05002b
@@ -236,6 +237,7 @@ int string presentation 0x7f050022
 int string project_name 0x7f050023
 int string sec 0x7f05002f
 int string settings 0x7f050038
+int string single_user_selected 0x7f05003e
 int string speech_length 0x7f050024
 int string start 0x7f05002d
 int string title_activity_existing_project 0x7f050030
@@ -249,6 +251,7 @@ int string title_activity_presentation 0x7f05001f
 int string title_activity_project_note_list 0x7f050031
 int string title_activity_project_tab_host 0x7f050033
 int string title_activity_project_video_list 0x7f050032
+int string two_users_selected 0x7f05003f
 int string welcome 0x7f050039
 int style AppBaseTheme 0x7f080002
 int style AppTheme 0x7f080003

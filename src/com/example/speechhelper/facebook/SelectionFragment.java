@@ -1,7 +1,15 @@
 package com.example.speechhelper.facebook;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.example.speechhelper.R;
 import com.facebook.Request;
@@ -9,6 +17,7 @@ import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphObject;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.ProfilePictureView;
 
@@ -18,6 +27,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +43,8 @@ public class SelectionFragment extends Fragment {
 	private static final int REAUTH_ACTIVITY_CODE = 100;
 	private ListView listView;
 	private List<BaseListElement> listElements;
+	private List<GraphUser> selectedUsers;
+	private static final String FRIENDS_KEY = "friends";
 	@Override
 	public View onCreateView(LayoutInflater inflater, 
 	        ViewGroup container, Bundle savedInstanceState) {
@@ -53,6 +65,12 @@ public class SelectionFragment extends Fragment {
 	    listElements = new ArrayList<BaseListElement>();
 	    // Add an item for the friend picker
 	    listElements.add(new PeopleListElement(0));
+	    if (savedInstanceState != null) {
+	        // Restore the state for each list element
+	        for (BaseListElement listElement : listElements) {
+	            listElement.restoreState(savedInstanceState);
+	        }   
+	    }
 	    // Set the list view adapter
 	    listView.setAdapter(new ActionListAdapter(getActivity(), 
 	                        R.id.selection_list, listElements));
@@ -113,8 +131,9 @@ public class SelectionFragment extends Fragment {
 	    super.onActivityResult(requestCode, resultCode, data);
 	    if (requestCode == REAUTH_ACTIVITY_CODE) {
 	        uiHelper.onActivityResult(requestCode, resultCode, data);
-	    }else if (resultCode == Activity.RESULT_OK) {
-	        // Do nothing for now
+	    }else if (resultCode == Activity.RESULT_OK && 
+	            requestCode >= 0 && requestCode < listElements.size()) {
+	        listElements.get(requestCode).onActivityResult(data);
 	    }
 	}
 	@Override
@@ -126,6 +145,9 @@ public class SelectionFragment extends Fragment {
 	@Override
 	public void onSaveInstanceState(Bundle bundle) {
 	    super.onSaveInstanceState(bundle);
+	    for (BaseListElement listElement : listElements) {
+	        listElement.onSaveInstanceState(bundle);
+	    }
 	    uiHelper.onSaveInstanceState(bundle);
 	}
 
@@ -202,6 +224,83 @@ public class SelectionFragment extends Fragment {
 	            }
 	        };
 	    }
+	    
+	    @Override
+	    protected void onActivityResult(Intent data) {
+	        selectedUsers = ((ScrumptiousApplication) getActivity()
+	                 .getApplication())
+	                 .getSelectedUsers();
+	        setUsersText();
+	        notifyDataChanged();
+	    }
+	    @Override
+	    protected void onSaveInstanceState(Bundle bundle) {
+	        if (selectedUsers != null) {
+	            bundle.putByteArray(FRIENDS_KEY,
+	                    getByteArray(selectedUsers));
+	        }   
+	    } 
+	    @Override
+	    protected boolean restoreState(Bundle savedState) {
+	        byte[] bytes = savedState.getByteArray(FRIENDS_KEY);
+	        if (bytes != null) {
+	            selectedUsers = restoreByteArray(bytes);
+	            setUsersText();
+	            return true;
+	        }   
+	        return false;
+	    } 
+	    private void setUsersText() {
+		    String text = null;
+		    if (selectedUsers != null) {
+		            // If there is one friend
+		        if (selectedUsers.size() == 1) {
+		            text = String.format(getResources()
+		                    .getString(R.string.single_user_selected),
+		                    selectedUsers.get(0).getName());
+		        } else if (selectedUsers.size() == 2) {
+		            // If there are two friends 
+		            text = String.format(getResources()
+		                    .getString(R.string.two_users_selected),
+		                    selectedUsers.get(0).getName(), 
+		                    selectedUsers.get(1).getName());
+		        } else if (selectedUsers.size() > 2) {
+		            // If there are more than two friends 
+		            text = String.format(getResources()
+		                    .getString(R.string.multiple_users_selected),
+		                    selectedUsers.get(0).getName(), 
+		                    (selectedUsers.size() - 1));
+		        }   
+		    }   
+		    if (text == null) {
+		        // If no text, use the placeholder text
+		        text = getResources()
+		        .getString(R.string.action_people_default);
+		    }   
+		    // Set the text in list element. This will notify the 
+		    // adapter that the data has changed to
+		    // refresh the list view.
+		    setText2(text);
+		} 
+	    private byte[] getByteArray(List<GraphUser> users) {
+	        // convert the list of GraphUsers to a list of String 
+	        // where each element is the JSON representation of the 
+	        // GraphUser so it can be stored in a Bundle
+	        List<String> usersAsString = new ArrayList<String>(users.size());
+
+	        for (GraphUser user : users) {
+	            usersAsString.add(user.getInnerJSONObject().toString());
+	        }   
+	        try {
+	            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	            new ObjectOutputStream(outputStream).writeObject(usersAsString);
+	            return outputStream.toByteArray();
+	        } catch (IOException e) {
+	            Log.e(TAG, "Unable to serialize users.", e); 
+	        }   
+	        return null;
+	    }   
+	    
 	}
 	private void startPickerActivity(Uri data, int requestCode) {
 	     Intent intent = new Intent();
@@ -209,4 +308,31 @@ public class SelectionFragment extends Fragment {
 	     intent.setClass(getActivity(), PickerActivity.class);
 	     startActivityForResult(intent, requestCode);
 	 }
+	private List<GraphUser> restoreByteArray(byte[] bytes) {
+	    try {
+	        @SuppressWarnings("unchecked")
+	        List<String> usersAsString =
+	                (List<String>) (new ObjectInputStream
+	                                (new ByteArrayInputStream(bytes)))
+	                                .readObject();
+	        if (usersAsString != null) {
+	            List<GraphUser> users = new ArrayList<GraphUser>
+	            (usersAsString.size());
+	            for (String user : usersAsString) {
+	                GraphUser graphUser = GraphObject.Factory
+	                .create(new JSONObject(user), 
+	                                GraphUser.class);
+	                users.add(graphUser);
+	            }   
+	            return users;
+	        }   
+	    } catch (ClassNotFoundException e) {
+	        Log.e(TAG, "Unable to deserialize users.", e); 
+	    } catch (IOException e) {
+	        Log.e(TAG, "Unable to deserialize users.", e); 
+	    } catch (JSONException e) {
+	        Log.e(TAG, "Unable to deserialize users.", e); 
+	    }   
+	    return null;
+	}
 }

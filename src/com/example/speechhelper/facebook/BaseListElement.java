@@ -1,6 +1,8 @@
 package com.example.speechhelper.facebook;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.BaseAdapter;
 
@@ -52,4 +54,15 @@ public abstract class BaseListElement {
 		this.adapter = adapter;
 	}
 	protected abstract View.OnClickListener getOnClickListener();
+	protected void onActivityResult(Intent data) {}
+
+	protected void onSaveInstanceState(Bundle bundle) {}
+
+	protected boolean restoreState(Bundle savedState) {
+	    return false;
+	}
+
+	protected void notifyDataChanged() {
+	    adapter.notifyDataSetChanged();
+	}
 }
