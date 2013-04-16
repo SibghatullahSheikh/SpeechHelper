@@ -354,7 +354,7 @@ public class SelectionFragment extends Fragment {
 	        return new View.OnClickListener() {
 	            @Override
 	            public void onClick(View view) {
-	                // Do nothing for now
+	            startPickerActivity(PickerActivity.PLACE_PICKER, getRequestCode());
 	            }
 	        };
 	    }

@@ -234,6 +234,7 @@ int string multiple_users_selected 0x7f050040
 int string myProjects 0x7f050020
 int string newProject 0x7f050021
 int string new_note 0x7f05002b
+int string no_location_error 0x7f050043
 int string plus 0x7f050029
 int string presentation 0x7f050022
 int string project_name 0x7f050023

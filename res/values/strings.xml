@@ -43,4 +43,5 @@
     <string name="multiple_users_selected">%1$s and %2$s others</string>
     <string name="action_location">Where are you?</string>
     <string name="action_location_default">Select one</string>
+    <string name="no_location_error">Could not obtain your current location</string>
 </resources>

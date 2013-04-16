@@ -387,6 +387,7 @@ containing a value of this type.
         public static final int myProjects=0x7f050020;
         public static final int newProject=0x7f050021;
         public static final int new_note=0x7f05002b;
+        public static final int no_location_error=0x7f050043;
         public static final int plus=0x7f050029;
         public static final int presentation=0x7f050022;
         public static final int project_name=0x7f050023;
