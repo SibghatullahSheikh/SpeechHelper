@@ -339,6 +339,8 @@ containing a value of this type.
         public static final int project_video_list=0x7f09000b;
     }
     public static final class string {
+        public static final int action_people=0x7f05003a;
+        public static final int action_people_default=0x7f05003b;
         public static final int action_settings=0x7f05001a;
         public static final int app_id=0x7f050035;
         public static final int app_name=0x7f050019;

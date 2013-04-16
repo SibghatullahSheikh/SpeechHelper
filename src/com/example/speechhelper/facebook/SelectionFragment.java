@@ -1,5 +1,6 @@
 package com.example.speechhelper.facebook;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.speechhelper.R;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class SelectionFragment extends Fragment {
@@ -27,6 +29,8 @@ public class SelectionFragment extends Fragment {
 	private TextView userNameView;
 	private static final String TAG = "SelectionFragment";
 	private static final int REAUTH_ACTIVITY_CODE = 100;
+	private ListView listView;
+	private List<BaseListElement> listElements;
 	@Override
 	public View onCreateView(LayoutInflater inflater, 
 	        ViewGroup container, Bundle savedInstanceState) {
@@ -39,6 +43,17 @@ public class SelectionFragment extends Fragment {
 
 	    // Find the user's name view
 	    userNameView = (TextView) view.findViewById(R.id.selection_user_name);
+	 // Find the list view
+	    listView = (ListView) view.findViewById(R.id.selection_list);
+
+	    // Set up the list view items, based on a list of
+	    // BaseListElement items
+	    listElements = new ArrayList<BaseListElement>();
+	    // Add an item for the friend picker
+	    listElements.add(new PeopleListElement(0));
+	    // Set the list view adapter
+	    listView.setAdapter(new ActionListAdapter(getActivity(), 
+	                        R.id.selection_list, listElements));
 	    // Check for an open session
 	    Session session = Session.getActiveSession();
 	    if (session != null && session.isOpened()) {
@@ -164,6 +179,25 @@ public class SelectionFragment extends Fragment {
 	        return view;
 	    }
 
+	}
+	private class PeopleListElement extends BaseListElement {
+
+	    public PeopleListElement(int requestCode) {
+	        super(getActivity().getResources().getDrawable(R.drawable.action_people),
+	              getActivity().getResources().getString(R.string.action_people),
+	              getActivity().getResources().getString(R.string.action_people_default),
+	              requestCode);
+	    }
+
+	    @Override
+	    protected View.OnClickListener getOnClickListener() {
+	        return new View.OnClickListener() {
+	            @Override
+	            public void onClick(View view) {
+	                // Do nothing for now
+	            }
+	        };
+	    }
 	}
 	
 }
