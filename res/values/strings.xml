@@ -36,5 +36,6 @@
     <string name="welcome">Welcome, you are now logged in.</string>
     <string name="action_people">With whom?</string>
     <string name="action_people_default">Select friends</string>
-
+<string name="error_dialog_title">Error</string>
+<string name="error_dialog_button_text">OK</string>
 </resources>

@@ -375,6 +375,8 @@ containing a value of this type.
         public static final int content=0x7f05002c;
         public static final int done=0x7f050027;
         public static final int end=0x7f05002e;
+        public static final int error_dialog_button_text=0x7f05003d;
+        public static final int error_dialog_title=0x7f05003c;
         public static final int facebook=0x7f050034;
         public static final int get_started=0x7f050036;
         public static final int hello_world=0x7f05001b;
