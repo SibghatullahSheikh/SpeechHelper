@@ -138,7 +138,11 @@ public class PickerActivity extends FragmentActivity {
 		    if (friendPickerFragment != null) {
 		        app.setSelectedUsers(friendPickerFragment.getSelection());
 		    }   
-		}  
+		} else if (PLACE_PICKER.equals(getIntent().getData())) {
+	        if (placePickerFragment != null) {
+	            app.setSelectedPlace(placePickerFragment.getSelection());
+	        }
+	    }
 	    setResult(RESULT_OK, null);
 	    finish();
 	}

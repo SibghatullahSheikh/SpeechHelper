@@ -18,6 +18,7 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphObject;
+import com.facebook.model.GraphPlace;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.ProfilePictureView;
 
@@ -45,6 +46,8 @@ public class SelectionFragment extends Fragment {
 	private List<BaseListElement> listElements;
 	private List<GraphUser> selectedUsers;
 	private static final String FRIENDS_KEY = "friends";
+	private GraphPlace selectedPlace = null;
+	private static final String PLACE_KEY = "place";
 	@Override
 	public View onCreateView(LayoutInflater inflater, 
 	        ViewGroup container, Bundle savedInstanceState) {
@@ -348,7 +351,47 @@ public class SelectionFragment extends Fragment {
 	              .getString(R.string.action_location_default),
 	              requestCode);
 	    }
-
+	    
+	    private void setPlaceText() {
+	        String text = null;
+	        if (selectedPlace != null) {
+	            text = selectedPlace.getName();
+	        }   
+	        if (text == null) {
+	            text = getResources().getString(R.string.action_location_default);
+	        }   
+	        setText2(text);
+	    }
+	    @Override
+	    protected void onActivityResult(Intent data) {
+	        selectedPlace = ((ScrumptiousApplication) getActivity()
+	                .getApplication()).getSelectedPlace();
+	        setPlaceText();
+	        notifyDataChanged();
+	    }  
+	    @Override
+	    protected void onSaveInstanceState(Bundle bundle) {
+	        if (selectedPlace != null) {
+	            bundle.putString(PLACE_KEY, 
+	                    selectedPlace.getInnerJSONObject().toString());
+	        }   
+	    }
+	    @Override
+	    protected boolean restoreState(Bundle savedState) {
+	        String place = savedState.getString(PLACE_KEY);
+	        if (place != null) {
+	            try {
+	                selectedPlace = GraphObject.Factory.create(
+	                        new JSONObject(place), 
+	                        GraphPlace.class);
+	                setPlaceText();
+	                return true;
+	            } catch (JSONException e) {
+	                Log.e(TAG, "Unable to deserialize place.", e); 
+	            }   
+	        }   
+	        return false;
+	    }  
 	    @Override
 	    protected View.OnClickListener getOnClickListener() {
 	        return new View.OnClickListener() {
