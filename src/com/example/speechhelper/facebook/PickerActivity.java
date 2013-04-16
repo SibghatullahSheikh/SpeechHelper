@@ -33,13 +33,13 @@ public class PickerActivity extends FragmentActivity {
 	                (FriendPickerFragment) manager.findFragmentById(R.id.picker_fragment);
 	        }
 	        // Set the listener to handle errors
-	        friendPickerFragment.setOnErrorListener(new PickerFragment.OnErrorListener() {
+	   /*     friendPickerFragment.setOnErrorListener(new PickerFragment.OnErrorListener() {
 	            @Override
 	            public void onError(PickerFragment<?> fragment,
 	                                FacebookException error) {
 	                PickerActivity.this.onError(error);
 	            }
-	        });
+	        });*/
 	        // Set the listener to handle button clicks
 	        friendPickerFragment.setOnDoneButtonClickedListener(
 	                new PickerFragment.OnDoneButtonClickedListener() {
