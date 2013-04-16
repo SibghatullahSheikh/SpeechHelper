@@ -77,6 +77,8 @@
             android:name="com.example.speechhelper.facebook.FacebookActivity"
             android:label="@string/title_activity_facebook" >
         </activity>
+        <activity android:name="com.example.speechhelper.facebook.PickerActivity"
+          android:label="@string/app_name" />
     </application>
 
 </manifest>

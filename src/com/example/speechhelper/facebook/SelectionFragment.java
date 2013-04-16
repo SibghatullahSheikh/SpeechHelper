@@ -12,8 +12,10 @@ import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.ProfilePictureView;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -111,6 +113,8 @@ public class SelectionFragment extends Fragment {
 	    super.onActivityResult(requestCode, resultCode, data);
 	    if (requestCode == REAUTH_ACTIVITY_CODE) {
 	        uiHelper.onActivityResult(requestCode, resultCode, data);
+	    }else if (resultCode == Activity.RESULT_OK) {
+	        // Do nothing for now
 	    }
 	}
 	@Override
@@ -194,10 +198,15 @@ public class SelectionFragment extends Fragment {
 	        return new View.OnClickListener() {
 	            @Override
 	            public void onClick(View view) {
-	                // Do nothing for now
+	            	startPickerActivity(PickerActivity.FRIEND_PICKER, getRequestCode());
 	            }
 	        };
 	    }
 	}
-	
+	private void startPickerActivity(Uri data, int requestCode) {
+	     Intent intent = new Intent();
+	     intent.setData(data);
+	     intent.setClass(getActivity(), PickerActivity.class);
+	     startActivityForResult(intent, requestCode);
+	 }
 }

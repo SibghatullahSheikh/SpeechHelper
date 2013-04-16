@@ -86,4 +86,15 @@ public class PickerActivity extends FragmentActivity {
 	    setResult(RESULT_OK, null);
 	    finish();
 	}
+	@Override
+	protected void onStart() {
+	    super.onStart();
+	    if (FRIEND_PICKER.equals(getIntent().getData())) {
+	        try {
+	            friendPickerFragment.loadData(false);
+	        } catch (Exception ex) {
+	            onError(ex);
+	        }
+	    }
+	}
 }
