@@ -236,10 +236,11 @@ containing a value of this type.
         public static final int icon=0x7f020027;
     }
     public static final class id {
-        public static final int action_settings=0x7f04003f;
+        public static final int action_settings=0x7f040040;
         public static final int addNewNote=0x7f04001b;
         public static final int addNote=0x7f04001d;
         public static final int addVideo=0x7f04001f;
+        public static final int announce_button=0x7f04003c;
         public static final int com_facebook_login_activity_progress_bar=0x7f040022;
         public static final int com_facebook_picker_activity_circle=0x7f040021;
         public static final int com_facebook_picker_checkbox=0x7f040024;
@@ -263,7 +264,7 @@ containing a value of this type.
         public static final int facebook=0x7f04000e;
         public static final int icon=0x7f040035;
         public static final int large=0x7f040002;
-        public static final int login_button=0x7f04003e;
+        public static final int login_button=0x7f04003f;
         public static final int myProjects=0x7f040007;
         public static final int myProjectsBack=0x7f04000c;
         public static final int newNoteBack=0x7f04000f;
@@ -277,7 +278,7 @@ containing a value of this type.
         public static final int picker_subtitle=0x7f040031;
         public static final int presentation=0x7f040008;
         public static final int presentationBack=0x7f04001c;
-        public static final int profile_name=0x7f04003d;
+        public static final int profile_name=0x7f04003e;
         public static final int projectNameText=0x7f040018;
         public static final int projectNoteBack=0x7f04000d;
         public static final int projectVideoBack=0x7f04001e;
@@ -289,7 +290,7 @@ containing a value of this type.
         public static final int small=0x7f040000;
         public static final int speechLengthText=0x7f040019;
         public static final int splashFragment=0x7f040004;
-        public static final int splash_icon=0x7f04003c;
+        public static final int splash_icon=0x7f04003d;
         public static final int startTimeText=0x7f040014;
         public static final int text1=0x7f040036;
         public static final int text2=0x7f040037;
@@ -352,6 +353,7 @@ containing a value of this type.
         public static final int action_people=0x7f05003a;
         public static final int action_people_default=0x7f05003b;
         public static final int action_settings=0x7f05001a;
+        public static final int announce=0x7f050052;
         public static final int app_id=0x7f050035;
         public static final int app_name=0x7f050019;
         public static final int back=0x7f050026;
@@ -383,8 +385,15 @@ containing a value of this type.
         public static final int content=0x7f05002c;
         public static final int done=0x7f050027;
         public static final int end=0x7f05002e;
+        public static final int error_authentication_reopen=0x7f050049;
+        public static final int error_authentication_retry=0x7f050048;
+        public static final int error_bad_request=0x7f05004f;
         public static final int error_dialog_button_text=0x7f05003d;
+        public static final int error_dialog_default_text=0x7f050047;
         public static final int error_dialog_title=0x7f05003c;
+        public static final int error_permission=0x7f05004a;
+        public static final int error_server=0x7f05004b;
+        public static final int error_unknown=0x7f050051;
         public static final int facebook=0x7f050034;
         public static final int get_started=0x7f050036;
         public static final int hello_world=0x7f05001b;
@@ -396,7 +405,11 @@ containing a value of this type.
         public static final int no_location_error=0x7f050043;
         public static final int plus=0x7f050029;
         public static final int presentation=0x7f050022;
+        public static final int progress_dialog_text=0x7f050050;
         public static final int project_name=0x7f050023;
+        public static final int result_dialog_button_text=0x7f05004d;
+        public static final int result_dialog_text=0x7f05004e;
+        public static final int result_dialog_title=0x7f05004c;
         public static final int sec=0x7f05002f;
         public static final int select_speech=0x7f050046;
         public static final int settings=0x7f050038;

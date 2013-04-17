@@ -1,5 +1,7 @@
 package com.example.speechhelper.facebook;
 
+import com.facebook.model.OpenGraphAction;
+
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ public abstract class BaseListElement {
 	private String text2;
 	private int requestCode;
 	private BaseAdapter adapter;
+	protected abstract void populateOGAction(OpenGraphAction action);
 	public BaseListElement(Drawable icon, String text1, String text2, int requestCode) {
 	    super();
 	    this.icon = icon;

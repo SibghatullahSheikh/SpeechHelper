@@ -87,10 +87,11 @@ int drawable ic_launcher 0x7f020024
 int drawable ic_launcher1 0x7f020025
 int drawable ic_launcher2 0x7f020026
 int drawable icon 0x7f020027
-int id action_settings 0x7f04003f
+int id action_settings 0x7f040040
 int id addNewNote 0x7f04001b
 int id addNote 0x7f04001d
 int id addVideo 0x7f04001f
+int id announce_button 0x7f04003c
 int id com_facebook_login_activity_progress_bar 0x7f040022
 int id com_facebook_picker_activity_circle 0x7f040021
 int id com_facebook_picker_checkbox 0x7f040024
@@ -114,7 +115,7 @@ int id endTimeText 0x7f040012
 int id facebook 0x7f04000e
 int id icon 0x7f040035
 int id large 0x7f040002
-int id login_button 0x7f04003e
+int id login_button 0x7f04003f
 int id myProjects 0x7f040007
 int id myProjectsBack 0x7f04000c
 int id newNoteBack 0x7f04000f
@@ -128,7 +129,7 @@ int id picker_fragment 0x7f040038
 int id picker_subtitle 0x7f040031
 int id presentation 0x7f040008
 int id presentationBack 0x7f04001c
-int id profile_name 0x7f04003d
+int id profile_name 0x7f04003e
 int id projectNameText 0x7f040018
 int id projectNoteBack 0x7f04000d
 int id projectVideoBack 0x7f04001e
@@ -140,7 +141,7 @@ int id selection_user_name 0x7f04003a
 int id small 0x7f040000
 int id speechLengthText 0x7f040019
 int id splashFragment 0x7f040004
-int id splash_icon 0x7f04003c
+int id splash_icon 0x7f04003d
 int id startTimeText 0x7f040014
 int id text1 0x7f040036
 int id text2 0x7f040037
@@ -197,6 +198,7 @@ int string action_location_default 0x7f050042
 int string action_people 0x7f05003a
 int string action_people_default 0x7f05003b
 int string action_settings 0x7f05001a
+int string announce 0x7f050052
 int string app_id 0x7f050035
 int string app_name 0x7f050019
 int string back 0x7f050026
@@ -228,8 +230,15 @@ int string com_facebook_usersettingsfragment_not_logged_in 0x7f05000a
 int string content 0x7f05002c
 int string done 0x7f050027
 int string end 0x7f05002e
+int string error_authentication_reopen 0x7f050049
+int string error_authentication_retry 0x7f050048
+int string error_bad_request 0x7f05004f
 int string error_dialog_button_text 0x7f05003d
+int string error_dialog_default_text 0x7f050047
 int string error_dialog_title 0x7f05003c
+int string error_permission 0x7f05004a
+int string error_server 0x7f05004b
+int string error_unknown 0x7f050051
 int string facebook 0x7f050034
 int string get_started 0x7f050036
 int string hello_world 0x7f05001b
@@ -241,7 +250,11 @@ int string new_note 0x7f05002b
 int string no_location_error 0x7f050043
 int string plus 0x7f050029
 int string presentation 0x7f050022
+int string progress_dialog_text 0x7f050050
 int string project_name 0x7f050023
+int string result_dialog_button_text 0x7f05004d
+int string result_dialog_text 0x7f05004e
+int string result_dialog_title 0x7f05004c
 int string sec 0x7f05002f
 int string select_speech 0x7f050046
 int string settings 0x7f050038

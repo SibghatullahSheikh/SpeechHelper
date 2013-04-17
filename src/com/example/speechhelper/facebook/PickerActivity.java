@@ -33,7 +33,7 @@ public class PickerActivity extends FragmentActivity {
     }};
     private static final int SEARCH_RADIUS_METERS = 1000;
     private static final int SEARCH_RESULT_LIMIT = 50;
-    private static final String SEARCH_TEXT = "restaurant";
+    private static final String SEARCH_TEXT = "";
     private static final int LOCATION_CHANGE_THRESHOLD = 50; // meters
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

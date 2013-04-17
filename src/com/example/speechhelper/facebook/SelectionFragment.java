@@ -6,12 +6,15 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.speechhelper.R;
+import com.facebook.FacebookRequestError;
+import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
@@ -20,14 +23,17 @@ import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphObject;
 import com.facebook.model.GraphPlace;
 import com.facebook.model.GraphUser;
+import com.facebook.model.OpenGraphAction;
 import com.facebook.widget.ProfilePictureView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -35,6 +41,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -43,7 +50,7 @@ public class SelectionFragment extends Fragment {
 	private ProfilePictureView profilePictureView;
 	private TextView userNameView;
 	private static final String TAG = "SelectionFragment";
-	private static final int REAUTH_ACTIVITY_CODE = 100;
+	
 	private ListView listView;
 	private List<BaseListElement> listElements;
 	private List<GraphUser> selectedUsers;
@@ -54,6 +61,92 @@ public class SelectionFragment extends Fragment {
 	private String talkChoice = null;
 	private static final String TALK_KEY = "talk";
 	private static final String TALK_URL_KEY = "talk_url";
+	private Button announceButton;
+	// Redirect URL for authentication errors requiring a user action
+	private static final Uri M_FACEBOOK_URL = Uri.parse("http://m.facebook.com");
+	private static final String POST_ACTION_PATH = "me/speechhelper:have";
+	private ProgressDialog progressDialog;
+	// Activity code to flag an incoming activity result is due 
+	// to a new permissions request
+	private static final int REAUTH_ACTIVITY_CODE = 100;
+
+	// Indicates an on-going reauthorization request
+	private boolean pendingAnnounce;
+
+	// Key used in storing the pendingAnnounce flag
+	private static final String PENDING_ANNOUNCE_KEY = "pendingAnnounce";
+
+	/// List of additional write permissions being requested
+	private static final List<String> PERMISSIONS = Arrays.asList("publish_actions");
+	private void requestPublishPermissions(Session session) {
+	    if (session != null) {
+	        Session.NewPermissionsRequest newPermissionsRequest = 
+	            new Session.NewPermissionsRequest(this, PERMISSIONS).
+	                setRequestCode(REAUTH_ACTIVITY_CODE);
+	        session.requestNewPublishPermissions(newPermissionsRequest);
+	    }
+	}
+	private void handleAnnounce() {
+	    pendingAnnounce = false;
+	    Session session = Session.getActiveSession();
+
+	    if (session == null || !session.isOpened()) {
+	        return;
+	    }
+
+	    List<String> permissions = session.getPermissions();
+	    if (!permissions.containsAll(PERMISSIONS)) {
+	        pendingAnnounce = true;
+	        requestPublishPermissions(session);
+	        return;
+	    }
+
+	 // Show a progress dialog because sometimes the 
+	 // requests can take a while. This dialog contains
+	 // a text message
+	 progressDialog = ProgressDialog.show(getActivity(), "", 
+	         getActivity().getResources()
+	         .getString(R.string.progress_dialog_text), true);
+
+	 // Run this in a background thread since we don't want to 
+	 // block the main thread. Create a new AsyncTask that returns
+	 // a Response object
+	 AsyncTask<Void, Void, Response> task = 
+	     new AsyncTask<Void, Void, Response>() {
+
+	     @Override
+	     protected Response doInBackground(Void... voids) {
+	         // Create an have action
+	         HaveAction haveAction = 
+	         GraphObject.Factory.create(HaveAction.class);
+	         // Populate the action with the POST parameters:
+	         // the talk, friends, and place info
+	         for (BaseListElement element : listElements) {
+	             element.populateOGAction(haveAction);
+	         }   
+	         // Set up a request with the active session, set up
+	         // an HTTP POST to the talk action endpoint
+	         Request request = new Request(Session.getActiveSession(),
+	                 POST_ACTION_PATH, null, HttpMethod.POST);
+	         // Add the post parameter, the have action
+	         request.setGraphObject(haveAction);
+	         // Execute the request synchronously in the background
+	         // and return the response.
+	         return request.executeAndWait();
+	     }   
+
+	     @Override
+	     protected void onPostExecute(Response response) {
+	         // When the task completes, process
+	         // the response on the main thread
+	         onPostActionResponse(response);
+	      }   
+	 };  
+
+	 // Execute the task
+	 task.execute();
+
+	}
 	@Override
 	public View onCreateView(LayoutInflater inflater, 
 	        ViewGroup container, Bundle savedInstanceState) {
@@ -68,11 +161,21 @@ public class SelectionFragment extends Fragment {
 	    userNameView = (TextView) view.findViewById(R.id.selection_user_name);
 	    // Find the list view
 	    listView = (ListView) view.findViewById(R.id.selection_list);
-
+	    
+	    // Set up the publish action button
+	    announceButton = (Button) view.findViewById(R.id.announce_button);
+	    announceButton.setOnClickListener(new View.OnClickListener() {
+	        @Override
+	        public void onClick(View view) {
+	        	 handleAnnounce();
+	        }
+	    });
+	    // Disable the button initially
+	    announceButton.setEnabled(false);
 	    // Set up the list view items, based on a list of
 	    // BaseListElement items
 	    listElements = new ArrayList<BaseListElement>();
-	 // Add an item for the meal picker
+	 // Add an item for the talk picker
 	    listElements.add(new TalkListElement(0));
 	    // Add an item for the place picker
 	    listElements.add(new LocationListElement(1));
@@ -82,7 +185,10 @@ public class SelectionFragment extends Fragment {
 	        // Restore the state for each list element
 	        for (BaseListElement listElement : listElements) {
 	            listElement.restoreState(savedInstanceState);
-	        }   
+	        }  
+	     // Restore the pending flag
+	        pendingAnnounce = savedInstanceState.getBoolean(
+	                PENDING_ANNOUNCE_KEY, false);
 	    }
 	    // Set the list view adapter
 	    listView.setAdapter(new ActionListAdapter(getActivity(), 
@@ -122,8 +228,14 @@ public class SelectionFragment extends Fragment {
 	} 
 	private void onSessionStateChange(final Session session, SessionState state, Exception exception) {
 	    if (session != null && session.isOpened()) {
-	        // Get the user's data.
-	        makeMeRequest(session);
+	        if (state.equals(SessionState.OPENED_TOKEN_UPDATED)) {
+	            // Session updated with new permissions
+	            // so try publishing once more.
+	            tokenUpdated();
+	        } else {
+	            // Get the user's data.
+	            makeMeRequest(session);
+	        }
 	    }
 	}
 	private UiLifecycleHelper uiHelper;
@@ -161,6 +273,7 @@ public class SelectionFragment extends Fragment {
 	    for (BaseListElement listElement : listElements) {
 	        listElement.onSaveInstanceState(bundle);
 	    }
+	    bundle.putBoolean(PENDING_ANNOUNCE_KEY, pendingAnnounce);
 	    uiHelper.onSaveInstanceState(bundle);
 	}
 
@@ -295,6 +408,12 @@ public class SelectionFragment extends Fragment {
 		    // refresh the list view.
 		    setText2(text);
 		} 
+	    @Override
+	    protected void populateOGAction(OpenGraphAction action) {
+	        if (selectedUsers != null) {
+	            action.setTags(selectedUsers);
+	        }   
+	    }  
 	    private byte[] getByteArray(List<GraphUser> users) {
 	        // convert the list of GraphUsers to a list of String 
 	        // where each element is the JSON representation of the 
@@ -359,7 +478,12 @@ public class SelectionFragment extends Fragment {
 	              .getString(R.string.action_location_default),
 	              requestCode);
 	    }
-	    
+	    @Override
+	    protected void populateOGAction(OpenGraphAction action) {
+	        if (selectedPlace != null) {
+	            action.setPlace(selectedPlace);
+	        }   
+	    } 
 	    private void setPlaceText() {
 	        String text = null;
 	        if (selectedPlace != null) {
@@ -428,17 +552,27 @@ public class SelectionFragment extends Fragment {
 	        talkUrls = getActivity().getResources()
 	                       .getStringArray(R.array.talk_og_urls);
 	    }
+	    @Override
+	    protected void populateOGAction(OpenGraphAction action) {
+	        if (talkChoiceUrl != null) {
+	            HaveAction haveAction = action.cast(HaveAction.class);
+	            TalkGraphObject talk = 
+	                GraphObject.Factory.create(TalkGraphObject.class);
+	            talk.setUrl(talkChoiceUrl);
+	            haveAction.setTalk(talk);
+	        }   
+	    } 
 
 	    @Override
 	    protected View.OnClickListener getOnClickListener() {
 	        return new View.OnClickListener() {
 	            @Override
 	            public void onClick(View view) {
-	            	showMealOptions();
+	            	showTalkOptions();
 	            }
 	        };
 	    }
-	    private void showMealOptions() {
+	    private void showTalkOptions() {
 	        String title = getActivity().getResources().getString(R.string.select_speech);
 	        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 	        builder.setTitle(title).
@@ -455,12 +589,14 @@ public class SelectionFragment extends Fragment {
 	        builder.show();
 	    }
 	    private void setTalkText() {
-	        if (talkChoice != null && talkChoiceUrl != null) {
-	            setText2(talkChoice);
-	        } else {
-	            setText2(getActivity().getResources()
-	                    .getString(R.string.action_have_default));
-	        }   
+	    	 if (talkChoice != null && talkChoiceUrl != null) {
+	    	        setText2(talkChoice);
+	    	        announceButton.setEnabled(true);
+	    	    } else {
+	    	        setText2(getActivity().getResources()
+	    	                        .getString(R.string.action_have_default));
+	    	        announceButton.setEnabled(false);
+	    	    }  
 	    }
 	    @Override
 	    protected void onSaveInstanceState(Bundle bundle) {
@@ -482,5 +618,155 @@ public class SelectionFragment extends Fragment {
 	        return false;
 	    } 
 
+	}
+	private interface TalkGraphObject extends GraphObject {
+	    // A URL
+	    public String getUrl();
+	    public void setUrl(String url);
+
+	    // An ID
+	    public String getId();
+	    public void setId(String id);
+	}
+	private interface HaveAction extends OpenGraphAction {
+	    // The talk object
+	    public TalkGraphObject getTalk();
+	    public void setTalk(TalkGraphObject talk);
+	}
+	private void tokenUpdated() {
+	    // Check if a publish action is in progress
+	    // awaiting a successful reauthorization
+	    if (pendingAnnounce) {
+	        // Publish the action
+	        handleAnnounce();
+	    }
+	}
+	private void handleError(FacebookRequestError error) {
+	    DialogInterface.OnClickListener listener = null;
+	    String dialogBody = null;
+
+	    if (error == null) {
+	        // There was no response from the server.
+	        dialogBody = getString(R.string.error_dialog_default_text);
+	    } else {
+	        switch (error.getCategory()) {
+	            case AUTHENTICATION_RETRY:
+	                // Tell the user what happened by getting the
+	                // message id, and retry the operation later.
+	                String userAction = (error.shouldNotifyUser()) ? "" :
+	                        getString(error.getUserActionMessageId());
+	                dialogBody = getString(R.string.error_authentication_retry, 
+	                                       userAction);
+	                listener = new DialogInterface.OnClickListener() {
+	                    @Override
+	                    public void onClick(DialogInterface dialogInterface, 
+	                                        int i) {
+	                        // Take the user to the mobile site.
+	                        Intent intent = new Intent(Intent.ACTION_VIEW, 
+	                                                   M_FACEBOOK_URL);
+	                        startActivity(intent);
+	                    }
+	                };
+	                break;
+
+	            case AUTHENTICATION_REOPEN_SESSION:
+	                // Close the session and reopen it.
+	                dialogBody = 
+	                    getString(R.string.error_authentication_reopen);
+	                listener = new DialogInterface.OnClickListener() {
+	                    @Override
+	                    public void onClick(DialogInterface dialogInterface, 
+	                                        int i) {
+	                        Session session = Session.getActiveSession();
+	                        if (session != null && !session.isClosed()) {
+	                            session.closeAndClearTokenInformation();
+	                        }
+	                    }
+	                };
+	                break;
+
+	            case PERMISSION:
+	                // A permissions-related error
+	                dialogBody = getString(R.string.error_permission);
+	                listener = new DialogInterface.OnClickListener() {
+	                    @Override
+	                    public void onClick(DialogInterface dialogInterface, 
+	                                        int i) {
+	                        pendingAnnounce = true;
+	                        // Request publish permission
+	                        requestPublishPermissions(Session.getActiveSession());
+	                    }
+	                };
+	                break;
+
+	            case SERVER:
+	            case THROTTLING:
+	                // This is usually temporary, don't clear the fields, and
+	                // ask the user to try again.
+	                dialogBody = getString(R.string.error_server);
+	                break;
+
+	            case BAD_REQUEST:
+	                // This is likely a coding error, ask the user to file a bug.
+	                dialogBody = getString(R.string.error_bad_request, 
+	                                       error.getErrorMessage());
+	                break;
+
+	            case OTHER:
+	            case CLIENT:
+	            default:
+	                // An unknown issue occurred, this could be a code error, or
+	                // a server side issue, log the issue, and either ask the
+	                // user to retry, or file a bug.
+	                dialogBody = getString(R.string.error_unknown, 
+	                                       error.getErrorMessage());
+	                break;
+	        }
+	    }
+
+	    // Show the error and pass in the listener so action
+	    // can be taken, if necessary.
+	    new AlertDialog.Builder(getActivity())
+	            .setPositiveButton(R.string.error_dialog_button_text, listener)
+	            .setTitle(R.string.error_dialog_title)
+	            .setMessage(dialogBody)
+	            .show();
+	}
+	private interface PostResponse extends GraphObject {
+	    String getId();
+	}
+	
+	private void onPostActionResponse(Response response) {
+		if (progressDialog != null) {
+	        progressDialog.dismiss();
+	        progressDialog = null;
+	    }
+	    if (getActivity() == null) {
+	        // if the user removes the app from the website,
+	        // then a request will have caused the session to 
+	        // close (since the token is no longer valid),
+	        // which means the splash fragment will be shown 
+	        // rather than this one, causing activity to be null. 
+	        // If the activity is null, then we cannot
+	        // show any dialogs, so we return.
+	        return;
+	    }
+
+	    PostResponse postResponse = 
+	        response.getGraphObjectAs(PostResponse.class);
+
+	    if (postResponse != null && postResponse.getId() != null) {
+	        String dialogBody = String.format(getString(
+	                                R.string.result_dialog_text), 
+	                                postResponse.getId());
+	        new AlertDialog.Builder(getActivity())
+	                .setPositiveButton(R.string.result_dialog_button_text, 
+	                                   null)
+	                .setTitle(R.string.result_dialog_title)
+	                .setMessage(dialogBody)
+	                .show();
+	    } else {
+	        handleError(response.getError());
+	    }
 	}
 }
