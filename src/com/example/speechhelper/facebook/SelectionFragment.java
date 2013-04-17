@@ -50,6 +50,10 @@ public class SelectionFragment extends Fragment {
 	private static final String FRIENDS_KEY = "friends";
 	private GraphPlace selectedPlace = null;
 	private static final String PLACE_KEY = "place";
+	private String talkChoiceUrl = null;
+	private String talkChoice = null;
+	private static final String TALK_KEY = "talk";
+	private static final String TALK_URL_KEY = "talk_url";
 	@Override
 	public View onCreateView(LayoutInflater inflater, 
 	        ViewGroup container, Bundle savedInstanceState) {
@@ -442,10 +446,41 @@ public class SelectionFragment extends Fragment {
 	                setItems(talkChoices, new DialogInterface.OnClickListener() {
 	                    @Override
 	                    public void onClick(DialogInterface dialogInterface, int i) {
-	                        // TO DO: Save selection
+	                    	talkChoice = talkChoices[i];
+	                        talkChoiceUrl = talkUrls[i];
+	                        setTalkText();
+	                        notifyDataChanged();
 	                    }   
 	                }); 
 	        builder.show();
 	    }
+	    private void setTalkText() {
+	        if (talkChoice != null && talkChoiceUrl != null) {
+	            setText2(talkChoice);
+	        } else {
+	            setText2(getActivity().getResources()
+	                    .getString(R.string.action_have_default));
+	        }   
+	    }
+	    @Override
+	    protected void onSaveInstanceState(Bundle bundle) {
+	        if (talkChoice != null && talkChoiceUrl != null) {
+	            bundle.putString(TALK_KEY, talkChoice);
+	            bundle.putString(TALK_URL_KEY, talkChoiceUrl);
+	        }   
+	    }
+	    @Override
+	    protected boolean restoreState(Bundle savedState) {
+	        String talk = savedState.getString(TALK_KEY);
+	        String talkUrl = savedState.getString(TALK_URL_KEY);
+	        if (talk != null && talkUrl != null) {
+	            talkChoice = talk;
+	            talkChoiceUrl = talkUrl;
+	            setTalkText();
+	            return true;
+	        }   
+	        return false;
+	    } 
+
 	}
 }
