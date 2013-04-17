@@ -44,4 +44,22 @@
     <string name="action_location">Where are you?</string>
     <string name="action_location_default">Select one</string>
     <string name="no_location_error">Could not obtain your current location</string>
+    <string name="action_have">What are you doing?</string>
+    <string name="action_have_default">Select One</string>
+    <string name="select_speech">Selece a speech</string>
+    <string-array name="talk_types">
+    <item>Speech</item>
+    <item>Presentation</item>
+    <item>Rehearsal</item>
+    <item>Talk</item>
+   
+</string-array>
+
+<string-array name="talk_og_urls">
+    <item>https://enigmatic-chamber-2722.herokuapp.com</item> 
+    <item>https://enigmatic-chamber-2722.herokuapp.com</item> 
+    <item>https://enigmatic-chamber-2722.herokuapp.com</item> 
+    <item>https://enigmatic-chamber-2722.herokuapp.com</item> 
+   
+</string-array>
 </resources>

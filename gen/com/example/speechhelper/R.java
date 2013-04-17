@@ -8,6 +8,10 @@
 package com.example.speechhelper;
 
 public final class R {
+    public static final class array {
+        public static final int talk_og_urls=0x7f090001;
+        public static final int talk_types=0x7f090000;
+    }
     public static final class attr {
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
@@ -327,20 +331,22 @@ containing a value of this type.
         public static final int splash=0x7f03001a;
     }
     public static final class menu {
-        public static final int existing_project=0x7f090000;
-        public static final int facebook=0x7f090001;
-        public static final int main=0x7f090002;
-        public static final int my_project=0x7f090003;
-        public static final int my_projects=0x7f090004;
-        public static final int new_note=0x7f090005;
-        public static final int new_project=0x7f090006;
-        public static final int notes=0x7f090007;
-        public static final int presentation=0x7f090008;
-        public static final int project_note_list=0x7f090009;
-        public static final int project_tab_host=0x7f09000a;
-        public static final int project_video_list=0x7f09000b;
+        public static final int existing_project=0x7f0a0000;
+        public static final int facebook=0x7f0a0001;
+        public static final int main=0x7f0a0002;
+        public static final int my_project=0x7f0a0003;
+        public static final int my_projects=0x7f0a0004;
+        public static final int new_note=0x7f0a0005;
+        public static final int new_project=0x7f0a0006;
+        public static final int notes=0x7f0a0007;
+        public static final int presentation=0x7f0a0008;
+        public static final int project_note_list=0x7f0a0009;
+        public static final int project_tab_host=0x7f0a000a;
+        public static final int project_video_list=0x7f0a000b;
     }
     public static final class string {
+        public static final int action_have=0x7f050044;
+        public static final int action_have_default=0x7f050045;
         public static final int action_location=0x7f050041;
         public static final int action_location_default=0x7f050042;
         public static final int action_people=0x7f05003a;
@@ -392,6 +398,7 @@ containing a value of this type.
         public static final int presentation=0x7f050022;
         public static final int project_name=0x7f050023;
         public static final int sec=0x7f05002f;
+        public static final int select_speech=0x7f050046;
         public static final int settings=0x7f050038;
         public static final int single_user_selected=0x7f05003e;
         public static final int speech_length=0x7f050024;

@@ -23,7 +23,9 @@ import com.facebook.model.GraphUser;
 import com.facebook.widget.ProfilePictureView;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -66,10 +68,12 @@ public class SelectionFragment extends Fragment {
 	    // Set up the list view items, based on a list of
 	    // BaseListElement items
 	    listElements = new ArrayList<BaseListElement>();
+	 // Add an item for the meal picker
+	    listElements.add(new TalkListElement(0));
 	    // Add an item for the place picker
-	    listElements.add(new LocationListElement(0));
+	    listElements.add(new LocationListElement(1));
 	    // Add an item for the friend picker
-	    listElements.add(new PeopleListElement(1));
+	    listElements.add(new PeopleListElement(2));
 	    if (savedInstanceState != null) {
 	        // Restore the state for each list element
 	        for (BaseListElement listElement : listElements) {
@@ -400,6 +404,48 @@ public class SelectionFragment extends Fragment {
 	            startPickerActivity(PickerActivity.PLACE_PICKER, getRequestCode());
 	            }
 	        };
+	    }
+	}
+	private class TalkListElement extends BaseListElement {
+
+	    private final String[] talkChoices;
+	    private final String[] talkUrls;
+
+	    public TalkListElement(int requestCode) {
+	        super(getActivity().getResources()
+	                .getDrawable(R.drawable.action_people),
+	              getActivity().getResources()
+	                .getString(R.string.action_have),
+	              getActivity().getResources()
+	                .getString(R.string.action_have_default),
+	              requestCode);
+	        talkChoices = getActivity().getResources()
+	                          .getStringArray(R.array.talk_types);
+	        talkUrls = getActivity().getResources()
+	                       .getStringArray(R.array.talk_og_urls);
+	    }
+
+	    @Override
+	    protected View.OnClickListener getOnClickListener() {
+	        return new View.OnClickListener() {
+	            @Override
+	            public void onClick(View view) {
+	            	showMealOptions();
+	            }
+	        };
+	    }
+	    private void showMealOptions() {
+	        String title = getActivity().getResources().getString(R.string.select_speech);
+	        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+	        builder.setTitle(title).
+	                setCancelable(true).
+	                setItems(talkChoices, new DialogInterface.OnClickListener() {
+	                    @Override
+	                    public void onClick(DialogInterface dialogInterface, int i) {
+	                        // TO DO: Save selection
+	                    }   
+	                }); 
+	        builder.show();
 	    }
 	}
 }
