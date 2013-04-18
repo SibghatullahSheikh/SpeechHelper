@@ -26,13 +26,22 @@
         android:layout_alignParentTop="true"
         android:text="@string/plus" />
 
+    <ListView
+        android:id="@+id/noteListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/notesBack"
+        android:layout_below="@+id/notesBack" >
+    </ListView>
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/notesBack"
         android:layout_alignBottom="@+id/notesBack"
-        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="25dp"
+        android:layout_toRightOf="@+id/notesBack"
         android:text="Notes"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

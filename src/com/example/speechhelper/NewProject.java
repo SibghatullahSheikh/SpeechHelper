@@ -3,12 +3,12 @@ package com.example.speechhelper;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 public class NewProject extends Activity {
 	private EditText projectTitle; // accepts user input for project title
@@ -23,12 +23,13 @@ public class NewProject extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_project);
+		
+
 		try {
 			projectTitle = (EditText) findViewById(R.id.projectNameText);
 			time = (EditText) findViewById(R.id.speechLengthText);
 			
-			//_projectTitle = projectTitle.getText().toString();
-			//_time = Double.parseDouble(time.getText().toString());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -53,8 +54,24 @@ public class NewProject extends Activity {
 			@Override
 			public void onClick(View view) {
 				try {
-
+					_projectTitle = projectTitle.getText().toString();
+					_time =Integer.parseInt(time.getText().toString());
+					
 					Intent intent = new Intent(NewProject.this, Notes.class);
+					
+					DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+
+					db.addProjectData(_projectTitle, _time);// get project id
+					
+					
+					
+					
+					int id =db.getProjectId(_projectTitle);
+					Log.d("tag1", Integer.toString(id));
+					
+					intent.putExtra("projectId", id);
+					
+
 					startActivity(intent);
 				} catch (Exception e) {
 					e.printStackTrace();

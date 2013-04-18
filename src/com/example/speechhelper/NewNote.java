@@ -3,6 +3,7 @@ package com.example.speechhelper;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,16 +16,26 @@ public class NewNote extends Activity {
 	 private EditText startTimeText; // accepts user input for start time
 	 private EditText endTimeText; // accepts user input for end time
 	 
-	 private String noteContent ;
-	 private int  startTime; 
-	 private int  endTime;
+//	 private String noteContent ;
+//	 private int  startTime; 
+//	 private int  endTime;
 	 
 	 private Button newNoteBack;
+	 
+	 private int projectId;
+	 
 	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_note);
+		
+		projectId= this.getIntent().getIntExtra("project_id", -1);
+		
+		noteContentText = (EditText) findViewById(R.id.noteContentText);
+        startTimeText = (EditText) findViewById(R.id.startTimeText);
+        endTimeText = (EditText) findViewById(R.id.endTimeText);
+
 		
 		newNoteBack = (Button)findViewById(R.id.newNoteBack);
 		
@@ -34,9 +45,21 @@ public class NewNote extends Activity {
         	public void onClick(View view)
         	{
 		        try 
-		        {
+		        {  Log.d("tag4", Integer.toString(projectId));  //log 4
+		        	if(projectId!=-1){
+		        		 String noteContent  = noteContentText.getText().toString();
+		    	       int  startTime = Integer.parseInt(startTimeText.getText().toString());
+		    	        int endTime = Integer.parseInt(endTimeText.getText().toString());
+		    	         
+		    	         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+		        		
+		        		db.addNoteData(noteContent, startTime, endTime, projectId);
+		        	}
 		        	Intent intent = new Intent(NewNote.this, Notes.class);  
-	                startActivity(intent);  
+		        	intent.putExtra("projectIdBack", projectId);
+		        	
+		        	 setResult(RESULT_OK, intent);
+                     finish();
 		        } catch (Exception e) 
 		        {
 		        	e.printStackTrace();
@@ -44,15 +67,10 @@ public class NewNote extends Activity {
         	}
         });
 		
-			noteContentText = (EditText) findViewById(R.id.noteContentText);
-	        startTimeText = (EditText) findViewById(R.id.startTimeText);
-	        endTimeText = (EditText) findViewById(R.id.endTimeText);
-	         
+				         
 	         // get value from edittext
 	        /* *****************
-	         noteContent  = noteContentText.getText().toString();
-	         startTime = Integer.parseInt(startTimeText.getText().toString());
-	         endTime = Integer.parseInt(endTimeText.getText().toString());
+	        
 	        ********************* */
 	}
 

@@ -14,7 +14,6 @@ public class MainActivity extends Activity {
 	private ImageButton newProject;
 	private ImageButton presentation;
 	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -23,7 +22,8 @@ public class MainActivity extends Activity {
 		myProjects = (ImageButton)findViewById(R.id.myProjects);
 		newProject = (ImageButton)findViewById(R.id.newProject);
 		presentation = (ImageButton)findViewById(R.id.presentation);
-
+		
+		
 		myProjects.setOnClickListener(new OnClickListener()
 	        {
 	        	@Override

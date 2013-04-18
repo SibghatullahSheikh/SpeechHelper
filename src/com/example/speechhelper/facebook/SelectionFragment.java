@@ -170,7 +170,11 @@ public class SelectionFragment extends Fragment {
 	        	 handleAnnounce();
 	        }
 	    });
-	    // Disable the button initially
+	    init(savedInstanceState);
+	    return view;
+	}
+	private void init(Bundle savedInstanceState){
+		// Disable the button initially
 	    announceButton.setEnabled(false);
 	    // Set up the list view items, based on a list of
 	    // BaseListElement items
@@ -199,9 +203,7 @@ public class SelectionFragment extends Fragment {
 	        // Get the user's data
 	        makeMeRequest(session);
 	    }
-	    return view;
 	}
-	
 	private void makeMeRequest(final Session session) {
 	    // Make an API call to get user data and define a 
 	    // new callback to handle the response.

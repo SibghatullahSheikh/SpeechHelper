@@ -7,7 +7,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MyProjects" >
-
     <Button
         android:id="@+id/myProjectsBack"
         style="?android:attr/buttonStyleSmall"
@@ -31,18 +30,28 @@
         android:id="@+id/projectNoteBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/myProjectsBack"
-        android:layout_marginTop="109dp"
-        android:layout_toRightOf="@+id/myProjectsBack"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:text="Button" />
+   
+
+    <ListView
+        android:id="@+id/projectListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/projectNoteBack"
+        android:layout_alignLeft="@+id/myProjectsBack"
+        android:layout_below="@+id/myProjectsBack" >
+
+    </ListView>
 
     <Button
         android:id="@+id/facebook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/projectNoteBack"
-        android:layout_below="@+id/projectNoteBack"
-        android:layout_marginTop="30dp"
+        android:layout_alignBaseline="@+id/projectNoteBack"
+        android:layout_alignBottom="@+id/projectNoteBack"
+        android:layout_alignLeft="@+id/textView1"
         android:text="@string/facebook" />
 
 </RelativeLayout>

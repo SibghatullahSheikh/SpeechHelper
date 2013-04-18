@@ -67,10 +67,10 @@
     </string-array>
 
     <string-array name="talk_og_urls">
-    <item>https://enigmatic-chamber-2722.herokuapp.com</item> 
-    <item>https://enigmatic-chamber-2722.herokuapp.com</item> 
-    <item>https://enigmatic-chamber-2722.herokuapp.com</item> 
-    <item>https://enigmatic-chamber-2722.herokuapp.com</item> 
+    <item>https://enigmatic-chamber-2722.herokuapp.com/speech.php</item> 
+    <item>https://enigmatic-chamber-2722.herokuapp.com/presentation.php</item> 
+    <item>https://enigmatic-chamber-2722.herokuapp.com/rehearsal.php</item> 
+    <item>https://enigmatic-chamber-2722.herokuapp.com/talk.php</item> 
    
     </string-array>
     <string name="announce">Announce</string>
