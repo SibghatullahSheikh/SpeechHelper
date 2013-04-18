@@ -222,7 +222,8 @@ public class SelectionFragment extends Fragment {
 	                }
 	            }
 	            if (response.getError() != null) {
-	                // Handle errors, will do so later.
+	            	// Handle errors found when fetching user data.
+	                handleError(response.getError());
 	            }
 	        }
 	    });
@@ -767,6 +768,7 @@ public class SelectionFragment extends Fragment {
 	                .setTitle(R.string.result_dialog_title)
 	                .setMessage(dialogBody)
 	                .show();
+	        init(null);
 	    } else {
 	        handleError(response.getError());
 	    }
