@@ -57,22 +57,21 @@ public class NewProject extends Activity {
 					_projectTitle = projectTitle.getText().toString();
 					_time =Integer.parseInt(time.getText().toString());
 					
-					Intent intent = new Intent(NewProject.this, Notes.class);
 					
 					DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-
-					db.addProjectData(_projectTitle, _time);// get project id
+					db.addProjectData(_projectTitle, _time);
 					
 					
 					
 					
-					int id =db.getProjectId(_projectTitle);
-					Log.d("tag1", Integer.toString(id));
+					//int id =db.getProjectId(_projectTitle);// get project id
+					//Log.d("tag1", Integer.toString(id));
 					
-					intent.putExtra("projectId", id);
-					
-
-					startActivity(intent);
+					//intent.putExtra("projectId", id);
+					Intent intent = new Intent(NewProject.this, MyProjects.class);
+					setResult(RESULT_OK, intent);
+	                finish();		
+	                
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

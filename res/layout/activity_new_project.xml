@@ -27,7 +27,7 @@
         android:text="@string/back" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/editNoteTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/newProjectBack"
@@ -40,12 +40,12 @@
         android:id="@+id/projectNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/editNoteTextView"
+        android:layout_below="@+id/editNoteTextView"
         android:ems="10" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/edittv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/projectNameText"
@@ -58,13 +58,13 @@
         android:id="@+id/speechLengthText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView2"
+        android:layout_alignLeft="@+id/edittv1"
+        android:layout_below="@+id/edittv1"
         android:ems="10"
         android:inputType="numberDecimal" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/edittv2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/newProjectDone"

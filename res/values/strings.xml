@@ -54,6 +54,7 @@
     <string name="error_server">The server is busy, please retry later.</string>
     <string name="result_dialog_title">Result</string>
     <string name="result_dialog_button_text">Thanks!</string>
+    <string name="title_activity_edit_note">EditNote</string>
     <string name="result_dialog_text">Posted Open Graph action, id: %1$s</string>
     <string name="error_bad_request">An error occurred, please contact the developer with the following message: %1$s</string>
     <string name="progress_dialog_text">Announcing, please wait...</string>

@@ -8,14 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ProjectNoteList" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="183dp"
-        android:text="hahahah" />
-
     <Button
         android:id="@+id/projectNoteBack"
         style="?android:attr/buttonStyleSmall"
@@ -35,7 +27,7 @@
         android:text="+" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/editNoteTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/projectNoteBack"
@@ -43,5 +35,13 @@
         android:layout_centerHorizontal="true"
         android:text="Notes"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ListView
+        android:id="@+id/tabHostListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/projectNoteBack"
+        android:layout_below="@+id/projectNoteBack" >
+    </ListView>
 
 </RelativeLayout>
