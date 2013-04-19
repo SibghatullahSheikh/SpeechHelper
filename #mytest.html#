@@ -1,0 +1,15 @@
+<html>
+ <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# speechhelper: http://ogp.me/ns/fb/speechhelper#">
+  <meta property="fb:app_id" content="367697556675011" /> 
+  <meta property="og:type"   content="speechhelper:talk" /> 
+  <meta property="og:url"    content="Put your own URL to the object here" /> 
+  <meta property="og:title"  content="Sample Talk" /> 
+  <meta property="og:image"  content="https://fbstatic-a.akamaihd.net/images/devsite/attachment_blank.png" /> 
+ </head>
+ <body>
+    Speech
+    Presentation
+    Talk
+    Rehearsal
+ </body>
+</html>
