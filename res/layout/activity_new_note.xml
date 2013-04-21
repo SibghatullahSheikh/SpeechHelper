@@ -19,7 +19,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/nextNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
@@ -34,12 +34,12 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/endTimeText"
         android:layout_alignBottom="@+id/endTimeText"
-        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignLeft="@+id/totalTime"
         android:text="@string/sec"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/totalTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/startTimeText"
@@ -48,7 +48,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/newNoteBack"
@@ -88,8 +88,8 @@
         android:id="@+id/startTimeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/nextNote"
+        android:layout_below="@+id/nextNote"
         android:ems="10"
         android:inputType="number|numberDecimal" />
 

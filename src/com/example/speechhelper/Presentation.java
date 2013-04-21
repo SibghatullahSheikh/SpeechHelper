@@ -26,18 +26,25 @@ public class Presentation extends Activity {
 		setContentView(R.layout.activity_presentation);
 
 		listView = (ListView) this.findViewById(R.id.listView);
+		final DatabaseHelper db = new DatabaseHelper(this);
 
 		UpdateAdapter();
 		// click event
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				Cursor c = db.getWritableDatabase().query("ProjectTable",
+						new String[] { "project_time" }, "_id=?",
+						new String[] { String.valueOf(id) }, null, null, null,
+						null);
+				c.moveToFirst();
+				Intent intent = new Intent(Presentation.this, DisplayNote.class);
 
-				Toast.makeText(
-						getApplicationContext(),
-						String.valueOf(id) + " short "
-								+ String.valueOf(position), Toast.LENGTH_SHORT)
-						.show();
+				intent.putExtra("projectTime", c.getInt(0)); // pass project
+																// time
+				intent.putExtra("projectId", (int) id); // pass project_id
+
+				startActivityForResult(intent, 0);
 			}
 		});
 

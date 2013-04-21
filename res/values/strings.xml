@@ -59,20 +59,21 @@
     <string name="error_bad_request">An error occurred, please contact the developer with the following message: %1$s</string>
     <string name="progress_dialog_text">Announcing, please wait...</string>
     <string name="error_unknown">An unknown error occurred, please contact the developer with the following message: %1$s</string>
+
     <string-array name="talk_types">
-    <item>Speech</item>
-    <item>Presentation</item>
-    <item>Rehearsal</item>
-    <item>Talk</item>
-   
+        <item>Speech</item>
+        <item>Presentation</item>
+        <item>Rehearsal</item>
+        <item>Talk</item>
+    </string-array>
+    <string-array name="talk_og_urls">
+        <item>https://enigmatic-chamber-2722.herokuapp.com/speech.php</item>
+        <item>https://enigmatic-chamber-2722.herokuapp.com/presentation.php</item>
+        <item>https://enigmatic-chamber-2722.herokuapp.com/rehearsal.php</item>
+        <item>https://enigmatic-chamber-2722.herokuapp.com/talk.php</item>
     </string-array>
 
-    <string-array name="talk_og_urls">
-    <item>https://enigmatic-chamber-2722.herokuapp.com/speech.php</item> 
-    <item>https://enigmatic-chamber-2722.herokuapp.com/presentation.php</item> 
-    <item>https://enigmatic-chamber-2722.herokuapp.com/rehearsal.php</item> 
-    <item>https://enigmatic-chamber-2722.herokuapp.com/talk.php</item> 
-   
-    </string-array>
     <string name="announce">Announce</string>
+    <string name="title_activity_display_note">DisplayNote</string>
+
 </resources>
