@@ -544,7 +544,7 @@ public class SelectionFragment extends Fragment {
 
 	    public TalkListElement(int requestCode) {
 	        super(getActivity().getResources()
-	                .getDrawable(R.drawable.action_people),
+	                .getDrawable(R.drawable.ic_launcher),
 	              getActivity().getResources()
 	                .getString(R.string.action_have),
 	              getActivity().getResources()
