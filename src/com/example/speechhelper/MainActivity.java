@@ -14,7 +14,7 @@ import android.widget.ImageButton;
 public class MainActivity extends Activity {
 	
 	private ImageButton myProjects;
-	private ImageButton newProject;
+//	private ImageButton newProject;
 	private ImageButton presentation;
 	private Button facebook;
 	@Override
@@ -23,10 +23,10 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		myProjects = (ImageButton)findViewById(R.id.myProjects);
-		newProject = (ImageButton)findViewById(R.id.newProject);
+		//newProject = (ImageButton)findViewById(R.id.newProject);
 		presentation = (ImageButton)findViewById(R.id.presentation);
 		
-		newProject.setOnClickListener(new OnClickListener()
+		/*newProject.setOnClickListener(new OnClickListener()
         {
         	@Override
         	public void onClick(View view)
@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
 		        	e.printStackTrace();
 		        }
         	}
-        });
+        });*/
 		myProjects.setOnClickListener(new OnClickListener()
 	        {
 	        	@Override

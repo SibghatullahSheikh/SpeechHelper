@@ -9,40 +9,42 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <ImageButton
-        android:id="@+id/newProject"
+    <Button
+        android:id="@+id/facebook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/myProjects"
         android:layout_centerHorizontal="true"
-        android:contentDescription="@string/newProject"
-        android:layout_marginTop="84dp"
-        android:src="@drawable/ic_launcher1" />
+        android:layout_marginBottom="22dp"
+        android:text="@string/facebook"
+        android:textColor="#AFDEFE"
+        android:textStyle="italic"
+        android:typeface="serif" />
+
+    <ImageButton
+        android:id="@+id/presentation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView3"
+        android:layout_alignLeft="@+id/facebook"
+        android:contentDescription="@string/presentation"
+        android:src="@drawable/ic_launcher2" />
 
     <ImageButton
         android:id="@+id/myProjects"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/presentation"
-        android:layout_toRightOf="@+id/newProject"
+        android:layout_alignRight="@+id/facebook"
+        android:layout_centerVertical="true"
         android:contentDescription="@string/myProjects"
         android:src="@drawable/ic_launcher" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/newProject"
-        android:layout_centerHorizontal="true"
-        android:text="New Project"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/myProjects"
         android:layout_below="@+id/myProjects"
-        android:layout_toRightOf="@+id/newProject"
         android:text="My Project"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -52,31 +54,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView3"
         android:layout_alignBottom="@+id/textView3"
-        android:layout_alignRight="@+id/newProject"
-        android:layout_marginRight="33dp"
+        android:layout_marginRight="41dp"
+        android:layout_toLeftOf="@+id/textView3"
         android:text="Presentation"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <ImageButton
-        android:id="@+id/presentation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textView2"
-        android:layout_below="@+id/textView1"
-        android:layout_marginRight="14dp"
-        android:layout_marginTop="76dp"
-        android:contentDescription="@string/presentation"
-        android:src="@drawable/ic_launcher2" />
-
-    <Button
-        android:id="@+id/facebook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-         android:textColor="#AFDEFE"
-         android:typeface="serif"
-        android:textStyle="italic"
-        android:text="@string/facebook" />
 
 </RelativeLayout>

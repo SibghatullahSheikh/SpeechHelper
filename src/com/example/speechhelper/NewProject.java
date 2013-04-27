@@ -43,7 +43,7 @@ public class NewProject extends Activity {
 				try {
 
 					Intent intent = new Intent(NewProject.this,
-							MainActivity.class);
+							MyProjects.class);
 					startActivity(intent);
 				} catch (Exception e) {
 					e.printStackTrace();
