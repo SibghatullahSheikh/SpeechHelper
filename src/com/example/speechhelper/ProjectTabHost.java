@@ -14,6 +14,7 @@ public class ProjectTabHost extends ActivityGroup {
 	private TabHost projectTabHost;
 	
 	private int projectId;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,7 @@ public class ProjectTabHost extends ActivityGroup {
 		setContentView(R.layout.activity_project_tab_host);
 		
 		projectId =this.getIntent().getIntExtra("projectId", -1);
+	
 		
 		projectTabHost = (TabHost) findViewById(android.R.id.tabhost);
 		projectTabHost.setup(this.getLocalActivityManager());

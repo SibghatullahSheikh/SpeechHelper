@@ -1,6 +1,5 @@
 package com.example.speechhelper.facebook;
 import com.facebook.*;
-import com.facebook.model.*;
 import com.example.speechhelper.R;
 
 import android.content.Intent;

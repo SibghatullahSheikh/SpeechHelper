@@ -8,14 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ProjectVideoList" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="199dp"
-        android:text="@string/hello_world" />
-
     <Button
         android:id="@+id/projectVideoBack"
         style="?android:attr/buttonStyleSmall"
@@ -43,5 +35,13 @@
         android:layout_centerHorizontal="true"
         android:text="Videos"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ListView
+        android:id="@+id/videoListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/projectVideoBack"
+        android:layout_below="@+id/projectVideoBack" >
+    </ListView>
 
 </RelativeLayout>

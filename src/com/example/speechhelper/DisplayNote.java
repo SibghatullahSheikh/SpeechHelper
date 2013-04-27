@@ -32,7 +32,6 @@ public class DisplayNote extends Activity {
 	private Handler handler;
 	private TimerTask task;
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,7 +53,7 @@ public class DisplayNote extends Activity {
 		totalTime.setText("0");
 
 		// get cursor
-		DatabaseHelper db = new DatabaseHelper(this);
+		final DatabaseHelper db = new DatabaseHelper(this);
 		c = db.getReadableDatabase().query("NoteTable",
 				new String[] { "note_content", "start_time", "end_time" },
 				"project_id=?", new String[] { String.valueOf(id) }, null,
@@ -76,8 +75,8 @@ public class DisplayNote extends Activity {
 						String content;
 
 						public void handleMessage(Message msg) {
-							//Log.d("count22", String.valueOf(msg.what));
-							
+							// Log.d("count22", String.valueOf(msg.what));
+
 							totalTime.setText(String.valueOf(msg.what));
 
 							if (startTime == msg.what) {
@@ -107,7 +106,7 @@ public class DisplayNote extends Activity {
 								i = 0;
 
 								timer.cancel();
-								task.cancel();  //close timer
+								task.cancel(); // close timer
 
 								timer = null;
 								task = null;
@@ -139,15 +138,15 @@ public class DisplayNote extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(DisplayNote.this, Presentation.class);
-				if(timer!=null){
-				timer.cancel();
-				task.cancel();
-				
-				timer = null;
-				task = null;
-				handler = null;
+				if (timer != null) {
+					timer.cancel();
+					task.cancel();
+
+					timer = null;
+					task = null;
+					handler = null;
 				}
-				
+
 				startActivityForResult(intent, 0);
 			}
 		});

@@ -136,7 +136,6 @@ public class ProjectNoteList extends Activity {
 			tabHostListView.setAdapter(la);
 
 		}
-
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

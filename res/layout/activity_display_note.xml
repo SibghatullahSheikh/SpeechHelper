@@ -47,7 +47,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/nextNoteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/text"
@@ -57,7 +57,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/currenNoteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/displayBack"
@@ -79,8 +79,8 @@
         android:id="@+id/totalTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/currenNoteText"
+        android:layout_below="@+id/currenNoteText"
         android:layout_marginTop="16dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />

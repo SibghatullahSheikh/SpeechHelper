@@ -66,7 +66,7 @@
         android:ems="10" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/recordTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/endTimeText"
@@ -80,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/startTimeText"
-        android:layout_below="@+id/textView5"
+        android:layout_below="@+id/recordTime"
         android:ems="10"
         android:inputType="number|numberDecimal" />
 

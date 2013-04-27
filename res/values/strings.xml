@@ -59,7 +59,7 @@
     <string name="error_bad_request">An error occurred, please contact the developer with the following message: %1$s</string>
     <string name="progress_dialog_text">Announcing, please wait...</string>
     <string name="error_unknown">An unknown error occurred, please contact the developer with the following message: %1$s</string>
-
+    <string name="title_activity_record_video">RecordVideo</string>
     <string-array name="talk_types">
         <item>Speech</item>
         <item>Presentation</item>

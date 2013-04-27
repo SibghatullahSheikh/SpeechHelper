@@ -11,7 +11,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <application
         android:name="com.example.speechhelper.facebook.ScrumptiousApplication"
         android:allowBackup="true"
@@ -90,6 +92,10 @@
         <activity
             android:name="com.example.speechhelper.DisplayNote"
             android:label="@string/title_activity_display_note" >
+        </activity>
+        <activity
+            android:name="com.example.speechhelper.RecordVideo"
+            android:label="@string/title_activity_record_video" >
         </activity>
     </application>
 

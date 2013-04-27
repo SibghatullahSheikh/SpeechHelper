@@ -44,9 +44,9 @@ public class MyProjects extends Activity {
 						ProjectTabHost.class);
 
 				intent.putExtra("projectId", (int) id); // pass project_id
+				
 
 				startActivityForResult(intent, 0);
-
 			}
 		});
 
