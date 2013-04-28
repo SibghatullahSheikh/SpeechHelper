@@ -17,7 +17,7 @@ import android.widget.ImageButton;
 public class MainActivity extends Activity {
 	
 	private ImageButton myProjects;
-//	private ImageButton newProject;
+  //private ImageButton newProject;
 	private ImageButton presentation;
 	private Button facebook;
 	@Override
