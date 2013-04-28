@@ -7,7 +7,7 @@ import com.facebook.model.GraphUser;
 
 import android.app.Application;
 
-public class ScrumptiousApplication extends Application {
+public class SpeechHelperApplication extends Application {
 	private List<GraphUser> selectedUsers;
 	private GraphPlace selectedPlace;
 	public List<GraphUser> getSelectedUsers() {

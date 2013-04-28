@@ -343,7 +343,7 @@ public class SelectionFragment extends Fragment {
 	    
 	    @Override
 	    protected void onActivityResult(Intent data) {
-	        selectedUsers = ((ScrumptiousApplication) getActivity()
+	        selectedUsers = ((SpeechHelperApplication) getActivity()
 	                 .getApplication())
 	                 .getSelectedUsers();
 	        setUsersText();
@@ -486,7 +486,7 @@ public class SelectionFragment extends Fragment {
 	    }
 	    @Override
 	    protected void onActivityResult(Intent data) {
-	        selectedPlace = ((ScrumptiousApplication) getActivity()
+	        selectedPlace = ((SpeechHelperApplication) getActivity()
 	                .getApplication()).getSelectedPlace();
 	        setPlaceText();
 	        notifyDataChanged();

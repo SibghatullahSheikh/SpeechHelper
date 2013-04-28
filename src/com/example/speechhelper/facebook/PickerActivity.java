@@ -133,7 +133,7 @@ public class PickerActivity extends FragmentActivity {
 	}
 
 	private void finishActivity() {
-		ScrumptiousApplication app = (ScrumptiousApplication) getApplication();
+		SpeechHelperApplication app = (SpeechHelperApplication) getApplication();
 		if (FRIEND_PICKER.equals(getIntent().getData())) {
 		    if (friendPickerFragment != null) {
 		        app.setSelectedUsers(friendPickerFragment.getSelection());

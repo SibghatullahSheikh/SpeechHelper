@@ -14,11 +14,13 @@ import android.view.MenuItem;
 public class FacebookActivity extends FragmentActivity  {
 	private static final int SPLASH = 0;
 	private static final int SELECTION = 1;
-	private boolean isResumed = false;
 	private static final int SETTINGS = 2;
 	private static final int FRAGMENT_COUNT = SETTINGS +1;
+	private boolean isResumed = false;
 	private Fragment[] fragments = new Fragment[FRAGMENT_COUNT];
 	private MenuItem settings;
+	private UiLifecycleHelper uiHelper;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,6 +69,7 @@ public class FacebookActivity extends FragmentActivity  {
 	    }
 	    transaction.commit();
 	}
+	
 	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
 	    // Only make changes if the activity is visible
 	    if (isResumed) {
@@ -78,32 +81,29 @@ public class FacebookActivity extends FragmentActivity  {
 	            manager.popBackStack();
 	        }
 	        if (state.isOpened()) {
-	            // If the session state is open:
-	            // Show the authenticated fragment
+	            // If the session state is open: show the authenticated fragment
 	            showFragment(SELECTION, false);
 	        } else if (state.isClosed()) {
-	            // If the session state is closed:
-	            // Show the login fragment
+	            // If the session state is closed: show the login fragment
 	            showFragment(SPLASH, false);
 	        }
 	    }
 	}
+	
 	@Override
 	protected void onResumeFragments() {
 	    super.onResumeFragments();
 	    Session session = Session.getActiveSession();
 
 	    if (session != null && session.isOpened()) {
-	        // if the session is already open,
-	        // try to show the selection fragment
+	        // if the session is already open, try to show the selection fragment
 	        showFragment(SELECTION, false);
 	    } else {
-	        // otherwise present the splash screen
-	        // and ask the user to login.
+	        // otherwise present the splash screen and ask the user to login.
 	        showFragment(SPLASH, false);
 	    }
 	}
-	private UiLifecycleHelper uiHelper;
+
 	private Session.StatusCallback callback = 
 	    new Session.StatusCallback() {
 	    @Override
@@ -152,9 +152,6 @@ public class FacebookActivity extends FragmentActivity  {
 	    return false;
 	}
 	
-
-
-
 	
 }
 
