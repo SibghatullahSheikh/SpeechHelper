@@ -1,9 +1,10 @@
-package com.example.speechhelper.speech;
+package com.example.speechhelper.presentation;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import com.example.speechhelper.R;
+import com.example.speechhelper.database.DatabaseHelper;
 
 import android.os.Bundle;
 import android.os.Handler;

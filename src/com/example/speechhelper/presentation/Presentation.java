@@ -1,21 +1,20 @@
-package com.example.speechhelper.speech;
+package com.example.speechhelper.presentation;
 
 import com.example.speechhelper.MainActivity;
 import com.example.speechhelper.R;
+import com.example.speechhelper.database.DatabaseHelper;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class Presentation extends Activity {
@@ -41,6 +40,8 @@ public class Presentation extends Activity {
 						new String[] { String.valueOf(id) }, null, null, null,
 						null);
 				c.moveToFirst();
+				db.close();  // close db   
+				
 				Intent intent = new Intent(Presentation.this, DisplayNote.class);
 
 				intent.putExtra("projectTime", c.getInt(0)); // pass project
@@ -66,16 +67,18 @@ public class Presentation extends Activity {
 
 	public void UpdateAdapter() {
 		DatabaseHelper db = new DatabaseHelper(this);
-		;
+		
 		Cursor c = db.getReadableDatabase().query("ProjectTable", null, null,
 				null, null, null, "_id desc", null);
 		if (c != null && c.getCount() >= 0) {
+			@SuppressWarnings("deprecation")
 			ListAdapter la = new SimpleCursorAdapter(this,
 					android.R.layout.simple_list_item_2, c, new String[] {
-							"project_name", "_id" }, new int[] {
+							"project_name", "project_time" }, new int[] {
 							android.R.id.text1, android.R.id.text2 });
 			listView.setAdapter(la);
 		}
+		db.close();
 	}
 
 	@Override

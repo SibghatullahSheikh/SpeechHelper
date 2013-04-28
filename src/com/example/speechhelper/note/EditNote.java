@@ -1,6 +1,8 @@
-package com.example.speechhelper.speech;
+package com.example.speechhelper.note;
 
 import com.example.speechhelper.R;
+import com.example.speechhelper.database.DatabaseHelper;
+import com.example.speechhelper.project.ProjectTabHost;
 
 import android.os.Bundle;
 import android.app.Activity;

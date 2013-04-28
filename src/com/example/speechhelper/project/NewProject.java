@@ -1,15 +1,18 @@
-package com.example.speechhelper.speech;
+package com.example.speechhelper.project;
 
 import com.example.speechhelper.R;
+import com.example.speechhelper.database.DatabaseHelper;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class NewProject extends Activity {
 	private EditText projectTitle; // accepts user input for project title
@@ -55,23 +58,35 @@ public class NewProject extends Activity {
 			@Override
 			public void onClick(View view) {
 				try {
-					_projectTitle = projectTitle.getText().toString();
-					_time =Integer.parseInt(time.getText().toString());
 					
-					
-					DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-					db.addProjectData(_projectTitle, _time);
-					
-					
-					
-					
-					//int id =db.getProjectId(_projectTitle);// get project id
-					//Log.d("tag1", Integer.toString(id));
-					
-					//intent.putExtra("projectId", id);
-					Intent intent = new Intent(NewProject.this, MyProjects.class);
-					setResult(RESULT_OK, intent);
-	                finish();		
+					if(!projectTitle.getText().toString().equals("")){
+						if(!time.getText().toString().equals("")){
+							
+							_projectTitle = projectTitle.getText().toString();
+							_time =Integer.parseInt(time.getText().toString());
+							
+							DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+							db.addProjectData(_projectTitle, _time);
+							
+							Intent intent = new Intent(NewProject.this, MyProjects.class);
+							setResult(RESULT_OK, intent);
+			                finish();	
+							
+						}else{
+							Toast t = Toast.makeText(NewProject.this,
+									"Please enter project total time",
+									Toast.LENGTH_SHORT);
+							 t.setGravity(Gravity.CENTER, 0, 0);
+							t.show();
+						}
+					}else{
+						Toast t2 = Toast.makeText(NewProject.this,
+								"Please enter project name",
+								Toast.LENGTH_SHORT);
+						t2.setGravity(Gravity.CENTER, 0, 0);
+						t2.show();
+					}
+						
 	                
 				} catch (Exception e) {
 					e.printStackTrace();

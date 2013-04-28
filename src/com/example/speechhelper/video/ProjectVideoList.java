@@ -1,8 +1,10 @@
-package com.example.speechhelper.speech;
+package com.example.speechhelper.video;
 
 import java.io.File;
 
 import com.example.speechhelper.R;
+import com.example.speechhelper.database.DatabaseHelper;
+import com.example.speechhelper.project.MyProjects;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -60,7 +62,8 @@ public class ProjectVideoList extends Activity {
 				
 				final String name = c.getString(0);
 				 final String path = c.getString(1);
-				builder.setMessage("Delete?")
+				 db.close(); // close db
+				builder.setMessage("Delete This Video?")
 						.setPositiveButton("Yes",
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
@@ -69,8 +72,7 @@ public class ProjectVideoList extends Activity {
 												(int) tempId);
 										Log.d("count ccc", String.valueOf(tempId));
 										
-										
-										File file = new File(path, name);
+										File file = new File(path, name);  // delete video from sdcard
 										if(file.exists()){
 											file.delete();
 										}
@@ -104,7 +106,7 @@ public class ProjectVideoList extends Activity {
 				final String name = c.getString(0);
 				 final String path = c.getString(1);
 				 Log.d("path", path+name);
-				
+				db.close();
 				 Intent it = new Intent(Intent.ACTION_VIEW);
 				 it.setDataAndType(Uri.fromFile(new File(path, name)), "video/mp4");
 				 try{
@@ -147,12 +149,14 @@ public class ProjectVideoList extends Activity {
 
 		Log.d("video", String.valueOf(c.getCount()));
 		if (c != null && c.getCount() >= 0) {
+			@SuppressWarnings("deprecation")
 			ListAdapter la = new SimpleCursorAdapter(this,
 					android.R.layout.simple_list_item_2, c, new String[] {
 							"video_name", "_id" }, new int[] {
 							android.R.id.text1, android.R.id.text2 });
 			videoListView.setAdapter(la);
 		}
+		db.close();
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

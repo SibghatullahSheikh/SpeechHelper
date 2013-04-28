@@ -1,4 +1,4 @@
-package com.example.speechhelper.speech;
+package com.example.speechhelper.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -84,6 +84,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // updating row
          db.update("NoteTable", values, "_id=?",
                 new String[] { String.valueOf(id) });
+         db.close(); //close 
 		
 	}
 	
@@ -91,28 +92,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void deleteData(String table, int id){
 		SQLiteDatabase db = getWritableDatabase();  
 		db.delete(table, "_id=?", new String[]{Integer.toString(id)});
+		db.close();  //close
 	}
 	
-//	public int getProjectId(String projectName){
-//		SQLiteDatabase db = this.getWritableDatabase();
-//		
-//        Cursor c = db.query("ProjectTable", new String[]{"_id"}, "project_name=?", new String[]{projectName}, null, null,null, null);
-//        
-//        if (c != null)
-//        c.moveToFirst();
-//        
-//        int columnIndex=c.getColumnIndex("_id");
-//		int id = c.getInt(columnIndex);
-//     
-//		return id;
-//	}
 	
 	public Cursor query(String tableName,int projectId){
 		SQLiteDatabase db = getWritableDatabase(); 
-		Log.d("tag5", Integer.toString(projectId)); //log5
-		
-		//Cursor c= db.rawQuery("SELECT * FROM "+ tableName +" WHERE project_id=?", new String[]{String.valueOf(projectId)});
-		//Log.d("tag6", Integer.toString(c.getCount()));
+		Log.d("tag5", Integer.toString(projectId)); //log5		
 		Cursor c = db.query(tableName,
 			
 			null,"project_id=?",new String[]{Integer.toString(projectId)},null, 
@@ -120,14 +106,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return c;
 		
 	}
-//	public Cursor query(String tableName){
-//		SQLiteDatabase db = getWritableDatabase(); 
-//		
-//		Cursor c = db.query(tableName,
-//				null,null,null,null,
-//				null, null, null);
-//		return c;
-//		
-//	}
 
 }

@@ -1,7 +1,9 @@
-package com.example.speechhelper.speech;
+package com.example.speechhelper.note;
 
 
 import com.example.speechhelper.R;
+import com.example.speechhelper.database.DatabaseHelper;
+import com.example.speechhelper.project.MyProjects;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -49,7 +51,7 @@ public class ProjectNoteList extends Activity {
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				final long tempId = id;
-				builder.setMessage("Delete?")
+				builder.setMessage("Delete This Note?")
 						.setPositiveButton("Yes",
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
@@ -84,16 +86,15 @@ public class ProjectNoteList extends Activity {
 						c.moveToFirst();
 						Intent intent = new Intent(ProjectNoteList.this,EditNote.class);
 						
-						 //
 						intent.putExtra("noteId", (int)id);
 						intent.putExtra("noteContent", c.getString(0));
 						intent.putExtra("startTime", c.getInt(1));
 						intent.putExtra("endTime", c.getInt(2));
 						
+						db.close();
+						
 						//should be the same
 						intent.putExtra("pid", projectId);
-					    //intent.putExtra("actId", R.layout.activity_project_note_list);  // activity id
-
 						startActivityForResult(intent, 0);
 
 					}
@@ -131,13 +132,15 @@ public class ProjectNoteList extends Activity {
 		Cursor c = db.query("NoteTable", projectId);
 		Log.d("PID 2", String.valueOf(projectId));
 		if (c != null && c.getCount() >= 0) {
+			@SuppressWarnings("deprecation")
 			ListAdapter la = new SimpleCursorAdapter(this,
-					android.R.layout.simple_list_item_2, c, new String[] {
-							"note_content", "project_id" }, new int[] {
-							android.R.id.text1, android.R.id.text2 });
+					android.R.layout.simple_list_item_1, c, new String[] {
+							"note_content" }, new int[] {
+							android.R.id.text1 });
 			tabHostListView.setAdapter(la);
 
 		}
+		db.close();
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

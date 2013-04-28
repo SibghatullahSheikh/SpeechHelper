@@ -1,16 +1,16 @@
-package com.example.speechhelper.speech;
+package com.example.speechhelper.project;
 
 import com.example.speechhelper.R;
+import com.example.speechhelper.note.ProjectNoteList;
+import com.example.speechhelper.video.ProjectVideoList;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.app.ActivityGroup;
-import android.app.TabActivity;
 import android.content.Intent;
 import android.view.Menu;
-import android.widget.Button;
 import android.widget.TabHost;
 
+@SuppressWarnings("deprecation")
 public class ProjectTabHost extends ActivityGroup {
 	
 	private TabHost projectTabHost;

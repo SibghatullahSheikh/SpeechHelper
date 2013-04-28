@@ -1,11 +1,13 @@
-package com.example.speechhelper.speech;
+package com.example.speechhelper.video;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import com.example.speechhelper.R;
+import com.example.speechhelper.database.DatabaseHelper;
 
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
@@ -14,11 +16,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.SurfaceHolder.Callback;
@@ -61,6 +65,7 @@ public class RecordVideo extends Activity implements Callback {
 	private Handler handler;
 	private TimerTask task;
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,7 +79,11 @@ public class RecordVideo extends Activity implements Callback {
 		recordBack = (Button) this.findViewById(R.id.recordBack);
 
 		mSurfaceview = (SurfaceView) this.findViewById(R.id.surfaceView);
-		cam = findFrontCam();
+		
+		cam= Camera.open();
+		if(cam==null){
+		cam = findFrontCam();// find camera
+		}
 		cam.setDisplayOrientation(90);
 
 		mSurfaceHolder = mSurfaceview.getHolder();
@@ -138,6 +147,7 @@ public class RecordVideo extends Activity implements Callback {
 						task = null;
 						handler = null;
 					}
+					
 					mMediaRecorder.stop();
 					mMediaRecorder.release();
 					mMediaRecorder = null;
@@ -177,13 +187,14 @@ public class RecordVideo extends Activity implements Callback {
 		});
 	}
 
+	@SuppressLint("HandlerLeak")
 	public void noteDisplayInit() {
 		if (timer == null) {
 			c.moveToFirst();
 			startTime = c.getInt(1);
 			endTime = c.getInt(2);
 			timer = new Timer();
-			handler = new Handler() {
+			handler = new  Handler() {     //  ???????????
 				String content;
 
 				public void handleMessage(Message msg) {
@@ -250,6 +261,13 @@ public class RecordVideo extends Activity implements Callback {
 			timer.schedule(task, 1000, 1000);
 		}
 	}
+	
+	//*************touch the screen to auto focus*******************//
+	public boolean onTouchEvent(MotionEvent event) {         
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+		            cam.autoFocus(null);		        }
+		        return true;
+		    }
 
 	// @Override
 	protected void onDestroy() {
@@ -277,7 +295,7 @@ public class RecordVideo extends Activity implements Callback {
 		cameraCount = Camera.getNumberOfCameras(); // get cameras number
 
 		for (int camIdx = 0; camIdx < cameraCount; camIdx++) {
-			Camera.getCameraInfo(camIdx, cameraInfo); // get camerainfo
+			Camera.getCameraInfo(camIdx, cameraInfo); // get camera info
 			if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
 				try {
 					cam = Camera.open(camIdx);
@@ -291,7 +309,11 @@ public class RecordVideo extends Activity implements Callback {
 
 	public void startRecordVideo() {
 		if (cam == null) {
-			cam = findFrontCam();
+			cam= Camera.open();
+			if(cam==null){
+			cam = findFrontCam();// find camera
+			}
+			//cam = findFrontCam();
 		}
 
 		path = Environment.getExternalStorageDirectory().getAbsolutePath()
@@ -301,12 +323,14 @@ public class RecordVideo extends Activity implements Callback {
 		filename = "/rec" + date.toString().replace(" ", "_").replace(":", "_")
 				+ ".mp4";
 
+		@SuppressWarnings("unused")
 		File file = new File(path, filename);
 
 		mMediaRecorder = new MediaRecorder();
 
 		cam.lock();
 		cam.unlock();
+		
 
 		mMediaRecorder.setCamera(cam);
 		mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
@@ -338,6 +362,12 @@ public class RecordVideo extends Activity implements Callback {
 		// TODO Auto-generated method stub
 		if (cam != null) {
 			Parameters params = cam.getParameters();
+			List<String> focusModes = params.getSupportedFocusModes();
+			if (focusModes.contains(Camera.Parameters.FOCUS_MODE_AUTO))  // set auto focus
+			{
+			    params.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+			    Log.d("af", "yes");
+			}
 			cam.setParameters(params);
 			Log.d("surface", "created");
 		} else {

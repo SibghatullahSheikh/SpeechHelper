@@ -1,7 +1,8 @@
-package com.example.speechhelper.speech;
+package com.example.speechhelper.project;
 
 import com.example.speechhelper.MainActivity;
 import com.example.speechhelper.R;
+import com.example.speechhelper.database.DatabaseHelper;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -52,8 +53,7 @@ public class MyProjects extends Activity {
 			}
 		});
 
-		// long click to delete
-
+		// long click to delete a project 
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		projectListView
 				.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -61,7 +61,7 @@ public class MyProjects extends Activity {
 					public boolean onItemLongClick(AdapterView<?> parent,
 							View view, int position, long id) {
 						final long tempId = id;
-						builder.setMessage("Delete?")
+						builder.setMessage("Delete This Project?")
 								.setPositiveButton("Yes",
 										new DialogInterface.OnClickListener() {
 											public void onClick(
@@ -74,6 +74,7 @@ public class MyProjects extends Activity {
 																"project_id=?",
 																new String[] { String
 																		.valueOf(tempId) });
+												db.close();  /// close db
 												projectUpdateAdapter();
 
 											}
@@ -115,7 +116,6 @@ public class MyProjects extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stubIntent intent = new
-				// Intent(Notes.this, NewNote.class);
 				Intent intent = new Intent(MyProjects.this, NewProject.class);
 				startActivityForResult(intent, 0);
 
@@ -128,12 +128,14 @@ public class MyProjects extends Activity {
 		Cursor c = db.getReadableDatabase().query("ProjectTable", null, null,
 				null, null, null, "_id desc", null);
 		if (c != null && c.getCount() >= 0) {
+			@SuppressWarnings("deprecation")
 			ListAdapter la = new SimpleCursorAdapter(this,
 					android.R.layout.simple_list_item_2, c, new String[] {
-							"project_name", "_id" }, new int[] {
+							"project_name", "project_time" }, new int[] {
 							android.R.id.text1, android.R.id.text2 });
 			projectListView.setAdapter(la);
 		}
+		db.close(); //close db
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
