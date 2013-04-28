@@ -69,9 +69,8 @@
         android:id="@+id/edittv2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/speechLengthText"
         android:layout_alignBottom="@+id/speechLengthText"
-        android:layout_alignRight="@+id/newProjectDone"
+        android:layout_toRightOf="@+id/speechLengthText"
         android:text="@string/min"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
