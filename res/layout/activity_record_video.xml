@@ -28,7 +28,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="14dp"
         android:layout_marginLeft="14dp"
-        android:text="Start" />
+        android:text="@string/start" />
 
     <Button
         android:id="@+id/recordBack"
@@ -39,7 +39,7 @@
         android:layout_alignBottom="@+id/stopRecord"
         android:layout_alignParentRight="true"
         android:layout_marginRight="14dp"
-        android:text="Back" />
+        android:text="@string/back" />
 
     <Button
         android:id="@+id/stopRecord"
@@ -49,7 +49,7 @@
         android:layout_alignBaseline="@+id/startRecord"
         android:layout_alignBottom="@+id/startRecord"
         android:layout_centerHorizontal="true"
-        android:text="Done" />
+        android:text="@string/done" />
 
     <TextView
         android:id="@+id/nextNoteText"
@@ -58,7 +58,7 @@
         android:layout_above="@+id/startRecord"
         android:layout_alignLeft="@+id/startRecord"
         android:layout_marginBottom="44dp"
-        android:text="Medium Text"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/nextNoteText"
         android:layout_alignLeft="@+id/nextNoteText"
-        android:text="Next"
+        android:text="@string/next_note"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/textView2"
         android:layout_alignLeft="@+id/textView2"
-        android:text="Medium Text"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -85,14 +85,14 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/currenNoteText"
         android:layout_alignLeft="@+id/currenNoteText"
-        android:text="Current"
+        android:text="@string/current_note"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/recordTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Small Text"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

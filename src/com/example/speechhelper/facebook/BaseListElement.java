@@ -15,6 +15,7 @@ public abstract class BaseListElement {
 	private int requestCode;
 	private BaseAdapter adapter;
 	protected abstract void populateOGAction(OpenGraphAction action);
+	
 	public BaseListElement(Drawable icon, String text1, String text2, int requestCode) {
 	    super();
 	    this.icon = icon;
@@ -51,12 +52,12 @@ public abstract class BaseListElement {
 		this.requestCode = requestCode;
 	}
 
-	
-
 	public void setAdapter(BaseAdapter adapter) {
 		this.adapter = adapter;
 	}
+	
 	protected abstract View.OnClickListener getOnClickListener();
+	
 	protected void onActivityResult(Intent data) {}
 
 	protected void onSaveInstanceState(Bundle bundle) {}

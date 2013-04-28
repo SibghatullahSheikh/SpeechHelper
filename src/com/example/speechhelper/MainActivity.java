@@ -1,6 +1,9 @@
 package com.example.speechhelper;
 
 import com.example.speechhelper.facebook.FacebookActivity;
+import com.example.speechhelper.speech.Presentation;
+import com.example.speechhelper.speech.MyProjects;
+import com.example.speechhelper.R;
 
 import android.os.Bundle;
 import android.app.Activity;

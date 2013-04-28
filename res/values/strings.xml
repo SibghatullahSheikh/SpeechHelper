@@ -30,7 +30,7 @@
     <string name="title_activity_project_tab_host">ProjectTabHost</string>
     <string name="facebook">Share with Facebook</string>
     <string name="app_id">367697556675011</string>
-    <string name="get_started">To get started, log in using Facebook</string>
+    <string name="get_started">To get started, log in using your Facebook account</string>
     <string name="title_activity_facebook">FacebookActivity</string>
     <string name="settings">Settings</string>
     <string name="welcome">Welcome, you are now logged in.</string>
@@ -57,7 +57,7 @@
     <string name="title_activity_edit_note">EditNote</string>
     <string name="result_dialog_text">Posted Open Graph action, id: %1$s</string>
     <string name="error_bad_request">An error occurred, please contact the developer with the following message: %1$s</string>
-    <string name="progress_dialog_text">Announcing, please wait...</string>
+    <string name="progress_dialog_text">Announcing, please wait</string>
     <string name="error_unknown">An unknown error occurred, please contact the developer with the following message: %1$s</string>
     <string name="title_activity_record_video">RecordVideo</string>
     <string-array name="talk_types">
@@ -75,5 +75,16 @@
 
     <string name="announce">Announce</string>
     <string name="title_activity_display_note">DisplayNote</string>
+    <string name="my_projects">My Projects</string>
+    <string name="icon">icon</string>
+    <string name="startbutton">Start</string>
+    <string name="next_note">Next note:</string>
+    <string name="current_note">Current note:</string>
+    <string name="total_time">Total time:</string>
+    <string name="sec">sec</string>
+    <string name="edit_note">Edit Note</string>
+    <string name="cancel">Cancel</string>
+    <string name="my_projects">My Projects</string>
+    <string name="videos">Videos</string>
 
 </resources>

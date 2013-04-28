@@ -50,7 +50,6 @@ public class SelectionFragment extends Fragment {
 	private ProfilePictureView profilePictureView;
 	private TextView userNameView;
 	private static final String TAG = "SelectionFragment";
-	
 	private ListView listView;
 	private List<BaseListElement> listElements;
 	private List<GraphUser> selectedUsers;
@@ -66,18 +65,15 @@ public class SelectionFragment extends Fragment {
 	private static final Uri M_FACEBOOK_URL = Uri.parse("http://m.facebook.com");
 	private static final String POST_ACTION_PATH = "me/speechhelper:have";
 	private ProgressDialog progressDialog;
-	// Activity code to flag an incoming activity result is due 
-	// to a new permissions request
+	// Activity code to flag an incoming activity result is due to a new permissions request
 	private static final int REAUTH_ACTIVITY_CODE = 100;
-
 	// Indicates an on-going reauthorization request
 	private boolean pendingAnnounce;
-
 	// Key used in storing the pendingAnnounce flag
 	private static final String PENDING_ANNOUNCE_KEY = "pendingAnnounce";
-
-	/// List of additional write permissions being requested
+    // List of additional write permissions being requested
 	private static final List<String> PERMISSIONS = Arrays.asList("publish_actions");
+	
 	private void requestPublishPermissions(Session session) {
 	    if (session != null) {
 	        Session.NewPermissionsRequest newPermissionsRequest = 
@@ -101,16 +97,12 @@ public class SelectionFragment extends Fragment {
 	        return;
 	    }
 
-	 // Show a progress dialog because sometimes the 
-	 // requests can take a while. This dialog contains
-	 // a text message
+	 // Show a progress dialog because sometimes the  requests can take a while. This dialog contains a text message
 	 progressDialog = ProgressDialog.show(getActivity(), "", 
 	         getActivity().getResources()
 	         .getString(R.string.progress_dialog_text), true);
 
-	 // Run this in a background thread since we don't want to 
-	 // block the main thread. Create a new AsyncTask that returns
-	 // a Response object
+	 // Run this in a background thread since we don't want to block the main thread. Create a new AsyncTask that returns a Response object
 	 AsyncTask<Void, Void, Response> task = 
 	     new AsyncTask<Void, Void, Response>() {
 
@@ -119,26 +111,22 @@ public class SelectionFragment extends Fragment {
 	         // Create an have action
 	         HaveAction haveAction = 
 	         GraphObject.Factory.create(HaveAction.class);
-	         // Populate the action with the POST parameters:
-	         // the talk, friends, and place info
+	         // Populate the action with the POST parameters: the talk, friends, and place info
 	         for (BaseListElement element : listElements) {
 	             element.populateOGAction(haveAction);
 	         }   
-	         // Set up a request with the active session, set up
-	         // an HTTP POST to the talk action endpoint
+	         // Set up a request with the active session, set up an HTTP POST to the talk action endpoint
 	         Request request = new Request(Session.getActiveSession(),
 	                 POST_ACTION_PATH, null, HttpMethod.POST);
 	         // Add the post parameter, the have action
 	         request.setGraphObject(haveAction);
-	         // Execute the request synchronously in the background
-	         // and return the response.
+	         // Execute the request synchronously in the background and return the response.
 	         return request.executeAndWait();
 	     }   
 
 	     @Override
 	     protected void onPostExecute(Response response) {
-	         // When the task completes, process
-	         // the response on the main thread
+	         // When the task completes, process the response on the main thread
 	         onPostActionResponse(response);
 	      }   
 	 };  
@@ -176,10 +164,9 @@ public class SelectionFragment extends Fragment {
 	private void init(Bundle savedInstanceState){
 		// Disable the button initially
 	    announceButton.setEnabled(false);
-	    // Set up the list view items, based on a list of
-	    // BaseListElement items
+	    // Set up the list view items, based on a list of BaseListElement items
 	    listElements = new ArrayList<BaseListElement>();
-	 // Add an item for the talk picker
+	    // Add an item for the talk picker
 	    listElements.add(new TalkListElement(0));
 	    // Add an item for the place picker
 	    listElements.add(new LocationListElement(1));
