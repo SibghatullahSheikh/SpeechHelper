@@ -53,32 +53,35 @@ import android.widget.TextView;
 public class SelectionFragment extends Fragment {
 	private ProfilePictureView profilePictureView;
 	private TextView userNameView;
-	private static final String TAG = "SelectionFragment";
 	private ListView listView;
 	private List<BaseListElement> listElements;
 	private List<GraphUser> selectedUsers;
-	private static final String FRIENDS_KEY = "friends";
+	private ProgressDialog progressDialog;
+	private Button announceButton;
 	private GraphPlace selectedPlace = null;
-	private static final String PLACE_KEY = "place";
+	
 	private String talkChoiceUrl = null;
 	private String talkChoice = null;
+	private static final String TAG = "SelectionFragment";
+	private static final String FRIENDS_KEY = "friends";
+	private static final String PLACE_KEY = "place";
 	private static final String TALK_KEY = "talk";
 	private static final String TALK_URL_KEY = "talk_url";
-	private Button announceButton;
-	// URL for authentication 
-	private static final Uri M_FACEBOOK_URL = Uri.parse("http://m.facebook.com");
-	// post action path defined on App Dashboard using app's package 
-	private static final String POST_ACTION_PATH = "me/speechhelper:have";
-	private ProgressDialog progressDialog;
 	// Activity code to flag an incoming activity result is due to a new permissions request
 	private static final int REAUTH_ACTIVITY_CODE = 100;
+	// Key used in storing the pendingAnnounce flag
+	private static final String PENDING_ANNOUNCE_KEY = "pendingAnnounce";	
+	// URL for authentication 
+	private static final Uri FACEBOOK_URL = Uri.parse("http://m.facebook.com");
+	// post action path defined on App Dashboard using app's package 
+	private static final String POST_ACTION_PATH = "me/speechhelper:have";
+	 // List of additional write permissions being requested
+	private static final List<String> PERMISSIONS = Arrays.asList("publish_actions");
+	private UiLifecycleHelper uiLifecycleHelper;
 	// Indicates an on-going reauthorization request
 	private boolean pendingAnnounce;
-	// Key used in storing the pendingAnnounce flag
-	private static final String PENDING_ANNOUNCE_KEY = "pendingAnnounce";
-    // List of additional write permissions being requested
-	private static final List<String> PERMISSIONS = Arrays.asList("publish_actions");
-	private UiLifecycleHelper uiHelper;
+	
+   
 	
 	
 	@Override
@@ -118,15 +121,15 @@ public class SelectionFragment extends Fragment {
     @Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    uiHelper = new UiLifecycleHelper(getActivity(), callback);
-	    uiHelper.onCreate(savedInstanceState);
+	    uiLifecycleHelper = new UiLifecycleHelper(getActivity(), callback);
+	    uiLifecycleHelper.onCreate(savedInstanceState);
 	}
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    super.onActivityResult(requestCode, resultCode, data);
 	    if (requestCode == REAUTH_ACTIVITY_CODE) {
-	        uiHelper.onActivityResult(requestCode, resultCode, data);
+	        uiLifecycleHelper.onActivityResult(requestCode, resultCode, data);
 	    }else if (resultCode == Activity.RESULT_OK && 
 	            requestCode >= 0 && requestCode < listElements.size()) {
 	        listElements.get(requestCode).onActivityResult(data);
@@ -136,7 +139,7 @@ public class SelectionFragment extends Fragment {
 	@Override
 	public void onResume() {
 	    super.onResume();
-	    uiHelper.onResume();
+	    uiLifecycleHelper.onResume();
 	}
 
 	@Override
@@ -146,19 +149,19 @@ public class SelectionFragment extends Fragment {
 	        listElement.onSaveInstanceState(bundle);
 	    }
 	    bundle.putBoolean(PENDING_ANNOUNCE_KEY, pendingAnnounce);
-	    uiHelper.onSaveInstanceState(bundle);
+	    uiLifecycleHelper.onSaveInstanceState(bundle);
 	}
 
 	@Override
 	public void onPause() {
 	    super.onPause();
-	    uiHelper.onPause();
+	    uiLifecycleHelper.onPause();
 	}
 
 	@Override
 	public void onDestroy() {
 	    super.onDestroy();
-	    uiHelper.onDestroy();
+	    uiLifecycleHelper.onDestroy();
 	}
 	
 	private void onPostActionResponse(Response response) {
@@ -167,10 +170,7 @@ public class SelectionFragment extends Fragment {
 		        progressDialog = null;
 		    }
 		    if (getActivity() == null) {
-		        // if the user removes the app from the website, then a request will have caused the session to 
-		        // close (since the token is no longer valid), which means the splash fragment will be shown 
-		        // rather than this one, causing activity to be null. If the activity is null, then we cannot
-		        // show any dialogs, so we return.
+
 		        return;
 		    }
 
@@ -196,11 +196,10 @@ public class SelectionFragment extends Fragment {
 	private void onSessionStateChange(final Session session, SessionState state, Exception exception) {
 	    if (session != null && session.isOpened()) {
 	        if (state.equals(SessionState.OPENED_TOKEN_UPDATED)) {
-	            // Session updated with new permissions
-	            // so try publishing once more.
+	            // Session updated with new permissions, try once more.
 	            tokenUpdated();
 	        } else {
-	            // Get the user's data.
+	            // Get the user data.
 	            userDataRequest(session);
 	        }
 	    }
@@ -225,11 +224,11 @@ public class SelectionFragment extends Fragment {
 	            return users;
 	        }   
 	    } catch (ClassNotFoundException e) {
-	        Log.e(TAG, "Unable to deserialize users.", e); 
+	        Log.e(TAG, "ClassNotFoundException: unable to deserialize users.", e); 
 	    } catch (IOException e) {
-	        Log.e(TAG, "Unable to deserialize users.", e); 
+	        Log.e(TAG, "IOException: unable to deserialize users.", e); 
 	    } catch (JSONException e) {
-	        Log.e(TAG, "Unable to deserialize users.", e); 
+	        Log.e(TAG, "JSONException: unable to deserialize users.", e); 
 	    }   
 	    return null;
 	}
@@ -285,7 +284,7 @@ public class SelectionFragment extends Fragment {
 	                setPlaceText();
 	                return true;
 	            } catch (JSONException e) {
-	                Log.e(TAG, "Unable to deserialize place.", e); 
+	                Log.e(TAG, "JSONException: unable to deserialize place.", e); 
 	            }   
 	        }   
 	        return false;
@@ -295,7 +294,7 @@ public class SelectionFragment extends Fragment {
 	        return new View.OnClickListener() {
 	            @Override
 	            public void onClick(View view) {
-	            toStartPickerActivity(PickerActivity.PLACE_PICKER, getRequestCode());
+	            toStartPickerActivity(PickerActivity.PLACE_URL, getRequestCode());
 	            }
 	        };
 	    }
@@ -399,7 +398,7 @@ public class SelectionFragment extends Fragment {
 		        return new View.OnClickListener() {
 		            @Override
 		            public void onClick(View view) {
-		            	toStartPickerActivity(PickerActivity.FRIEND_PICKER, getRequestCode());
+		            	toStartPickerActivity(PickerActivity.FRIEND_URL, getRequestCode());
 		            }
 		        };
 		    }
@@ -531,7 +530,7 @@ public class SelectionFragment extends Fragment {
 	    }
 
 	}
-	private void requestPublishPermissions(Session session) {
+	private void annoucePermissionRequest(Session session) {
 	    if (session != null) {
 	        Session.NewPermissionsRequest newPermissionsRequest = 
 	            new Session.NewPermissionsRequest(this, PERMISSIONS).
@@ -550,7 +549,7 @@ public class SelectionFragment extends Fragment {
 	    List<String> permissions = session.getPermissions();
 	    if (!permissions.containsAll(PERMISSIONS)) {
 	        pendingAnnounce = true;
-	        requestPublishPermissions(session);
+	        annoucePermissionRequest(session);
 	        return;
 	    }
 
@@ -572,10 +571,10 @@ public class SelectionFragment extends Fragment {
 	         for (BaseListElement element : listElements) {
 	             element.populateOGAction(haveAction);
 	         }   
-	         // Set up a request with the active session, set up an HTTP POST to the talk action endpoint
+	         // Set up a request with the active session, set up an HTTP POST 
 	         Request request = new Request(Session.getActiveSession(),
 	                 POST_ACTION_PATH, null, HttpMethod.POST);
-	         // Add the post parameter, the have action
+	         // Add the have action as post parameter
 	         request.setGraphObject(haveAction);
 	         // Execute the request synchronously in the background and return the response.
 	         return request.executeAndWait();
@@ -583,7 +582,7 @@ public class SelectionFragment extends Fragment {
 
 	     @Override
 	     protected void onPostExecute(Response response) {
-	         // When the task completes, process the response on the main thread
+	         // Process the response
 	         onPostActionResponse(response);
 	      }   
 	 };  
@@ -622,7 +621,7 @@ public class SelectionFragment extends Fragment {
 	                                        int i) {
 	                        // Take the user to the mobile site.
 	                        Intent intent = new Intent(Intent.ACTION_VIEW, 
-	                                                   M_FACEBOOK_URL);
+	                                                   FACEBOOK_URL);
 	                        startActivity(intent);
 	                    }
 	                };
@@ -653,7 +652,7 @@ public class SelectionFragment extends Fragment {
 	                                        int i) {
 	                        pendingAnnounce = true;
 	                        // Request publish permission
-	                        requestPublishPermissions(Session.getActiveSession());
+	                        annoucePermissionRequest(Session.getActiveSession());
 	                    }
 	                };
 	                break;
@@ -674,17 +673,14 @@ public class SelectionFragment extends Fragment {
 	            case OTHER:
 	            case CLIENT:
 	            default:
-	                // An unknown issue occurred, this could be a code error, or
-	                // a server side issue, log the issue, and either ask the
-	                // user to retry, or file a bug.
+	                // An unknown issue occurred, this could be a code error, or a server side issue or other issues
 	                dialogBody = getString(R.string.error_unknown, 
 	                                       error.getErrorMessage());
 	                break;
 	        }
 	    }
 
-	    // Show the error and pass in the listener so action
-	    // can be taken, if necessary.
+	    // Show the error 
 	    new AlertDialog.Builder(getActivity())
 	            .setPositiveButton(R.string.error_dialog_button_text, listener)
 	            .setTitle(R.string.error_dialog_title)

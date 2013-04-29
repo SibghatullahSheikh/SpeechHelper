@@ -15,18 +15,17 @@ public class FacebookActivity extends FragmentActivity  {
 	private static final int SPLASH = 0;
 	private static final int SELECTION = 1;
 	private static final int SETTINGS = 2;
-	private static final int FRAGMENT_COUNT = SETTINGS +1;
 	private boolean isResumed = false;
-	private Fragment[] fragments = new Fragment[FRAGMENT_COUNT];
-	private MenuItem settings;
-	private UiLifecycleHelper uiHelper;
+	private Fragment[] fragments = new Fragment[3];
+	private MenuItem logout;
+	private UiLifecycleHelper uiLifecycleHelper;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_facebook);
-		uiHelper = new UiLifecycleHelper(this, callback);
-	    uiHelper.onCreate(savedInstanceState);
+		uiLifecycleHelper = new UiLifecycleHelper(this, callback);
+	    uiLifecycleHelper.onCreate(savedInstanceState);
 		FragmentManager fm = getSupportFragmentManager();
 	    fragments[SPLASH] = fm.findFragmentById(R.id.splashFragment);
 	    fragments[SELECTION] = fm.findFragmentById(R.id.selectionFragment);
@@ -42,15 +41,15 @@ public class FacebookActivity extends FragmentActivity  {
 	}
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
-	    // only add the menu when the selection fragment is showing
+	    // add the menu when logged in
 	    if (fragments[SELECTION].isVisible()) {
 	        if (menu.size() == 0) {
-	            settings = menu.add(R.string.settings);
+	            logout = menu.add(R.string.logout);
 	        }
 	        return true;
 	    } else {
 	        menu.clear();
-	        settings = null;
+	        logout = null;
 	    }
 	    return false;
 	}
@@ -71,7 +70,7 @@ public class FacebookActivity extends FragmentActivity  {
 	}
 	
 	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
-	    // Only make changes if the activity is visible
+	    // Only make changes when the activity is visible
 	    if (isResumed) {
 	        FragmentManager manager = getSupportFragmentManager();
 	        // Get the number of entries in the back stack
@@ -108,44 +107,44 @@ public class FacebookActivity extends FragmentActivity  {
 	    new Session.StatusCallback() {
 	    @Override
 	    public void call(Session session, 
-	            SessionState state, Exception exception) {
-	        onSessionStateChange(session, state, exception);
+	            SessionState state, Exception e) {
+	        onSessionStateChange(session, state, e);
 	    }
 	};
 	@Override
 	public void onResume() {
 	    super.onResume();
-	    uiHelper.onResume();
+	    uiLifecycleHelper.onResume();
 	    isResumed = true;
 	}
 
 	@Override
 	public void onPause() {
 	    super.onPause();
-	    uiHelper.onPause();
+	    uiLifecycleHelper.onPause();
 	    isResumed = false;
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    super.onActivityResult(requestCode, resultCode, data);
-	    uiHelper.onActivityResult(requestCode, resultCode, data);
+	    uiLifecycleHelper.onActivityResult(requestCode, resultCode, data);
 	}
 
 	@Override
 	public void onDestroy() {
 	    super.onDestroy();
-	    uiHelper.onDestroy();
+	    uiLifecycleHelper.onDestroy();
 	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 	    super.onSaveInstanceState(outState);
-	    uiHelper.onSaveInstanceState(outState);
+	    uiLifecycleHelper.onSaveInstanceState(outState);
 	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    if (item.equals(settings)) {
+	    if (item.equals(logout)) {
 	        showFragment(SETTINGS, true);
 	        return true;
 	    }

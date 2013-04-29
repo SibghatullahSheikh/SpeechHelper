@@ -97,7 +97,7 @@ public class RecordVideo extends Activity implements Callback {
 				new String[] { String.valueOf(projectId) }, null, null, null,
 				null);
 		cursor.moveToFirst();
-		int projectTime = cursor.getInt(0); // get project time
+		projectTime = cursor.getInt(0); // get project time
 
 		Log.d("id+time",
 				String.valueOf(projectTime) + " " + String.valueOf(projectId));
@@ -127,6 +127,7 @@ public class RecordVideo extends Activity implements Callback {
 					isDone=false;
 					isRecording = true;
 					startRecordVideo();
+					if(c.getCount()!=0)
 					noteDisplayInit();
 				}
 			}

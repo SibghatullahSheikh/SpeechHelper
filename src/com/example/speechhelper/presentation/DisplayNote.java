@@ -9,6 +9,7 @@ import com.example.speechhelper.database.DatabaseHelper;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -67,9 +68,11 @@ public class DisplayNote extends Activity {
 
 		start.setOnClickListener(new View.OnClickListener() {
 
+			@SuppressLint("HandlerLeak")
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
+				if(c.getCount()!=0){
 				if (timer == null) {
 					c.moveToFirst();
 					startTime = c.getInt(1);
@@ -134,6 +137,7 @@ public class DisplayNote extends Activity {
 
 					timer.schedule(task, 1000, 1000);
 				}
+			}
 			}
 		});
 

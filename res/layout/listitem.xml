@@ -9,7 +9,8 @@
             android:id="@+id/icon"
             android:src="@drawable/action_eating"
             android:layout_width="60dp"
-            android:layout_height="60dp" />
+            android:layout_height="60dp" 
+            android:contentDescription="@string/icon"/>
     <LinearLayout
             android:orientation="vertical"
             android:layout_gravity="center_vertical"
@@ -18,14 +19,14 @@
             android:layout_marginLeft="15dp" >
         <TextView
                 android:id="@+id/text1"
-                android:text="test"
+                android:text=""
                 android:textColor="#333"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp" />
         <TextView
                 android:id="@+id/text2"
-                android:text="test2"
+                android:text=""
                 android:textColor="#6699CC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

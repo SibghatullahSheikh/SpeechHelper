@@ -32,7 +32,7 @@
     <string name="app_id">367697556675011</string>
     <string name="get_started">To get started, log in using your Facebook account</string>
     <string name="title_activity_facebook">FacebookActivity</string>
-    <string name="settings">Settings</string>
+    <string name="logout">Log out</string>
     <string name="welcome">Welcome, you are now logged in.</string>
     <string name="action_people">With whom?</string>
     <string name="action_people_default">Select friends</string>
@@ -46,7 +46,7 @@
     <string name="no_location_error">Could not obtain your current location</string>
     <string name="action_have">What are you doing?</string>
     <string name="action_have_default">Select One</string>
-    <string name="select_speech">Selece a speech</string>
+    <string name="select_speech">Selece a type</string>
     <string name="error_dialog_default_text">No response from server.</string>
     <string name="error_authentication_retry">An error occurred that requires your attention. %1$s</string>
     <string name="error_authentication_reopen">An error occurred, please re-login.</string>

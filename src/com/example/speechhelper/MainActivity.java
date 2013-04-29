@@ -26,25 +26,8 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		myProjects = (ImageButton)findViewById(R.id.myProjects);
-		//newProject = (ImageButton)findViewById(R.id.newProject);
 		presentation = (ImageButton)findViewById(R.id.presentation);
-		
-		/*newProject.setOnClickListener(new OnClickListener()
-        {
-        	@Override
-        	public void onClick(View view)
-        	{
-		        try 
-		        {
-		        	
-		        	Intent intent = new Intent(MainActivity.this, NewProject.class);  
-	                startActivity(intent);  
-		        } catch (Exception e) 
-		        {
-		        	e.printStackTrace();
-		        }
-        	}
-        });*/
+		facebook = (Button)findViewById(R.id.facebook);
 		myProjects.setOnClickListener(new OnClickListener()
 	        {
 	        	@Override
@@ -60,7 +43,7 @@ public class MainActivity extends Activity {
 			        }
 	        	}
 	        });
-		facebook = (Button)findViewById(R.id.facebook);
+		
 		facebook.setOnClickListener(new OnClickListener()
                                     {
         	@Override

@@ -438,6 +438,7 @@ containing a value of this type.
         public static final int get_started=0x7f050036;
         public static final int hello_world=0x7f05001b;
         public static final int icon=0x7f050057;
+        public static final int logout=0x7f050038;
         public static final int min=0x7f050025;
         public static final int multiple_users_selected=0x7f050040;
         public static final int myProjects=0x7f050020;
@@ -455,7 +456,6 @@ containing a value of this type.
         public static final int result_dialog_title=0x7f05004c;
         public static final int sec=0x7f05002f;
         public static final int select_speech=0x7f050046;
-        public static final int settings=0x7f050038;
         public static final int single_user_selected=0x7f05003e;
         public static final int speech_length=0x7f050024;
         public static final int start=0x7f05002d;

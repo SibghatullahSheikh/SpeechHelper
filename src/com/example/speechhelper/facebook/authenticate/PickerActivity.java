@@ -23,20 +23,22 @@ import android.support.v4.app.FragmentManager;
 
 public class PickerActivity extends FragmentActivity {
 	
-	public static final Uri FRIEND_PICKER = Uri.parse("picker://friend");
-	public static final Uri PLACE_PICKER = Uri.parse("picker://place");
+	public static final Uri FRIEND_URL = Uri.parse("picker://friend");
+	public static final Uri PLACE_URL = Uri.parse("picker://place");
 	private FriendPickerFragment friendPickerFragment;
 	private PlacePickerFragment placePickerFragment;
 	private LocationListener locationListener;
-	private static final Location SAN_FRANCISCO_LOCATION = new Location("") {{
-        setLatitude(37.7750);
-        setLongitude(-122.4183);
+	//default location for emulator
+	private static final Location DEFAULT_LOCATION = new Location("") {{
+        setLatitude(37.422006);
+        setLongitude(-122.084095);
     }};
-    private static final int SEARCH_RADIUS_METERS = 1000;
-    private static final int SEARCH_RESULT_LIMIT = 50;
-    private static final String SEARCH_TEXT = "";
+    private static final int SEARCH_RADIUS = 5000;//meters
+    private static final int SEARCH_RESULTS_NUM = 50;//display 50 results
+    private static final String SEARCH_TEXT = "";//no limitation
     private static final int LOCATION_CHANGE_THRESHOLD = 50; // meters
-	@Override
+	
+    @Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.pickers);
@@ -46,21 +48,14 @@ public class PickerActivity extends FragmentActivity {
 	    Fragment fragmentToShow = null;
 	    Uri intentUri = getIntent().getData();
 
-	    if (FRIEND_PICKER.equals(intentUri)) {
+	    if (FRIEND_URL.equals(intentUri)) {
 	        if (savedInstanceState == null) {
 	            friendPickerFragment = new FriendPickerFragment(args);
 	        } else {
 	            friendPickerFragment = 
 	                (FriendPickerFragment) manager.findFragmentById(R.id.picker_fragment);
 	        }
-	        // Set the listener to handle errors
-	   /*     friendPickerFragment.setOnErrorListener(new PickerFragment.OnErrorListener() {
-	            @Override
-	            public void onError(PickerFragment<?> fragment,
-	                                FacebookException error) {
-	                PickerActivity.this.onError(error);
-	            }
-	        });*/
+	        
 	        // Set the listener to handle button clicks
 	        friendPickerFragment.setOnDoneButtonClickedListener(
 	                new PickerFragment.OnDoneButtonClickedListener() {
@@ -71,7 +66,7 @@ public class PickerActivity extends FragmentActivity {
 	        });
 	        fragmentToShow = friendPickerFragment;
 
-	    }else if (PLACE_PICKER.equals(intentUri)) {
+	    }else if (PLACE_URL.equals(intentUri)) {
 	        if (savedInstanceState == null) {
 	            placePickerFragment = new PlacePickerFragment(args);
 	        } else {
@@ -82,17 +77,10 @@ public class PickerActivity extends FragmentActivity {
 	                new PickerFragment.OnSelectionChangedListener() {
 	            @Override
 	            public void onSelectionChanged(PickerFragment<?> fragment) {
-	                finishActivity(); // call finish since you can only pick one place
+	                finishActivity(); 
 	            }
 	        });
-	      /*  placePickerFragment.setOnErrorListener(
-	                new PickerFragment.OnErrorListener() {
-	            @Override
-	            public void onError(PickerFragment<?> fragment,
-	                                FacebookException error) {
-	                PickerActivity.this.onError(error);
-	            }
-	        });*/
+	     
 	        placePickerFragment.setOnDoneButtonClickedListener(
 	               new PickerFragment.OnDoneButtonClickedListener() {
 	            @Override
@@ -102,7 +90,7 @@ public class PickerActivity extends FragmentActivity {
 	        });
 	        fragmentToShow = placePickerFragment;
 	    }  else {
-	        // Nothing to do, finish
+	        
 	        setResult(RESULT_CANCELED);
 	        finish();
 	        return;
@@ -135,11 +123,11 @@ public class PickerActivity extends FragmentActivity {
 
 	private void finishActivity() {
 		SpeechHelperApplication app = (SpeechHelperApplication) getApplication();
-		if (FRIEND_PICKER.equals(getIntent().getData())) {
+		if (FRIEND_URL.equals(getIntent().getData())) {
 		    if (friendPickerFragment != null) {
 		        app.setSelectedUsers(friendPickerFragment.getSelection());
 		    }   
-		} else if (PLACE_PICKER.equals(getIntent().getData())) {
+		} else if (PLACE_URL.equals(getIntent().getData())) {
 	        if (placePickerFragment != null) {
 	            app.setSelectedPlace(placePickerFragment.getSelection());
 	        }
@@ -150,13 +138,13 @@ public class PickerActivity extends FragmentActivity {
 	@Override
 	protected void onStart() {
 	    super.onStart();
-	    if (FRIEND_PICKER.equals(getIntent().getData())) {
+	    if (FRIEND_URL.equals(getIntent().getData())) {
 	        try {
 	            friendPickerFragment.loadData(false);
-	        } catch (Exception ex) {
-	            onError(ex);
+	        } catch (Exception e) {
+	            onError(e);
 	        }
-	    } else if (PLACE_PICKER.equals(getIntent().getData())) {
+	    } else if (PLACE_URL.equals(getIntent().getData())) {
 	        try {
 	            Location location = null;
 	            // Instantiate the default criteria for a location provider
@@ -167,18 +155,15 @@ public class PickerActivity extends FragmentActivity {
 	            // Get the location provider that best matches the criteria
 	            String bestProvider = locationManager.getBestProvider(criteria, false);
 	            if (bestProvider != null) {
-	                // Get the user's last known location
+	       
 	                location = locationManager.getLastKnownLocation(bestProvider);
 	                if (locationManager.isProviderEnabled(bestProvider) 
 	                            && locationListener == null) {
-	                    // Set up a location listener if one is not already set up
-	                    // and the selected provider is enabled
+	                    // Set up a location listener and the selected provider is enabled
 	                    locationListener = new LocationListener() {
 	                        @Override
 	                        public void onLocationChanged(Location location) {
-	                            // On location updates, compare the current
-	                            // location to the desired location set in the
-	                            // place picker
+	                            // compare the current location to the desired location set in the place picker
 	                            float distance = location.distanceTo(
 	                                    placePickerFragment.getLocation());
 	                            if (distance >= LOCATION_CHANGE_THRESHOLD) {
@@ -204,23 +189,21 @@ public class PickerActivity extends FragmentActivity {
 	                }
 	            }
 	            if (location == null) {
-	                // Set the default location if there is no
-	                // initial location
+	                // using the default location if there is no initial location
 	                String model = Build.MODEL;
 	                if (model.equals("sdk") || 
 	                        model.equals("google_sdk") || 
 	                        model.contains("x86")) {
-	                    // This may be the emulator, use the default location
-	                    location = SAN_FRANCISCO_LOCATION;
+	                    // If using the emulator, use the default location
+	                    location = DEFAULT_LOCATION;
 	                }
 	            }
 	            if (location != null) {
-	                // Configure the place picker: search center, radius,
-	                // query, and maximum results.
+	                // Configure the place picker: search center, radius, query, and maximum results.
 	                placePickerFragment.setLocation(location);
-	                placePickerFragment.setRadiusInMeters(SEARCH_RADIUS_METERS);
+	                placePickerFragment.setRadiusInMeters(SEARCH_RADIUS);
 	                placePickerFragment.setSearchText(SEARCH_TEXT);
-	                placePickerFragment.setResultsLimit(SEARCH_RESULT_LIMIT);
+	                placePickerFragment.setResultsLimit(SEARCH_RESULTS_NUM);
 	                // Start the API call
 	                placePickerFragment.loadData(true);
 	            } else {
