@@ -1,6 +1,7 @@
-package com.example.speechhelper.facebook;
+package com.example.speechhelper.facebook.authenticate;
 
 import com.example.speechhelper.R;
+import com.example.speechhelper.facebook.SpeechHelperApplication;
 import com.facebook.widget.FriendPickerFragment;
 import com.facebook.widget.PickerFragment;
 import com.facebook.widget.PlacePickerFragment;

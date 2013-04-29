@@ -1,4 +1,4 @@
-package com.example.speechhelper.facebook;
+package com.example.speechhelper.facebook.authenticate;
 
 import com.facebook.model.OpenGraphAction;
 
