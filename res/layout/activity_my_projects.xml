@@ -33,7 +33,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/myProjectsBack"
-        android:layout_below="@+id/myProjectsBack" >
+        android:layout_below="@+id/myProjectsBack"
+         android:background="@drawable/listview" >
 
     </ListView>
 
