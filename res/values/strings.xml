@@ -60,6 +60,7 @@
     <string name="progress_dialog_text">Announcing, please wait</string>
     <string name="error_unknown">An unknown error occurred, please contact the developer with the following message: %1$s</string>
     <string name="title_activity_record_video">RecordVideo</string>
+
     <string-array name="talk_types">
         <item>Speech</item>
         <item>Presentation</item>
@@ -75,7 +76,6 @@
 
     <string name="announce">Announce</string>
     <string name="title_activity_display_note">DisplayNote</string>
-    <string name="my_projects">My Projects</string>
     <string name="icon">icon</string>
     <string name="startbutton">Start</string>
     <string name="next_note">Next note:</string>
@@ -86,5 +86,9 @@
     <string name="cancel">Cancel</string>
     <string name="my_projects">My Projects</string>
     <string name="videos">Videos</string>
+    <string name="title_activity_relax">RelaxActivity</string>
+    <string name="relax">Do Something to Relax</string>
+    <string name="title_activity_music">MusicActivity</string>
+    <string name="title_activity_game">GameActivity</string>
 
 </resources>

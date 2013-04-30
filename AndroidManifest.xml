@@ -16,8 +16,8 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_GPS"/>
-   
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+
     <application
         android:name="com.example.speechhelper.facebook.SpeechHelperApplication"
         android:allowBackup="true"
@@ -33,7 +33,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-   
         <activity
             android:name="com.example.speechhelper.project.MyProjects"
             android:label="@string/title_activity_my_projects" >
@@ -46,7 +45,6 @@
             android:name="com.example.speechhelper.presentation.Presentation"
             android:label="@string/title_activity_presentation" >
         </activity>
-       
         <activity
             android:name="com.example.speechhelper.note.NewNote"
             android:label="@string/title_activity_new_note" >
@@ -93,8 +91,20 @@
         </activity>
         <activity
             android:name="com.example.speechhelper.video.RecordVideo"
-            android:label="@string/title_activity_record_video" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_record_video"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.example.speechhelper.relax.RelaxActivity"
+            android:label="@string/title_activity_relax" >
+        </activity>
+        <activity
+            android:name="com.example.speechhelper.relax.MusicActivity"
+            android:label="@string/title_activity_music" >
+        </activity>
+        <activity
+            android:name="com.example.speechhelper.relax.GameActivity"
+            android:label="@string/title_activity_game" >
         </activity>
     </application>
 

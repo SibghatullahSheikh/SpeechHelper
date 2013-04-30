@@ -64,4 +64,16 @@
         android:textStyle="italic"
         android:typeface="serif" />
 
+    <Button
+        android:id="@+id/relax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="15dp"
+        android:text="@string/relax"
+        android:textColor="#AFDEFE"
+        android:textStyle="italic"
+        android:typeface="serif" />
+
 </RelativeLayout>
