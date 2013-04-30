@@ -553,21 +553,21 @@ public class SelectionFragment extends Fragment {
 	        return;
 	    }
 
-	 // Show a progress dialog because sometimes the  requests can take a while. This dialog contains a text message
+	 // Show a progress dialog when waiting
 	 progressDialog = ProgressDialog.show(getActivity(), "", 
 	         getActivity().getResources()
 	         .getString(R.string.progress_dialog_text), true);
 
-	 // Run this in a background thread since we don't want to block the main thread. Create a new AsyncTask that returns a Response object
+	 // Run this in a background thread. And create a new AsyncTask that returns a Response object
 	 AsyncTask<Void, Void, Response> task = 
 	     new AsyncTask<Void, Void, Response>() {
 
 	     @Override
 	     protected Response doInBackground(Void... voids) {
-	         // Create an have action
+	         // Create an have action which is defined when registered this app
 	         HaveAction haveAction = 
 	         GraphObject.Factory.create(HaveAction.class);
-	         // Populate the action with the POST parameters: the talk, friends, and place info
+	         // Populate the action with the POST parameters: the talk, friends, and place information
 	         for (BaseListElement element : listElements) {
 	             element.populateOGAction(haveAction);
 	         }   
@@ -576,7 +576,7 @@ public class SelectionFragment extends Fragment {
 	                 POST_ACTION_PATH, null, HttpMethod.POST);
 	         // Add the have action as post parameter
 	         request.setGraphObject(haveAction);
-	         // Execute the request synchronously in the background and return the response.
+	         // Execute the request in the background and return the response.
 	         return request.executeAndWait();
 	     }   
 
@@ -604,13 +604,13 @@ public class SelectionFragment extends Fragment {
 	    String dialogBody = null;
 
 	    if (error == null) {
-	        // There was no response from the server.
+	        // no response from the server.
 	        dialogBody = getString(R.string.error_dialog_default_text);
 	    } else {
 	        switch (error.getCategory()) {
 	            case AUTHENTICATION_RETRY:
-	                // Tell the user what happened by getting the
-	                // message id, and retry the operation later.
+	                
+	                //Show message id, and retry the operation later.
 	                String userAction = (error.shouldNotifyUser()) ? "" :
 	                        getString(error.getUserActionMessageId());
 	                dialogBody = getString(R.string.error_authentication_retry, 
@@ -628,7 +628,7 @@ public class SelectionFragment extends Fragment {
 	                break;
 
 	            case AUTHENTICATION_REOPEN_SESSION:
-	                // Close the session and reopen it.
+	                // Close and reopen session
 	                dialogBody = 
 	                    getString(R.string.error_authentication_reopen);
 	                listener = new DialogInterface.OnClickListener() {
@@ -644,14 +644,14 @@ public class SelectionFragment extends Fragment {
 	                break;
 
 	            case PERMISSION:
-	                // A permissions-related error
+	                //  Permissions-related error
 	                dialogBody = getString(R.string.error_permission);
 	                listener = new DialogInterface.OnClickListener() {
 	                    @Override
 	                    public void onClick(DialogInterface dialogInterface, 
 	                                        int i) {
 	                        pendingAnnounce = true;
-	                        // Request publish permission
+	                        // Request announce permission
 	                        annoucePermissionRequest(Session.getActiveSession());
 	                    }
 	                };
@@ -696,15 +696,14 @@ public class SelectionFragment extends Fragment {
 	            // If the response is successful
 	            if (session == Session.getActiveSession()) {
 	                if (user != null) {
-	                    // Set the id for the ProfilePictureView
-	                    // view that in turn displays the profile picture.
+	                    // Set the id for the ProfilePictureView view to display the profile photo.
 	                    profilePictureView.setProfileId(user.getId());
-	                    // Set the Textview's text to the user's name.
+	                    // Set the Textview text to display the user name.
 	                    userNameView.setText(user.getName());
 	                }
 	            }
 	            if (response.getError() != null) {
-	            	// Handle errors found when fetching user data.
+	            	// Handle errors 
 	                handleError(response.getError());
 	            }
 	        }
@@ -720,7 +719,7 @@ public class SelectionFragment extends Fragment {
     private void init(Bundle savedInstanceState){
 		// Disable the button initially
 	    announceButton.setEnabled(false);
-	    // Set up the list view items, based on a list of BaseListElement items
+	    // Set up the list view items
 	    listElements = new ArrayList<BaseListElement>();
 	    // Add an item for the talk picker
 	    listElements.add(new TalkListElement(0));
@@ -729,7 +728,7 @@ public class SelectionFragment extends Fragment {
 	    // Add an item for the friend picker
 	    listElements.add(new PeopleListElement(2));
 	    if (savedInstanceState != null) {
-	        // Restore the state for each list element
+	        // Restore the states
 	        for (BaseListElement listElement : listElements) {
 	            listElement.restoreState(savedInstanceState);
 	        }  
@@ -737,7 +736,6 @@ public class SelectionFragment extends Fragment {
 	        pendingAnnounce = savedInstanceState.getBoolean(
 	                PENDING_ANNOUNCE_KEY, false);
 	    }
-	    // Set the list view adapter
 	    listView.setAdapter(new ActionListAdapter(getActivity(), 
 	                        R.id.selection_list, listElements));
 	    // Check for an open session
