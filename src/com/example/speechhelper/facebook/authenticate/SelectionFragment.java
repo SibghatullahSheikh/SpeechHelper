@@ -345,10 +345,10 @@ public class SelectionFragment extends Fragment {
 	                setItems(talkChoices, new DialogInterface.OnClickListener() {
 	                    @Override
 	                    public void onClick(DialogInterface dialogInterface, int i) {
-	                    	talkChoice = talkChoices[i];
-	                        talkChoiceUrl = talkUrls[i];
-	                        setTalkText();
-	                        notifyDataChanged();
+	                          talkChoice = talkChoices[i];
+	                          talkChoiceUrl = talkUrls[i];
+	                          setTalkText();
+	                          notifyDataChanged();
 	                    }   
 	                }); 
 	        builder.show();

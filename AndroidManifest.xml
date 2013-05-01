@@ -10,13 +10,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_GPS" />
 
     <application
         android:name="com.example.speechhelper.facebook.SpeechHelperApplication"
@@ -105,6 +105,14 @@
         <activity
             android:name="com.example.speechhelper.relax.GameActivity"
             android:label="@string/title_activity_game" >
+        </activity>
+        <activity
+            android:name="com.example.speechhelper.relax.ForestActivity"
+            android:label="@string/title_activity_forest" >
+        </activity>
+        <activity
+            android:name="com.example.speechhelper.relax.SeaActivity"
+            android:label="@string/title_activity_sea" >
         </activity>
     </application>
 

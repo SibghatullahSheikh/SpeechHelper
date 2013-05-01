@@ -58,7 +58,7 @@ public class NewNote extends Activity {
 			@Override
 			public void onClick(View view) {
 				try {
-					//Log.d("tag4", Integer.toString(projectId)); // log 4
+					//Log.d("tag4", Integer.toString(projectId)); 
 					if (projectId != -1) {
 						String noteContent = noteContentText.getText()
 								.toString();
