@@ -49,6 +49,7 @@ public class MusicActivity extends Activity {
 		// Add an item for the friend picker
 		listElements.add(new seaSound(0));
 		listElements.add(new forestSound(1));
+		listElements.add(new nightSound(2));
 		// Set the list view adapter
 		musicListView.setAdapter(new ActionListAdapter(MusicActivity.this, 
 		                    R.id.musicListView, listElements));
@@ -150,6 +151,30 @@ public class MusicActivity extends Activity {
 	                // Do nothing for now
 	            	Intent intent = new Intent(MusicActivity.this,
 							ForestActivity.class);
+					startActivityForResult(intent, 0);
+	            }
+	        };
+	    }
+
+		
+	}
+	private class nightSound extends BaseItem {
+
+	    public nightSound(int requestCode) {
+	        super( MusicActivity.this.getResources().getDrawable(R.drawable.back10),
+	        		 MusicActivity.this.getResources().getString(R.string.night_sound),
+	        		 MusicActivity.this.getResources().getString(R.string.night_sound2),
+	              requestCode);
+	    }
+
+	    @Override
+	    protected View.OnClickListener getOnClickListener() {
+	        return new View.OnClickListener() {
+	            @Override
+	            public void onClick(View view) {
+	                // Do nothing for now
+	            	Intent intent = new Intent(MusicActivity.this,
+							NightActivity.class);
 					startActivityForResult(intent, 0);
 	            }
 	        };

@@ -99,5 +99,8 @@
     <string name="forest_sound2">this sound make you feel in the forest</string>
     <string name="title_activity_forest">ForestActivity</string>
     <string name="title_activity_sea">SeaActivity</string>
+    <string name="night_sound">Night sound</string>
+    <string name="night_sound2">this sound is for night sound</string>
+    <string name="title_activity_night">NightActivity</string>
 
 </resources>

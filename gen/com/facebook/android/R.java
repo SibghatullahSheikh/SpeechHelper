@@ -72,19 +72,19 @@ public final class R {
 		public static final int com_facebook_loginview_cancel_action = 0x7f050006;
 	}
 	public static final class layout {
-		public static final int com_facebook_picker_title_bar_stub = 0x7f030019;
-		public static final int com_facebook_friendpickerfragment = 0x7f030010;
-		public static final int com_facebook_picker_image = 0x7f030014;
-		public static final int com_facebook_picker_list_row = 0x7f030015;
-		public static final int com_facebook_placepickerfragment_list_row = 0x7f03001b;
-		public static final int com_facebook_picker_list_section_header = 0x7f030016;
-		public static final int com_facebook_picker_title_bar = 0x7f030018;
-		public static final int com_facebook_picker_checkbox = 0x7f030013;
-		public static final int com_facebook_placepickerfragment = 0x7f03001a;
-		public static final int com_facebook_picker_search_box = 0x7f030017;
-		public static final int com_facebook_login_activity_layout = 0x7f030011;
-		public static final int com_facebook_usersettingsfragment = 0x7f03001c;
-		public static final int com_facebook_picker_activity_circle_row = 0x7f030012;
+		public static final int com_facebook_picker_title_bar_stub = 0x7f03001a;
+		public static final int com_facebook_friendpickerfragment = 0x7f030011;
+		public static final int com_facebook_picker_image = 0x7f030015;
+		public static final int com_facebook_picker_list_row = 0x7f030016;
+		public static final int com_facebook_placepickerfragment_list_row = 0x7f03001c;
+		public static final int com_facebook_picker_list_section_header = 0x7f030017;
+		public static final int com_facebook_picker_title_bar = 0x7f030019;
+		public static final int com_facebook_picker_checkbox = 0x7f030014;
+		public static final int com_facebook_placepickerfragment = 0x7f03001b;
+		public static final int com_facebook_picker_search_box = 0x7f030018;
+		public static final int com_facebook_login_activity_layout = 0x7f030012;
+		public static final int com_facebook_usersettingsfragment = 0x7f03001d;
+		public static final int com_facebook_picker_activity_circle_row = 0x7f030013;
 	}
 	public static final class styleable {
 		public static final int com_facebook_place_picker_fragment_search_text = 2;

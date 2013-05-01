@@ -114,6 +114,10 @@
             android:name="com.example.speechhelper.relax.SeaActivity"
             android:label="@string/title_activity_sea" >
         </activity>
+        <activity
+            android:name="com.example.speechhelper.relax.NightActivity"
+            android:label="@string/title_activity_night" >
+        </activity>
     </application>
 
 </manifest>
