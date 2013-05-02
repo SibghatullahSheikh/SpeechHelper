@@ -1,6 +1,8 @@
-package com.example.speechhelper.relax;
+package com.example.speechhelper.relax.sounds;
 
 import com.example.speechhelper.R;
+import com.example.speechhelper.relax.RelaxActivity;
+
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.app.Activity;
@@ -24,15 +26,16 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ViewSwitcher.ViewFactory;
 
 @SuppressWarnings("deprecation")
-public class ForestActivity extends Activity implements ViewFactory,OnItemSelectedListener {  
-	private Button forestBack;
+public class NightActivity extends Activity implements ViewFactory,OnItemSelectedListener {  
+	private Button nightBack;
     ImageSwitcher mSwitcher;  
-    private Integer[] mThumbIds = {  R.drawable.forest1,R.drawable.forest2,R.drawable.forest3,R.drawable.forest4,R.drawable.forest5,R.drawable.forest6};  
-    private Integer[] mImageIds = {  R.drawable.forest1,R.drawable.forest2,R.drawable.forest3,R.drawable.forest4,R.drawable.forest5,R.drawable.forest6};  
+    private Integer[] mThumbIds = { R.drawable.night1,R.drawable.night2,R.drawable.night3,R.drawable.night4,R.drawable.night5,R.drawable.night6};  
+    private Integer[] mImageIds = { R.drawable.night1,R.drawable.night2,R.drawable.night3,R.drawable.night4,R.drawable.night5,R.drawable.night6};  
+    
     private MediaPlayer mediaPlayer;
-    private Button forestStartButton;
-    private Button forestPauseButton;
-    private Button forestRestartButton;
+    private Button nightStartButton;
+    private Button nightPauseButton;
+    private Button nightRestartButton;
 	private int playbackPosition = 0;
 	private int projectId;
 
@@ -40,27 +43,16 @@ public class ForestActivity extends Activity implements ViewFactory,OnItemSelect
     public void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
         requestWindowFeature(Window.FEATURE_NO_TITLE);  
-        setContentView(R.layout.activity_forest);  
-        forestBack = (Button) this.findViewById(R.id.forestBack);
-        forestStartButton = (Button)findViewById(R.id.forestStartButton);
-        forestPauseButton = (Button)findViewById(R.id.forestPauseButton);
-        forestRestartButton = (Button)findViewById(R.id.forestRestartButton);
+        setContentView(R.layout.activity_night);  
+   
+        nightBack = (Button) this.findViewById(R.id.nightBack);
+        nightStartButton = (Button)findViewById(R.id.nightStartButton);
+        nightPauseButton = (Button)findViewById(R.id.nightPauseButton);
+        nightRestartButton = (Button)findViewById(R.id.nightRestartButton);
 		projectId=this.getIntent().getIntExtra("pid", -1);
 
-        forestBack.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				onDestroy(mediaPlayer);
-				Intent intent = new Intent(ForestActivity.this,
-						GameActivity.class);
-				intent.putExtra("projectIdBack", projectId);
-	        	setResult(RESULT_OK, intent);
-                finish();	
-			}
-		});
         
-        forestStartButton.setOnClickListener(new OnClickListener()
+        nightStartButton.setOnClickListener(new OnClickListener()
         {
         	@Override
         	public void onClick(View view)
@@ -75,7 +67,7 @@ public class ForestActivity extends Activity implements ViewFactory,OnItemSelect
         	}
         });
         
-	    forestPauseButton.setOnClickListener(new OnClickListener()
+	    nightPauseButton.setOnClickListener(new OnClickListener()
 	    {
 	    	@Override
 	     	public void onClick(View view)
@@ -88,7 +80,7 @@ public class ForestActivity extends Activity implements ViewFactory,OnItemSelect
 	        }
 	    });
 	        	
-	    forestRestartButton.setOnClickListener(new OnClickListener()
+	    nightRestartButton.setOnClickListener(new OnClickListener()
 	    {
 	    	@Override
 	        public void onClick(View view)
@@ -100,12 +92,24 @@ public class ForestActivity extends Activity implements ViewFactory,OnItemSelect
 		        	}
 		    }
 	    });
-        mSwitcher = (ImageSwitcher) findViewById(R.id.forestImageSwitcher);   
+        nightBack.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				onDestroy(mediaPlayer);
+				Intent intent = new Intent(NightActivity.this,
+						RelaxActivity.class);
+				intent.putExtra("projectIdBack", projectId);
+	        	setResult(RESULT_OK, intent);
+                finish();	
+			}
+		});
+        mSwitcher = (ImageSwitcher) findViewById(R.id.nightImageSwitcher);   
         mSwitcher.setFactory(this);  
         mSwitcher.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));  
         mSwitcher.setOutAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_out));  
 
-        Gallery g = (Gallery) findViewById(R.id.forestGallery);  
+        Gallery g = (Gallery) findViewById(R.id.nightGallery);  
 
         g.setAdapter(new ImageAdapter(this));  
         g.setOnItemSelectedListener(this);  
@@ -116,8 +120,7 @@ public class ForestActivity extends Activity implements ViewFactory,OnItemSelect
 	public void onItemSelected(AdapterView parent, View v, int position, long id) {  
         mSwitcher.setImageResource(mImageIds[position]);  
     }  
-    
-	protected void onDestroy(MediaPlayer mediaPlayer)
+    protected void onDestroy(MediaPlayer mediaPlayer)
 	{
 	       	super.onDestroy();
 	       	killMediaPlayer(mediaPlayer);
@@ -149,7 +152,7 @@ public class ForestActivity extends Activity implements ViewFactory,OnItemSelect
 	private void playLocalAudio_UsingDescriptor() throws Exception 
 	{   AssetFileDescriptor fileDesc = null;
 		
-			fileDesc = getResources().openRawResourceFd(R.raw.forest);
+			fileDesc = getResources().openRawResourceFd(R.raw.night);
 		
 		if (fileDesc != null) 
 		{
@@ -160,21 +163,14 @@ public class ForestActivity extends Activity implements ViewFactory,OnItemSelect
 			mediaPlayer.start();
 		}
 	}
-	
-	
-
     @SuppressWarnings("rawtypes")
 	public void onNothingSelected(AdapterView parent) {  
     }  
-    @Override
-   	public void onResume() {
-   	    super.onResume();
-   	    
-   	}
+
 
 @Override  
     public View makeView() {  
-    ImageView i = new ImageView(this);  
+    ImageView i = new ImageView(this);   
     i.setScaleType(ImageView.ScaleType.FIT_CENTER);  
     i.setLayoutParams(new ImageSwitcher.LayoutParams(  
     LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));  
@@ -199,7 +195,7 @@ public class ForestActivity extends Activity implements ViewFactory,OnItemSelect
     return position;  
    }  
   
-  
+
   @Override
       public View getView(int position, View convertView, ViewGroup parent) {  
         ImageView i = new ImageView(mContext);

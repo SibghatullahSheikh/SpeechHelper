@@ -5,6 +5,10 @@ import java.util.List;
 
 import com.example.speechhelper.MainActivity;
 import com.example.speechhelper.R;
+import com.example.speechhelper.relax.sounds.ForestActivity;
+import com.example.speechhelper.relax.sounds.NightActivity;
+import com.example.speechhelper.relax.sounds.SeaActivity;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;

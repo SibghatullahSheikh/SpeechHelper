@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.example.speechhelper.MainActivity;
 import com.example.speechhelper.R;
+import com.example.speechhelper.relax.games.LittleGameActivity;
+import com.example.speechhelper.relax.games.NewGameActivity;
 
 
 import android.os.Bundle;

@@ -107,23 +107,23 @@
             android:label="@string/title_activity_game" >
         </activity>
         <activity
-            android:name="com.example.speechhelper.relax.ForestActivity"
+            android:name="com.example.speechhelper.relax.sounds.ForestActivity"
             android:label="@string/title_activity_forest" >
         </activity>
         <activity
-            android:name="com.example.speechhelper.relax.SeaActivity"
+            android:name="com.example.speechhelper.relax.sounds.SeaActivity"
             android:label="@string/title_activity_sea" >
         </activity>
         <activity
-            android:name="com.example.speechhelper.relax.NightActivity"
+            android:name="com.example.speechhelper.relax.sounds.NightActivity"
             android:label="@string/title_activity_night" >
         </activity>
         <activity
-            android:name="com.example.speechhelper.relax.LittleGameActivity"
+            android:name="com.example.speechhelper.relax.games.LittleGameActivity"
             android:label="@string/title_activity_little_game" >
         </activity>
         <activity
-            android:name="com.example.speechhelper.relax.NewGameActivity"
+            android:name="com.example.speechhelper.relax.games.NewGameActivity"
             android:label="@string/title_activity_new_game" >
         </activity>
     </application>

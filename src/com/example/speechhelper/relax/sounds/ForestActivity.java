@@ -1,6 +1,7 @@
-package com.example.speechhelper.relax;
+package com.example.speechhelper.relax.sounds;
 
 import com.example.speechhelper.R;
+import com.example.speechhelper.relax.GameActivity;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -25,17 +26,15 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ViewSwitcher.ViewFactory;
 
 @SuppressWarnings("deprecation")
-public class SeaActivity extends Activity implements ViewFactory,OnItemSelectedListener {  
-	private Button seaBack;
+public class ForestActivity extends Activity implements ViewFactory,OnItemSelectedListener {  
+	private Button forestBack;
     ImageSwitcher mSwitcher;  
-    private Integer[] mThumbIds = { R.drawable.sea1,R.drawable.sea2,R.drawable.sea3,R.drawable.sea4,R.drawable.sea5,R.drawable.sea6};  
-
-    private Integer[] mImageIds = {  R.drawable.sea1,R.drawable.sea2,R.drawable.sea3,R.drawable.sea4,R.drawable.sea5,R.drawable.sea6};  
-
+    private Integer[] mThumbIds = {  R.drawable.forest1,R.drawable.forest2,R.drawable.forest3,R.drawable.forest4,R.drawable.forest5,R.drawable.forest6};  
+    private Integer[] mImageIds = {  R.drawable.forest1,R.drawable.forest2,R.drawable.forest3,R.drawable.forest4,R.drawable.forest5,R.drawable.forest6};  
     private MediaPlayer mediaPlayer;
-    private Button seaStartButton;
-    private Button seaPauseButton;
-    private Button seaRestartButton;
+    private Button forestStartButton;
+    private Button forestPauseButton;
+    private Button forestRestartButton;
 	private int playbackPosition = 0;
 	private int projectId;
 
@@ -43,15 +42,27 @@ public class SeaActivity extends Activity implements ViewFactory,OnItemSelectedL
     public void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
         requestWindowFeature(Window.FEATURE_NO_TITLE);  
-        setContentView(R.layout.activity_sea);  
-        seaBack = (Button) this.findViewById(R.id.seaBack);
-        seaStartButton = (Button)findViewById(R.id.seaStartButton);
-        seaPauseButton = (Button)findViewById(R.id.seaPauseButton);
-        seaRestartButton = (Button)findViewById(R.id.seaRestartButton);
+        setContentView(R.layout.activity_forest);  
+        forestBack = (Button) this.findViewById(R.id.forestBack);
+        forestStartButton = (Button)findViewById(R.id.forestStartButton);
+        forestPauseButton = (Button)findViewById(R.id.forestPauseButton);
+        forestRestartButton = (Button)findViewById(R.id.forestRestartButton);
 		projectId=this.getIntent().getIntExtra("pid", -1);
 
+        forestBack.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				onDestroy(mediaPlayer);
+				Intent intent = new Intent(ForestActivity.this,
+						GameActivity.class);
+				intent.putExtra("projectIdBack", projectId);
+	        	setResult(RESULT_OK, intent);
+                finish();	
+			}
+		});
         
-        seaStartButton.setOnClickListener(new OnClickListener()
+        forestStartButton.setOnClickListener(new OnClickListener()
         {
         	@Override
         	public void onClick(View view)
@@ -59,7 +70,6 @@ public class SeaActivity extends Activity implements ViewFactory,OnItemSelectedL
 		        try 
 		        {
 		        	playLocalAudio_UsingDescriptor();
-		        	
 		        } catch (Exception e) 
 		        {
 		        	e.printStackTrace();
@@ -67,7 +77,7 @@ public class SeaActivity extends Activity implements ViewFactory,OnItemSelectedL
         	}
         });
         
-	    seaPauseButton.setOnClickListener(new OnClickListener()
+	    forestPauseButton.setOnClickListener(new OnClickListener()
 	    {
 	    	@Override
 	     	public void onClick(View view)
@@ -80,7 +90,7 @@ public class SeaActivity extends Activity implements ViewFactory,OnItemSelectedL
 	        }
 	    });
 	        	
-	    seaRestartButton.setOnClickListener(new OnClickListener()
+	    forestRestartButton.setOnClickListener(new OnClickListener()
 	    {
 	    	@Override
 	        public void onClick(View view)
@@ -92,24 +102,12 @@ public class SeaActivity extends Activity implements ViewFactory,OnItemSelectedL
 		        	}
 		    }
 	    });
-        seaBack.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				onDestroy(mediaPlayer);
-				Intent intent = new Intent(SeaActivity.this,
-						RelaxActivity.class);
-				intent.putExtra("projectIdBack", projectId);
-	        	setResult(RESULT_OK, intent);
-                finish();	
-			}
-		});
-        mSwitcher = (ImageSwitcher) findViewById(R.id.seaImageSwitcher);   
+        mSwitcher = (ImageSwitcher) findViewById(R.id.forestImageSwitcher);   
         mSwitcher.setFactory(this);  
         mSwitcher.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));  
         mSwitcher.setOutAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_out));  
 
-        Gallery g = (Gallery) findViewById(R.id.seaGallery);  
+        Gallery g = (Gallery) findViewById(R.id.forestGallery);  
 
         g.setAdapter(new ImageAdapter(this));  
         g.setOnItemSelectedListener(this);  
@@ -120,57 +118,65 @@ public class SeaActivity extends Activity implements ViewFactory,OnItemSelectedL
 	public void onItemSelected(AdapterView parent, View v, int position, long id) {  
         mSwitcher.setImageResource(mImageIds[position]);  
     }  
-    protected void onDestroy(MediaPlayer mediaPlayer)
-   	{
-   	       	super.onDestroy();
-   	       	killMediaPlayer(mediaPlayer);
-   	}
-   	
-   	private void killMediaPlayer(MediaPlayer mediaPlayer)
-   	{
-   	   	if(mediaPlayer!=null)
-   	   	{
-   	       	try
-   	       	{
-   	       		mediaPlayer.release();
-   	        }
-   	        catch(Exception e)
-   	        {
-   	        	e.printStackTrace();
-   	        }
-   	    }
-   	 } 	
+    
+	protected void onDestroy(MediaPlayer mediaPlayer)
+	{
+	       	super.onDestroy();
+	       	killMediaPlayer(mediaPlayer);
+	}
+	
+	private void killMediaPlayer(MediaPlayer mediaPlayer)
+	{
+	   	if(mediaPlayer!=null)
+	   	{
+	       	try
+	       	{
+	       		mediaPlayer.release();
+	        }
+	        catch(Exception e)
+	        {
+	        	e.printStackTrace();
+	        }
+	    }
+	 } 	
 
-   	
-   	@Override
-   	public boolean onCreateOptionsMenu(Menu menu) {
-   		// Inflate the menu; this adds items to the action bar if it is present.
-   		getMenuInflater().inflate(R.menu.main, menu);
-   		return true;
-   	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
 
-   	private void playLocalAudio_UsingDescriptor() throws Exception 
-   	{       
-   		    AssetFileDescriptor fileDesc = null;
-   			fileDesc = getResources().openRawResourceFd(R.raw.wavesound);
-   		
-   		if (fileDesc != null) 
-   		{
-   			mediaPlayer = new MediaPlayer();
-   			mediaPlayer.setDataSource(fileDesc.getFileDescriptor(), fileDesc.getStartOffset(), fileDesc.getLength());
-   			fileDesc.close();
-   			mediaPlayer.prepare();
-   			mediaPlayer.start();
-   		}
-   	}
+	private void playLocalAudio_UsingDescriptor() throws Exception 
+	{   AssetFileDescriptor fileDesc = null;
+		
+			fileDesc = getResources().openRawResourceFd(R.raw.forest);
+		
+		if (fileDesc != null) 
+		{
+			mediaPlayer = new MediaPlayer();
+			mediaPlayer.setDataSource(fileDesc.getFileDescriptor(), fileDesc.getStartOffset(), fileDesc.getLength());
+			fileDesc.close();
+			mediaPlayer.prepare();
+			mediaPlayer.start();
+		}
+	}
+	
+	
+
     @SuppressWarnings("rawtypes")
 	public void onNothingSelected(AdapterView parent) {  
     }  
-
+    @Override
+   	public void onResume() {
+   	    super.onResume();
+   	    
+   	}
 
 @Override  
     public View makeView() {  
-    ImageView i = new ImageView(this);   
+    ImageView i = new ImageView(this);  
     i.setScaleType(ImageView.ScaleType.FIT_CENTER);  
     i.setLayoutParams(new ImageSwitcher.LayoutParams(  
     LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));  
@@ -195,7 +201,7 @@ public class SeaActivity extends Activity implements ViewFactory,OnItemSelectedL
     return position;  
    }  
   
-
+  
   @Override
       public View getView(int position, View convertView, ViewGroup parent) {  
         ImageView i = new ImageView(mContext);

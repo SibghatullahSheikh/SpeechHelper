@@ -1,6 +1,7 @@
-package com.example.speechhelper.relax;
+package com.example.speechhelper.relax.sounds;
 
 import com.example.speechhelper.R;
+import com.example.speechhelper.relax.RelaxActivity;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -25,16 +26,17 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ViewSwitcher.ViewFactory;
 
 @SuppressWarnings("deprecation")
-public class NightActivity extends Activity implements ViewFactory,OnItemSelectedListener {  
-	private Button nightBack;
+public class SeaActivity extends Activity implements ViewFactory,OnItemSelectedListener {  
+	private Button seaBack;
     ImageSwitcher mSwitcher;  
-    private Integer[] mThumbIds = { R.drawable.night1,R.drawable.night2,R.drawable.night3,R.drawable.night4,R.drawable.night5,R.drawable.night6};  
-    private Integer[] mImageIds = { R.drawable.night1,R.drawable.night2,R.drawable.night3,R.drawable.night4,R.drawable.night5,R.drawable.night6};  
-    
+    private Integer[] mThumbIds = { R.drawable.sea1,R.drawable.sea2,R.drawable.sea3,R.drawable.sea4,R.drawable.sea5,R.drawable.sea6};  
+
+    private Integer[] mImageIds = {  R.drawable.sea1,R.drawable.sea2,R.drawable.sea3,R.drawable.sea4,R.drawable.sea5,R.drawable.sea6};  
+
     private MediaPlayer mediaPlayer;
-    private Button nightStartButton;
-    private Button nightPauseButton;
-    private Button nightRestartButton;
+    private Button seaStartButton;
+    private Button seaPauseButton;
+    private Button seaRestartButton;
 	private int playbackPosition = 0;
 	private int projectId;
 
@@ -42,16 +44,15 @@ public class NightActivity extends Activity implements ViewFactory,OnItemSelecte
     public void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
         requestWindowFeature(Window.FEATURE_NO_TITLE);  
-        setContentView(R.layout.activity_night);  
-   
-        nightBack = (Button) this.findViewById(R.id.nightBack);
-        nightStartButton = (Button)findViewById(R.id.nightStartButton);
-        nightPauseButton = (Button)findViewById(R.id.nightPauseButton);
-        nightRestartButton = (Button)findViewById(R.id.nightRestartButton);
+        setContentView(R.layout.activity_sea);  
+        seaBack = (Button) this.findViewById(R.id.seaBack);
+        seaStartButton = (Button)findViewById(R.id.seaStartButton);
+        seaPauseButton = (Button)findViewById(R.id.seaPauseButton);
+        seaRestartButton = (Button)findViewById(R.id.seaRestartButton);
 		projectId=this.getIntent().getIntExtra("pid", -1);
 
         
-        nightStartButton.setOnClickListener(new OnClickListener()
+        seaStartButton.setOnClickListener(new OnClickListener()
         {
         	@Override
         	public void onClick(View view)
@@ -59,6 +60,7 @@ public class NightActivity extends Activity implements ViewFactory,OnItemSelecte
 		        try 
 		        {
 		        	playLocalAudio_UsingDescriptor();
+		        	
 		        } catch (Exception e) 
 		        {
 		        	e.printStackTrace();
@@ -66,7 +68,7 @@ public class NightActivity extends Activity implements ViewFactory,OnItemSelecte
         	}
         });
         
-	    nightPauseButton.setOnClickListener(new OnClickListener()
+	    seaPauseButton.setOnClickListener(new OnClickListener()
 	    {
 	    	@Override
 	     	public void onClick(View view)
@@ -79,7 +81,7 @@ public class NightActivity extends Activity implements ViewFactory,OnItemSelecte
 	        }
 	    });
 	        	
-	    nightRestartButton.setOnClickListener(new OnClickListener()
+	    seaRestartButton.setOnClickListener(new OnClickListener()
 	    {
 	    	@Override
 	        public void onClick(View view)
@@ -91,24 +93,24 @@ public class NightActivity extends Activity implements ViewFactory,OnItemSelecte
 		        	}
 		    }
 	    });
-        nightBack.setOnClickListener(new View.OnClickListener() {
+        seaBack.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				onDestroy(mediaPlayer);
-				Intent intent = new Intent(NightActivity.this,
+				Intent intent = new Intent(SeaActivity.this,
 						RelaxActivity.class);
 				intent.putExtra("projectIdBack", projectId);
 	        	setResult(RESULT_OK, intent);
                 finish();	
 			}
 		});
-        mSwitcher = (ImageSwitcher) findViewById(R.id.nightImageSwitcher);   
+        mSwitcher = (ImageSwitcher) findViewById(R.id.seaImageSwitcher);   
         mSwitcher.setFactory(this);  
         mSwitcher.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));  
         mSwitcher.setOutAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_out));  
 
-        Gallery g = (Gallery) findViewById(R.id.nightGallery);  
+        Gallery g = (Gallery) findViewById(R.id.seaGallery);  
 
         g.setAdapter(new ImageAdapter(this));  
         g.setOnItemSelectedListener(this);  
@@ -120,48 +122,48 @@ public class NightActivity extends Activity implements ViewFactory,OnItemSelecte
         mSwitcher.setImageResource(mImageIds[position]);  
     }  
     protected void onDestroy(MediaPlayer mediaPlayer)
-	{
-	       	super.onDestroy();
-	       	killMediaPlayer(mediaPlayer);
-	}
-	
-	private void killMediaPlayer(MediaPlayer mediaPlayer)
-	{
-	   	if(mediaPlayer!=null)
-	   	{
-	       	try
-	       	{
-	       		mediaPlayer.release();
-	        }
-	        catch(Exception e)
-	        {
-	        	e.printStackTrace();
-	        }
-	    }
-	 } 	
+   	{
+   	       	super.onDestroy();
+   	       	killMediaPlayer(mediaPlayer);
+   	}
+   	
+   	private void killMediaPlayer(MediaPlayer mediaPlayer)
+   	{
+   	   	if(mediaPlayer!=null)
+   	   	{
+   	       	try
+   	       	{
+   	       		mediaPlayer.release();
+   	        }
+   	        catch(Exception e)
+   	        {
+   	        	e.printStackTrace();
+   	        }
+   	    }
+   	 } 	
 
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+   	
+   	@Override
+   	public boolean onCreateOptionsMenu(Menu menu) {
+   		// Inflate the menu; this adds items to the action bar if it is present.
+   		getMenuInflater().inflate(R.menu.main, menu);
+   		return true;
+   	}
 
-	private void playLocalAudio_UsingDescriptor() throws Exception 
-	{   AssetFileDescriptor fileDesc = null;
-		
-			fileDesc = getResources().openRawResourceFd(R.raw.night);
-		
-		if (fileDesc != null) 
-		{
-			mediaPlayer = new MediaPlayer();
-			mediaPlayer.setDataSource(fileDesc.getFileDescriptor(), fileDesc.getStartOffset(), fileDesc.getLength());
-			fileDesc.close();
-			mediaPlayer.prepare();
-			mediaPlayer.start();
-		}
-	}
+   	private void playLocalAudio_UsingDescriptor() throws Exception 
+   	{       
+   		    AssetFileDescriptor fileDesc = null;
+   			fileDesc = getResources().openRawResourceFd(R.raw.wavesound);
+   		
+   		if (fileDesc != null) 
+   		{
+   			mediaPlayer = new MediaPlayer();
+   			mediaPlayer.setDataSource(fileDesc.getFileDescriptor(), fileDesc.getStartOffset(), fileDesc.getLength());
+   			fileDesc.close();
+   			mediaPlayer.prepare();
+   			mediaPlayer.start();
+   		}
+   	}
     @SuppressWarnings("rawtypes")
 	public void onNothingSelected(AdapterView parent) {  
     }  

@@ -1,6 +1,8 @@
-package com.example.speechhelper.relax;
+package com.example.speechhelper.relax.games;
 
 import com.example.speechhelper.R;
+import com.example.speechhelper.relax.RelaxActivity;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
