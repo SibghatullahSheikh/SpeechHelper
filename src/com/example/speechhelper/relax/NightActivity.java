@@ -36,6 +36,7 @@ public class NightActivity extends Activity implements ViewFactory,OnItemSelecte
     private Button nightPauseButton;
     private Button nightRestartButton;
 	private int playbackPosition = 0;
+	private int projectId;
 
     @Override  
     public void onCreate(Bundle savedInstanceState) {  
@@ -47,6 +48,7 @@ public class NightActivity extends Activity implements ViewFactory,OnItemSelecte
         nightStartButton = (Button)findViewById(R.id.nightStartButton);
         nightPauseButton = (Button)findViewById(R.id.nightPauseButton);
         nightRestartButton = (Button)findViewById(R.id.nightRestartButton);
+		projectId=this.getIntent().getIntExtra("pid", -1);
 
         
         nightStartButton.setOnClickListener(new OnClickListener()
@@ -95,8 +97,10 @@ public class NightActivity extends Activity implements ViewFactory,OnItemSelecte
 				// TODO Auto-generated method stub
 				onDestroy(mediaPlayer);
 				Intent intent = new Intent(NightActivity.this,
-						MusicActivity.class);
-				startActivityForResult(intent, 0);
+						RelaxActivity.class);
+				intent.putExtra("projectIdBack", projectId);
+	        	setResult(RESULT_OK, intent);
+                finish();	
 			}
 		});
         mSwitcher = (ImageSwitcher) findViewById(R.id.nightImageSwitcher);   

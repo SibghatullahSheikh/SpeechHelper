@@ -37,6 +37,8 @@ public class SeaActivity extends Activity implements ViewFactory,OnItemSelectedL
     private Button seaPauseButton;
     private Button seaRestartButton;
 	private int playbackPosition = 0;
+	private int projectId;
+
     @Override  
     public void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
@@ -46,6 +48,7 @@ public class SeaActivity extends Activity implements ViewFactory,OnItemSelectedL
         seaStartButton = (Button)findViewById(R.id.seaStartButton);
         seaPauseButton = (Button)findViewById(R.id.seaPauseButton);
         seaRestartButton = (Button)findViewById(R.id.seaRestartButton);
+		projectId=this.getIntent().getIntExtra("pid", -1);
 
         
         seaStartButton.setOnClickListener(new OnClickListener()
@@ -95,8 +98,10 @@ public class SeaActivity extends Activity implements ViewFactory,OnItemSelectedL
 				// TODO Auto-generated method stub
 				onDestroy(mediaPlayer);
 				Intent intent = new Intent(SeaActivity.this,
-						MusicActivity.class);
-				startActivityForResult(intent, 0);
+						RelaxActivity.class);
+				intent.putExtra("projectIdBack", projectId);
+	        	setResult(RESULT_OK, intent);
+                finish();	
 			}
 		});
         mSwitcher = (ImageSwitcher) findViewById(R.id.seaImageSwitcher);   

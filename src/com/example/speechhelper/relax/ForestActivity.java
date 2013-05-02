@@ -34,6 +34,8 @@ public class ForestActivity extends Activity implements ViewFactory,OnItemSelect
     private Button forestPauseButton;
     private Button forestRestartButton;
 	private int playbackPosition = 0;
+	private int projectId;
+
     @Override  
     public void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
@@ -43,6 +45,7 @@ public class ForestActivity extends Activity implements ViewFactory,OnItemSelect
         forestStartButton = (Button)findViewById(R.id.forestStartButton);
         forestPauseButton = (Button)findViewById(R.id.forestPauseButton);
         forestRestartButton = (Button)findViewById(R.id.forestRestartButton);
+		projectId=this.getIntent().getIntExtra("pid", -1);
 
         forestBack.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -50,8 +53,10 @@ public class ForestActivity extends Activity implements ViewFactory,OnItemSelect
 				// TODO Auto-generated method stub
 				onDestroy(mediaPlayer);
 				Intent intent = new Intent(ForestActivity.this,
-						MusicActivity.class);
-				startActivityForResult(intent, 0);
+						GameActivity.class);
+				intent.putExtra("projectIdBack", projectId);
+	        	setResult(RESULT_OK, intent);
+                finish();	
 			}
 		});
         

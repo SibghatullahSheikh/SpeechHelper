@@ -46,7 +46,7 @@ public class MusicActivity extends Activity {
 		
 		
 		listElements = new ArrayList<BaseItem>();
-		// Add an item for the friend picker
+		
 		listElements.add(new seaSound(0));
 		listElements.add(new forestSound(1));
 		listElements.add(new nightSound(2));
@@ -54,8 +54,7 @@ public class MusicActivity extends Activity {
 		musicListView.setAdapter(new ActionListAdapter(MusicActivity.this, 
 		                    R.id.musicListView, listElements));
 
-		// Check for an open session
-	//	Session session = Session.getActiveSession();
+	
 
 		    	
 	
@@ -75,8 +74,6 @@ public class MusicActivity extends Activity {
 	                             List<BaseItem> listElements) {
 	        super(context, resourceId, listElements);
 	        this.listElements = listElements;
-	        // Set up as an observer for list item changes to
-	        // refresh the view.
 	        for (int i = 0; i < listElements.size(); i++) {
 	            listElements.get(i).setAdapter(this);
 	        }

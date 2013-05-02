@@ -37,6 +37,7 @@ public class RelaxActivity extends ActivityGroup {
 				.setIndicator("Gamecenter").setContent(gameIntent));
 		relaxTabHost.setCurrentTab(0);
 	}
+
 	
 
 	@Override

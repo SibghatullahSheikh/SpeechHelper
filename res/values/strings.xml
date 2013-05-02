@@ -106,5 +106,13 @@
     <string name="restart">Restart</string>
     <string name="play">Play</string>
     <string name="email">Share with your Email</string>
+    <string name="title_activity_little_game">LittleGameActivity</string>
+    <string name="title_activity_new_game">NewGameActivity</string>
+    <string name="little_game">Game Name</string>
+    <string name="new_game">Coming soon!</string>
+    <string name="some_new_game">New games</string>
+    <string name="some_new_game2">We will update for new games later</string>
+    <string name="little_game2">This is a little game may help you relax</string>
+    <string name="new_game2">Thank you for your support of our app!</string>
 
 </resources>
