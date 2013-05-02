@@ -105,5 +105,6 @@
     <string name="pause">Pause</string>
     <string name="restart">Restart</string>
     <string name="play">Play</string>
+    <string name="email">Share with your Email</string>
 
 </resources>

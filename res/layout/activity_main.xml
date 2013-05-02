@@ -21,25 +21,6 @@
         android:textStyle="italic"
         android:typeface="serif" />
 
-    <ImageButton
-        android:id="@+id/myProjects"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/facebook"
-        android:layout_below="@+id/facebook"
-        android:layout_marginTop="37dp"
-        android:contentDescription="@string/myProjects"
-        android:src="@drawable/ic_launcher1" />
-
-    <ImageButton
-        android:id="@+id/presentation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/facebook"
-        android:layout_alignTop="@+id/myProjects"
-        android:contentDescription="@string/presentation"
-        android:src="@drawable/ic_launcher2" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -52,28 +33,59 @@
         android:textStyle="italic"
         android:typeface="serif" />
 
+    <Button
+        android:id="@+id/relax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/email"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:text="@string/relax"
+        android:textColor="#AFDEFE"
+        android:textStyle="italic"
+        android:typeface="serif" />
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/myProjects"
-        android:layout_alignTop="@+id/textView2"
+        android:layout_below="@+id/presentation"
         android:text="@string/my_projects"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#AFDEFE"
         android:textStyle="italic"
         android:typeface="serif" />
 
-    <Button
-        android:id="@+id/relax"
+    <ImageButton
+        android:id="@+id/myProjects"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView3"
-        android:layout_marginTop="15dp"
-        android:text="@string/relax"
+        android:layout_above="@+id/textView3"
+        android:layout_alignRight="@+id/facebook"
+        android:contentDescription="@string/myProjects"
+        android:src="@drawable/ic_launcher1" />
+
+    <Button
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/facebook"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/email"
         android:textColor="#AFDEFE"
         android:textStyle="italic"
         android:typeface="serif" />
+
+    <ImageButton
+        android:id="@+id/presentation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/facebook"
+        android:layout_below="@+id/relax"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/presentation"
+        android:src="@drawable/ic_launcher2" />
 
 </RelativeLayout>
