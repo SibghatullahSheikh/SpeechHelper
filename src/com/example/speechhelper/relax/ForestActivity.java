@@ -1,13 +1,17 @@
 package com.example.speechhelper.relax;
 
 import com.example.speechhelper.R;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
@@ -23,25 +27,74 @@ import android.widget.ViewSwitcher.ViewFactory;
 public class ForestActivity extends Activity implements ViewFactory,OnItemSelectedListener {  
 	private Button forestBack;
     ImageSwitcher mSwitcher;  
-    private Integer[] mThumbIds = { R.drawable.forest1,R.drawable.forest2};  
-
-    private Integer[] mImageIds = { R.drawable.forest1,R.drawable.forest2};  
-
+    private Integer[] mThumbIds = {  R.drawable.forest1,R.drawable.forest2,R.drawable.forest3,R.drawable.forest4,R.drawable.forest5,R.drawable.forest6};  
+    private Integer[] mImageIds = {  R.drawable.forest1,R.drawable.forest2,R.drawable.forest3,R.drawable.forest4,R.drawable.forest5,R.drawable.forest6};  
+    private MediaPlayer mediaPlayer;
+    private Button forestStartButton;
+    private Button forestPauseButton;
+    private Button forestRestartButton;
+	private int playbackPosition = 0;
     @Override  
     public void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
         requestWindowFeature(Window.FEATURE_NO_TITLE);  
         setContentView(R.layout.activity_forest);  
         forestBack = (Button) this.findViewById(R.id.forestBack);
+        forestStartButton = (Button)findViewById(R.id.forestStartButton);
+        forestPauseButton = (Button)findViewById(R.id.forestPauseButton);
+        forestRestartButton = (Button)findViewById(R.id.forestRestartButton);
+
         forestBack.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				onDestroy(mediaPlayer);
 				Intent intent = new Intent(ForestActivity.this,
 						MusicActivity.class);
 				startActivityForResult(intent, 0);
 			}
 		});
+        
+        forestStartButton.setOnClickListener(new OnClickListener()
+        {
+        	@Override
+        	public void onClick(View view)
+        	{
+		        try 
+		        {
+		        	playLocalAudio_UsingDescriptor();
+		        } catch (Exception e) 
+		        {
+		        	e.printStackTrace();
+		        }
+        	}
+        });
+        
+	    forestPauseButton.setOnClickListener(new OnClickListener()
+	    {
+	    	@Override
+	     	public void onClick(View view)
+	        {
+		        	if(mediaPlayer!=null)
+		        	{
+		        		playbackPosition = mediaPlayer.getCurrentPosition();
+		        		mediaPlayer.pause();
+		        	}
+	        }
+	    });
+	        	
+	    forestRestartButton.setOnClickListener(new OnClickListener()
+	    {
+	    	@Override
+	        public void onClick(View view)
+	        {
+		        	if(mediaPlayer!=null && !mediaPlayer.isPlaying())
+		        	{
+		        		mediaPlayer.seekTo(playbackPosition);
+		        		mediaPlayer.start();
+		        	}
+		    }
+	    });
         mSwitcher = (ImageSwitcher) findViewById(R.id.forestImageSwitcher);   
         mSwitcher.setFactory(this);  
         mSwitcher.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));  
@@ -58,11 +111,61 @@ public class ForestActivity extends Activity implements ViewFactory,OnItemSelect
 	public void onItemSelected(AdapterView parent, View v, int position, long id) {  
         mSwitcher.setImageResource(mImageIds[position]);  
     }  
+    
+	protected void onDestroy(MediaPlayer mediaPlayer)
+	{
+	       	super.onDestroy();
+	       	killMediaPlayer(mediaPlayer);
+	}
+	
+	private void killMediaPlayer(MediaPlayer mediaPlayer)
+	{
+	   	if(mediaPlayer!=null)
+	   	{
+	       	try
+	       	{
+	       		mediaPlayer.release();
+	        }
+	        catch(Exception e)
+	        {
+	        	e.printStackTrace();
+	        }
+	    }
+	 } 	
+
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	private void playLocalAudio_UsingDescriptor() throws Exception 
+	{   AssetFileDescriptor fileDesc = null;
+		
+			fileDesc = getResources().openRawResourceFd(R.raw.forest);
+		
+		if (fileDesc != null) 
+		{
+			mediaPlayer = new MediaPlayer();
+			mediaPlayer.setDataSource(fileDesc.getFileDescriptor(), fileDesc.getStartOffset(), fileDesc.getLength());
+			fileDesc.close();
+			mediaPlayer.prepare();
+			mediaPlayer.start();
+		}
+	}
+	
+	
 
     @SuppressWarnings("rawtypes")
 	public void onNothingSelected(AdapterView parent) {  
     }  
-
+    @Override
+   	public void onResume() {
+   	    super.onResume();
+   	    
+   	}
 
 @Override  
     public View makeView() {  
@@ -91,7 +194,7 @@ public class ForestActivity extends Activity implements ViewFactory,OnItemSelect
     return position;  
    }  
   
-
+  
   @Override
       public View getView(int position, View convertView, ViewGroup parent) {  
         ImageView i = new ImageView(mContext);

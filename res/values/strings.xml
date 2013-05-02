@@ -94,13 +94,16 @@
     <string name="music">Music</string>
     <string name="sounds">Sounds</string>
     <string name="sea_sound">Sea sound</string>
-    <string name="sea_sound2">the sound make you relax</string>
+    <string name="sea_sound2">The sound of wave</string>
     <string name="forest_sound">Forest sound</string>
-    <string name="forest_sound2">this sound make you feel in the forest</string>
+    <string name="forest_sound2">The sound make you feel in the forest</string>
     <string name="title_activity_forest">ForestActivity</string>
     <string name="title_activity_sea">SeaActivity</string>
     <string name="night_sound">Night sound</string>
-    <string name="night_sound2">this sound is for night sound</string>
+    <string name="night_sound2">The sound of silent night</string>
     <string name="title_activity_night">NightActivity</string>
+    <string name="pause">Pause</string>
+    <string name="restart">Restart</string>
+    <string name="play">Play</string>
 
 </resources>
