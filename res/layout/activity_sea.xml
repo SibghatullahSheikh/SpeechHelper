@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SeaActivity" >
+    tools:context=".SeaActivity"
+    android:background="@color/light_blue" >
 
    <Button
         android:id="@+id/seaBack"
@@ -41,7 +42,7 @@
        android:layout_alignParentLeft="true"
        android:background="#15000000"
        android:gravity="center_vertical"
-       android:spacing="16dp" />
+       android:spacing="22dp" />
    
      <Button
        android:id="@+id/seaStartButton"

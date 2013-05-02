@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ForestActivity" >
+    tools:context=".ForestActivity" 
+    android:background="@color/light_green">
 
 <Button
         android:id="@+id/forestBack"
@@ -42,7 +43,7 @@
      android:layout_alignParentBottom="true"  
      android:layout_alignParentLeft="true"    
      android:gravity="center_vertical"  
-     android:spacing="16dp" />
+     android:spacing="22dp" />
 
    <Button
        android:id="@+id/forestStartButton"

@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NightActivity" >
+    tools:context=".NightActivity" 
+    android:background="@color/dark_blue">
 <Button
         android:id="@+id/nightBack"
         style="?android:attr/buttonStyleSmall"
@@ -22,6 +23,7 @@
         android:layout_alignBottom="@+id/nightBack"
         android:layout_centerHorizontal="true"
         android:text="@string/night_sound"  
+        android:textColor="@color/light_blue"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     
@@ -41,7 +43,7 @@
      android:layout_alignParentBottom="true"  
      android:layout_alignParentLeft="true"    
      android:gravity="center_vertical"  
-     android:spacing="16dp" />  
+     android:spacing="22dp" />  
     
   <Button
        android:id="@+id/nightStartButton"
