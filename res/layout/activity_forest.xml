@@ -8,9 +8,45 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ForestActivity" >
 
-    <TextView
+<Button
+        android:id="@+id/forestBack"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/forest_sound" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/back" />
+
+   
+
+    <TextView
+        android:id="@+id/forestTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/forestBack"
+        android:layout_alignBottom="@+id/forestBack"
+        android:layout_centerHorizontal="true"
+        android:text="@string/forest_sound"  
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    
+  <ImageSwitcher android:id="@+id/forestImageSwitcher"  
+     android:layout_height="fill_parent"  
+    android:layout_width="fill_parent"  
+    android:layout_alignParentTop="true"  
+    android:layout_alignParentLeft="true">  
+    </ImageSwitcher>  
+      
+      
+   <Gallery   
+     android:id="@+id/forestGallery"  
+     android:background="#55000000"  
+     android:layout_width="fill_parent"  
+     android:layout_height="60dp"  
+     android:layout_alignParentBottom="true"  
+     android:layout_alignParentLeft="true"    
+     android:gravity="center_vertical"  
+     android:spacing="16dp" />  
+    
 
 </RelativeLayout>

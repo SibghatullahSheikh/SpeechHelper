@@ -8,9 +8,45 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".SeaActivity" >
 
-    <TextView
+   <Button
+        android:id="@+id/seaBack"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sea_sound" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/back" />
+
+   
+
+    <TextView
+        android:id="@+id/seaTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/seaBack"
+        android:layout_alignBottom="@+id/seaBack"
+        android:layout_centerHorizontal="true"
+        android:text="@string/sea_sound"  
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    
+  <ImageSwitcher android:id="@+id/seaImageSwitcher"  
+     android:layout_height="fill_parent"  
+    android:layout_width="fill_parent"  
+    android:layout_alignParentTop="true"  
+    android:layout_alignParentLeft="true">  
+    </ImageSwitcher>  
+      
+      
+   <Gallery   
+     android:id="@+id/seaGallery"  
+     android:background="#55000000"  
+     android:layout_width="fill_parent"  
+     android:layout_height="60dp"  
+     android:layout_alignParentBottom="true"  
+     android:layout_alignParentLeft="true"    
+     android:gravity="center_vertical"  
+     android:spacing="16dp" />  
+    
 
 </RelativeLayout>

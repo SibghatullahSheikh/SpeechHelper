@@ -7,10 +7,46 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".NightActivity" >
-
-    <TextView
+<Button
+        android:id="@+id/nightBack"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/back" />
+
+   
+
+    <TextView
+        android:id="@+id/nightTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/nightBack"
+        android:layout_alignBottom="@+id/nightBack"
+        android:layout_centerHorizontal="true"
+        android:text="@string/night_sound"  
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    
+  <ImageSwitcher android:id="@+id/nightImageSwitcher"  
+     android:layout_height="fill_parent"  
+    android:layout_width="fill_parent"  
+    android:layout_alignParentTop="true"  
+    android:layout_alignParentLeft="true">  
+    </ImageSwitcher>  
+      
+      
+   <Gallery   
+     android:id="@+id/nightGallery"  
+     android:background="#55000000"  
+     android:layout_width="fill_parent"  
+     android:layout_height="60dp"  
+     android:layout_alignParentBottom="true"  
+     android:layout_alignParentLeft="true"    
+     android:gravity="center_vertical"  
+     android:spacing="16dp" />  
+    
+  
 
 </RelativeLayout>

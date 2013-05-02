@@ -115,7 +115,7 @@ public class MusicActivity extends Activity {
 	private class seaSound extends BaseItem {
 
 	    public seaSound(int requestCode) {
-	        super( MusicActivity.this.getResources().getDrawable(R.drawable.back1),
+	        super( MusicActivity.this.getResources().getDrawable(R.drawable.sea_icon),
 	        		 MusicActivity.this.getResources().getString(R.string.sea_sound),
 	        		 MusicActivity.this.getResources().getString(R.string.sea_sound2),
 	              requestCode);
@@ -137,7 +137,7 @@ public class MusicActivity extends Activity {
 	private class forestSound extends BaseItem {
 
 	    public forestSound(int requestCode) {
-	        super( MusicActivity.this.getResources().getDrawable(R.drawable.back9),
+	        super( MusicActivity.this.getResources().getDrawable(R.drawable.forest_icon),
 	        		 MusicActivity.this.getResources().getString(R.string.forest_sound),
 	        		 MusicActivity.this.getResources().getString(R.string.forest_sound2),
 	              requestCode);
@@ -161,7 +161,7 @@ public class MusicActivity extends Activity {
 	private class nightSound extends BaseItem {
 
 	    public nightSound(int requestCode) {
-	        super( MusicActivity.this.getResources().getDrawable(R.drawable.back10),
+	        super( MusicActivity.this.getResources().getDrawable(R.drawable.night_icon),
 	        		 MusicActivity.this.getResources().getString(R.string.night_sound),
 	        		 MusicActivity.this.getResources().getString(R.string.night_sound2),
 	              requestCode);
