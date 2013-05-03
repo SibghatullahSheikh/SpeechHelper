@@ -62,14 +62,14 @@ public class SelectionFragment extends Fragment {
 	
 	private String talkChoiceUrl = null;
 	private String talkChoice = null;
-	private static final String TAG = "SelectionFragment";
+
 	private static final String FRIENDS_KEY = "friends";
 	private static final String PLACE_KEY = "place";
 	private static final String TALK_KEY = "talk";
 	private static final String TALK_URL_KEY = "talk_url";
-	// Activity code to flag an incoming activity result is due to a new permissions request
+	// flag an incoming activity result is due to a new permissions request
 	private static final int REAUTH_ACTIVITY_CODE = 100;
-	// Key used in storing the pendingAnnounce flag
+	// used in storing the pendingAnnounce flag
 	private static final String PENDING_ANNOUNCE_KEY = "pendingAnnounce";	
 	// URL for authentication 
 	private static final Uri FACEBOOK_URL = Uri.parse("http://m.facebook.com");
@@ -99,7 +99,7 @@ public class SelectionFragment extends Fragment {
 	    // Find the list view
 	    listView = (ListView) view.findViewById(R.id.selection_list);
 	    
-	    // Set up the publish action button
+	    // publish action button onclick listener
 	    announceButton = (Button) view.findViewById(R.id.announce_button);
 	    announceButton.setOnClickListener(new View.OnClickListener() {
 	        @Override
@@ -196,7 +196,7 @@ public class SelectionFragment extends Fragment {
 	private void onSessionStateChange(final Session session, SessionState state, Exception exception) {
 	    if (session != null && session.isOpened()) {
 	        if (state.equals(SessionState.OPENED_TOKEN_UPDATED)) {
-	            // Session updated with new permissions, try once more.
+	            // Session updated with new permissions
 	            tokenUpdated();
 	        } else {
 	            // Get the user data.
@@ -224,11 +224,11 @@ public class SelectionFragment extends Fragment {
 	            return users;
 	        }   
 	    } catch (ClassNotFoundException e) {
-	        Log.e(TAG, "ClassNotFoundException: unable to deserialize users.", e); 
+	        Log.e("SelectionFragment", "ClassNotFoundException", e); 
 	    } catch (IOException e) {
-	        Log.e(TAG, "IOException: unable to deserialize users.", e); 
+	        Log.e("SelectionFragment", "IOException", e); 
 	    } catch (JSONException e) {
-	        Log.e(TAG, "JSONException: unable to deserialize users.", e); 
+	        Log.e("SelectionFragment", "JSONException", e); 
 	    }   
 	    return null;
 	}
@@ -284,7 +284,7 @@ public class SelectionFragment extends Fragment {
 	                setPlaceText();
 	                return true;
 	            } catch (JSONException e) {
-	                Log.e(TAG, "JSONException: unable to deserialize place.", e); 
+	                Log.e("SelectionFragment", "JSONException", e); 
 	            }   
 	        }   
 	        return false;
@@ -451,13 +451,11 @@ public class SelectionFragment extends Fragment {
 			        }   
 			    }   
 			    if (text == null) {
-			        // If no text, use the placeholder text
+			        // If no text, use the default text
 			        text = getResources()
 			        .getString(R.string.action_people_default);
 			    }   
-			    // Set the text in list element. This will notify the 
-			    // adapter that the data has changed to
-			    // refresh the list view.
+			    // reset the text in list element.
 			    setText2(text);
 			} 
 		    @Override
@@ -467,9 +465,7 @@ public class SelectionFragment extends Fragment {
 		        }   
 		    }  
 		    private byte[] getByteArray(List<GraphUser> users) {
-		        // convert the list of GraphUsers to a list of String 
-		        // where each element is the JSON representation of the 
-		        // GraphUser so it can be stored in a Bundle
+		        // convert GraphUser to String 
 		        List<String> usersAsString = new ArrayList<String>(users.size());
 
 		        for (GraphUser user : users) {
@@ -480,7 +476,7 @@ public class SelectionFragment extends Fragment {
 		            new ObjectOutputStream(outputStream).writeObject(usersAsString);
 		            return outputStream.toByteArray();
 		        } catch (IOException e) {
-		            Log.e(TAG, "Unable to serialize users.", e); 
+		            Log.e("SelectionFragment", "Unable to serialize users.", e); 
 		        }   
 		        return null;
 		    }   
@@ -493,8 +489,8 @@ public class SelectionFragment extends Fragment {
 	                             List<BaseListElement> listElements) {
 	        super(context, resourceId, listElements);
 	        this.listElements = listElements;
-	        // Set up as an observer for list item changes to
-	        // refresh the view.
+	     
+	        // refresh the view for list items change
 	        for (int i = 0; i < listElements.size(); i++) {
 	            listElements.get(i).setAdapter(this);
 	        }
@@ -558,7 +554,7 @@ public class SelectionFragment extends Fragment {
 	         getActivity().getResources()
 	         .getString(R.string.progress_dialog_text), true);
 
-	 // Run this in a background thread. And create a new AsyncTask that returns a Response object
+	 // Run this in a background thread. And create AsyncTask to return a Response object
 	 AsyncTask<Void, Void, Response> task = 
 	     new AsyncTask<Void, Void, Response>() {
 
@@ -592,8 +588,7 @@ public class SelectionFragment extends Fragment {
 
 	}
     private void tokenUpdated() {
-	    // Check if a publish action is in progress
-	    // awaiting a successful reauthorization
+	    // Check if a publish action is in progress awaiting a successful reauthorization
 	    if (pendingAnnounce) {
 	        // Publish the action
 	        handleAnnounce();
@@ -659,13 +654,12 @@ public class SelectionFragment extends Fragment {
 
 	            case SERVER:
 	            case THROTTLING:
-	                // This is usually temporary, don't clear the fields, and
-	                // ask the user to try again.
+	                // temporary issue, ask the user to try again.
 	                dialogBody = getString(R.string.error_server);
 	                break;
 
 	            case BAD_REQUEST:
-	                // This is likely a coding error, ask the user to file a bug.
+	                // coding error: ask the user to file a bug.
 	                dialogBody = getString(R.string.error_bad_request, 
 	                                       error.getErrorMessage());
 	                break;
@@ -673,7 +667,7 @@ public class SelectionFragment extends Fragment {
 	            case OTHER:
 	            case CLIENT:
 	            default:
-	                // An unknown issue occurred, this could be a code error, or a server side issue or other issues
+	                // unknown issue occurred which may caused by many kinds of issues
 	                dialogBody = getString(R.string.error_unknown, 
 	                                       error.getErrorMessage());
 	                break;
@@ -688,7 +682,7 @@ public class SelectionFragment extends Fragment {
 	            .show();
 	}
 	private void userDataRequest(final Session session) {
-	    // Make an API call to get user data and define a new callback to handle the response.
+	    // request to get user data and handle the response.
 	    Request request = Request.newMeRequest(session, 
 	            new Request.GraphUserCallback() {
 	        @Override
@@ -721,11 +715,9 @@ public class SelectionFragment extends Fragment {
 	    announceButton.setEnabled(false);
 	    // Set up the list view items
 	    listElements = new ArrayList<BaseListElement>();
-	    // Add an item for the talk picker
+	    // Add items to list view
 	    listElements.add(new TalkListElement(0));
-	    // Add an item for the place picker
 	    listElements.add(new LocationListElement(1));
-	    // Add an item for the friend picker
 	    listElements.add(new PeopleListElement(2));
 	    if (savedInstanceState != null) {
 	        // Restore the states

@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class FacebookActivity extends FragmentActivity  {
-	private static final int SPLASH = 0;
+	private static final int LOGIN = 0;
 	private static final int SELECTION = 1;
 	private static final int SETTINGS = 2;
 	private boolean isResumed = false;
@@ -26,8 +26,9 @@ public class FacebookActivity extends FragmentActivity  {
 		setContentView(R.layout.activity_facebook);
 		uiLifecycleHelper = new UiLifecycleHelper(this, callback);
 	    uiLifecycleHelper.onCreate(savedInstanceState);
-		FragmentManager fm = getSupportFragmentManager();
-	    fragments[SPLASH] = fm.findFragmentById(R.id.splashFragment);
+		
+	    FragmentManager fm = getSupportFragmentManager();
+	    fragments[LOGIN] = fm.findFragmentById(R.id.splashFragment);
 	    fragments[SELECTION] = fm.findFragmentById(R.id.selectionFragment);
 	    fragments[SETTINGS] = fm.findFragmentById(R.id.userSettingsFragment);
 
@@ -53,41 +54,9 @@ public class FacebookActivity extends FragmentActivity  {
 	    }
 	    return false;
 	}
-	private void showFragment(int fragmentIndex, boolean addToBackStack) {
-	    FragmentManager fm = getSupportFragmentManager();
-	    FragmentTransaction transaction = fm.beginTransaction();
-	    for (int i = 0; i < fragments.length; i++) {
-	        if (i == fragmentIndex) {
-	            transaction.show(fragments[i]);
-	        } else {
-	            transaction.hide(fragments[i]);
-	        }
-	    }
-	    if (addToBackStack) {
-	        transaction.addToBackStack(null);
-	    }
-	    transaction.commit();
-	}
 	
-	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
-	    // Only make changes when the activity is visible
-	    if (isResumed) {
-	        FragmentManager manager = getSupportFragmentManager();
-	        // Get the number of entries in the back stack
-	        int backStackSize = manager.getBackStackEntryCount();
-	        // Clear the back stack
-	        for (int i = 0; i < backStackSize; i++) {
-	            manager.popBackStack();
-	        }
-	        if (state.isOpened()) {
-	            // If the session state is open: show the authenticated fragment
-	            showFragment(SELECTION, false);
-	        } else if (state.isClosed()) {
-	            // If the session state is closed: show the login fragment
-	            showFragment(SPLASH, false);
-	        }
-	    }
-	}
+	
+	
 	
 	@Override
 	protected void onResumeFragments() {
@@ -99,18 +68,10 @@ public class FacebookActivity extends FragmentActivity  {
 	        showFragment(SELECTION, false);
 	    } else {
 	        // otherwise present the splash screen and ask the user to login.
-	        showFragment(SPLASH, false);
+	        showFragment(LOGIN, false);
 	    }
 	}
 
-	private Session.StatusCallback callback = 
-	    new Session.StatusCallback() {
-	    @Override
-	    public void call(Session session, 
-	            SessionState state, Exception e) {
-	        onSessionStateChange(session, state, e);
-	    }
-	};
 	@Override
 	public void onResume() {
 	    super.onResume();
@@ -151,6 +112,50 @@ public class FacebookActivity extends FragmentActivity  {
 	    return false;
 	}
 	
+	private void showFragment(int fragmentIndex, boolean addToBackStack) {
+	    FragmentManager fm = getSupportFragmentManager();
+	    FragmentTransaction transaction = fm.beginTransaction();
+	    for (int i = 0; i < fragments.length; i++) {
+	        if (i == fragmentIndex) {
+	            transaction.show(fragments[i]);
+	        } else {
+	            transaction.hide(fragments[i]);
+	        }
+	    }
+	    if (addToBackStack) {
+	        transaction.addToBackStack(null);
+	    }
+	    transaction.commit();
+	}
+    
+	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
+	    // Only make changes when the activity is visible
+	    if (isResumed) {
+	        FragmentManager manager = getSupportFragmentManager();
+	        // Get the number of entries in the back stack
+	        int backStackSize = manager.getBackStackEntryCount();
+	        // Clear the back stack
+	        for (int i = 0; i < backStackSize; i++) {
+	            manager.popBackStack();
+	        }
+	        if (state.isOpened()) {
+	            // If the session state is open: show the authenticated fragment
+	            showFragment(SELECTION, false);
+	        } else if (state.isClosed()) {
+	            // If the session state is closed: show the login fragment
+	            showFragment(LOGIN, false);
+	        }
+	    }
+	}
 	
+	private Session.StatusCallback callback = 
+		    new Session.StatusCallback() {
+		    @Override
+		    public void call(Session session, 
+		            SessionState state, Exception e) {
+		        onSessionStateChange(session, state, e);
+		    }
+		};
+
 }
 

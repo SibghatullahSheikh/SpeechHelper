@@ -35,7 +35,7 @@ public class PickerActivity extends FragmentActivity {
     }};
     private static final int SEARCH_RADIUS = 5000;//meters
     private static final int SEARCH_RESULTS_NUM = 50;//display 50 results
-    private static final int LOCATION_CHANGE_THRESHOLD = 10; // meters
+    private static final int LOCATION_CHANGE_THRESHOLD = 50; // meters
     private static final String SEARCH_TEXT = "";//default search
     @Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class PickerActivity extends FragmentActivity {
 	    FragmentManager manager = getSupportFragmentManager();
 	    Fragment fragmentToShow = null;
 	    Uri intentUri = getIntent().getData();
-
+       // use intentUri to determine fragment will be shown
 	    if (FRIEND_URL.equals(intentUri)) {
 	        if (savedInstanceState == null) {
 	            friendPickerFragment = new FriendPickerFragment(args);
@@ -55,7 +55,7 @@ public class PickerActivity extends FragmentActivity {
 	                (FriendPickerFragment) manager.findFragmentById(R.id.picker_fragment);
 	        }
 	        
-	        // Set the listener to handle button clicks
+	        // listener for click on done button
 	        friendPickerFragment.setOnDoneButtonClickedListener(
 	                new PickerFragment.OnDoneButtonClickedListener() {
 	            @Override
@@ -72,6 +72,7 @@ public class PickerActivity extends FragmentActivity {
 	            placePickerFragment = 
 	                (PlacePickerFragment) manager.findFragmentById(R.id.picker_fragment);
 	        }
+	        //set listener for selection changed, once one location is selected, finish this activity
 	        placePickerFragment.setOnSelectionChangedListener(
 	                new PickerFragment.OnSelectionChangedListener() {
 	            @Override
@@ -79,7 +80,7 @@ public class PickerActivity extends FragmentActivity {
 	                finishActivity(); 
 	            }
 	        });
-	     
+	        //set listener for done button
 	        placePickerFragment.setOnDoneButtonClickedListener(
 	               new PickerFragment.OnDoneButtonClickedListener() {
 	            @Override
@@ -146,19 +147,19 @@ public class PickerActivity extends FragmentActivity {
 	    } else if (PLACE_URL.equals(getIntent().getData())) {
 	        try {
 	            Location location = null;
-	            // Instantiate the default criteria for a location provider
+	            // default criteria for a location provider
 	            Criteria criteria = new Criteria();
-	            // Get a location manager from the system services
+	            // location manager from the system services
 	            LocationManager locationManager = 
 	                    (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-	            // Get the location provider that best matches the criteria
+	            // location provider that best matches the criteria
 	            String bestProvider = locationManager.getBestProvider(criteria, false);
 	            if (bestProvider != null) {
 	       
 	                location = locationManager.getLastKnownLocation(bestProvider);
 	                if (locationManager.isProviderEnabled(bestProvider) 
 	                            && locationListener == null) {
-	                    // Set up a location listener and the selected provider is enabled
+	                    // location listener and the selected provider 
 	                    locationListener = new LocationListener() {
 	                        @Override
 	                        public void onLocationChanged(Location location) {
@@ -203,10 +204,9 @@ public class PickerActivity extends FragmentActivity {
 	                placePickerFragment.setRadiusInMeters(SEARCH_RADIUS);
 	                placePickerFragment.setSearchText(SEARCH_TEXT);
 	                placePickerFragment.setResultsLimit(SEARCH_RESULTS_NUM);
-	                // Start the API call
 	                placePickerFragment.loadData(true);
 	            } else {
-	                    // If no location found, show an error
+	                    // show an error when no  location found
 	                onError(getResources()
 	                        .getString(R.string.no_location_error), true);
 	            }
@@ -221,7 +221,6 @@ public class PickerActivity extends FragmentActivity {
 	    if (locationListener != null) {
 	        LocationManager locationManager = 
 	            (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-	        // Remove updates for the location listener
 	        locationManager.removeUpdates(locationListener);
 	        locationListener = null;
 	    }

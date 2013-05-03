@@ -32,29 +32,28 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/newGameBack"
-        android:layout_below="@+id/textView1"
-        android:layout_gravity="center"
+        android:layout_below="@+id/newGameBack"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
         android:gravity="center"
-        android:layout_marginTop="24dp"
-        android:text="@string/new_game2"
+        android:text="@string/new_game"
         android:textColor="@color/dark_blue"
         android:textSize="20sp"
         android:textStyle="italic"
         android:typeface="serif" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/newGameBack"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="42dp"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="34dp"
         android:gravity="center"
-        android:text="@string/new_game"
+        android:text="@string/new_game2"
         android:textColor="@color/dark_blue"
         android:textSize="20sp"
         android:textStyle="italic"
