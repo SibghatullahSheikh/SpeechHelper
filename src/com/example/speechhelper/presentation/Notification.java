@@ -187,7 +187,9 @@ public class Notification extends Activity {
 							if ((selectedYear != 0) && (day != 0)) {
 								if ((startHour != -1) && (startMinute != -1)) {
 									if ((endHour != -1) && (endMinute != -1)) {
-										if (startHour < endHour) {
+										
+											if (((startHour==endHour)&&(startMinute<endMinute))||(startHour < endHour))
+										{
 											Calendar start = Calendar
 													.getInstance();
 											start.set(selectedYear, month, day,
