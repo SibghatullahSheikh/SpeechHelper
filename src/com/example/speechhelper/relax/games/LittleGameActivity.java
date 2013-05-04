@@ -45,12 +45,12 @@ public class LittleGameActivity extends Activity {
        Sensor sensor = null;      
        int ScreenWidth = 0;  
        int ScreenHeight = 0;  
-       private int ScreenBallWidth = 0;  
-       private int ScreenBallHeight = 0;  
-       private Bitmap mbitmapBg;  //background
-       private Bitmap mbitmapBall;  //ball
-       private float PositionX = 0;  
-       private float PositionY = 0;  
+       private int Width = 0;  
+       private int Height = 0;  
+       private Bitmap background;  //background
+       private Bitmap mario;  //mario icon
+       private float MarioX = 0;  
+       private float MarioY = 0;  
        private float GX = 0;  
        private float GY = 0;  
        private float GZ = 0;  
@@ -65,19 +65,19 @@ public class LittleGameActivity extends Activity {
            myCanvas = new Canvas();  
            myPaint = new Paint();  
            myPaint.setColor(Color.WHITE);  
-           mbitmapBall = BitmapFactory.decodeResource(this.getResources(), R.drawable.mario2);  
-           mbitmapBg = BitmapFactory.decodeResource(this.getResources(), R.drawable.back1);  
+           mario = BitmapFactory.decodeResource(this.getResources(), R.drawable.mario2);  
+           background = BitmapFactory.decodeResource(this.getResources(), R.drawable.back1);  
            sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);     
            sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);     
            sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);    
        }  
 
        private void DrawText() {         
-           myCanvas.drawBitmap(mbitmapBg,0,0, myPaint);  
-           myCanvas.drawBitmap(mbitmapBall, PositionX,PositionY, myPaint);  
-           myCanvas.drawText("X:" + GX, 0, 20, myPaint);  
-           myCanvas.drawText("Y:" + GY, 0, 40, myPaint);  
-           myCanvas.drawText("Z:" + GZ, 0, 60, myPaint);  
+           myCanvas.drawBitmap(background,0,0, myPaint);  
+           myCanvas.drawBitmap(mario, MarioX,MarioY, myPaint);  
+           myCanvas.drawText("X-axis Gravity:" + GX, 20, 20, myPaint);  
+           myCanvas.drawText("Y-axis Gravity:" + GY, 20, 40, myPaint);  
+           myCanvas.drawText("Z-axis Gravity:" + GZ, 20, 60, myPaint);  
        }  
 
        @Override  
@@ -96,8 +96,8 @@ public class LittleGameActivity extends Activity {
            new Thread(this).start(); 
            ScreenWidth = this.getWidth();  
            ScreenHeight = this.getHeight();  
-           ScreenBallWidth = ScreenWidth - mbitmapBall.getWidth();  
-           ScreenBallHeight = ScreenHeight - mbitmapBall.getHeight();  
+           Width = ScreenWidth - mario.getWidth();  
+           Height = ScreenHeight - mario.getHeight();  
 
        }  
 
@@ -131,30 +131,28 @@ public class LittleGameActivity extends Activity {
            // TODO Auto-generated method stub  
              
        }  
-
        @SuppressWarnings("deprecation")
-	@Override  
+	   @Override  
        public void onSensorChanged(SensorEvent event) {  
 
            GX = event.values[SensorManager.DATA_X];  
            GY= event.values[SensorManager.DATA_Y];  
            GZ = event.values[SensorManager.DATA_Z];  
-           PositionX -= GX;  
-           PositionY += GY;  
-           if (PositionX < 0) {  
-        	   PositionX = 0;  
-           } else if (PositionX > ScreenBallWidth) {  
-        	   PositionX = ScreenBallWidth;  
+           MarioX -= GX;  
+           MarioY += GY;  
+           //check boundary 
+           if (MarioX < 0) {  
+        	   MarioX = 0;  
+           } else if (MarioX > Width) {  
+        	   MarioX = Width;  
            }  
-           if (PositionY < 0) {  
-        	   PositionY = 0;  
-           } else if (PositionY > ScreenBallHeight) {  
-        	   PositionY = ScreenBallHeight;  
+           if (MarioY < 0) {  
+        	   MarioY = 0;  
+           } else if (MarioY > Height) {  
+        	   MarioY = Height;  
            }  
-
        }  
-
-       }
+    }
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
