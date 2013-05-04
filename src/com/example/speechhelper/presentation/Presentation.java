@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 
 public class Presentation extends Activity {
 
@@ -40,8 +41,8 @@ public class Presentation extends Activity {
 						new String[] { String.valueOf(id) }, null, null, null,
 						null);
 				c.moveToFirst();
-				db.close();  // close db   
-				
+				db.close(); // close db
+
 				Intent intent = new Intent(Presentation.this, DisplayNote.class);
 
 				intent.putExtra("projectTime", c.getInt(0)); // pass project
@@ -49,6 +50,19 @@ public class Presentation extends Activity {
 				intent.putExtra("projectId", (int) id); // pass project_id
 
 				startActivityForResult(intent, 0);
+			}
+		});
+		// long click
+
+		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent intent = new Intent(Presentation.this,
+						Notification.class);
+				intent.putExtra("project_id", (int) id); // pass project_id
+
+				startActivityForResult(intent, 0);
+				return true;
 			}
 		});
 
@@ -67,7 +81,7 @@ public class Presentation extends Activity {
 
 	public void UpdateAdapter() {
 		DatabaseHelper db = new DatabaseHelper(this);
-		
+
 		Cursor c = db.getReadableDatabase().query("ProjectTable", null, null,
 				null, null, null, "_id desc", null);
 		if (c != null && c.getCount() >= 0) {

@@ -17,6 +17,10 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_CALENDAR"/> 
+    <uses-permission android:name="android.permission.WRITE_CALENDAR"/> 
+
+    
 
     <application
         android:name="com.example.speechhelper.facebook.SpeechHelperApplication"
@@ -125,6 +129,10 @@
         <activity
             android:name="com.example.speechhelper.relax.games.NewGameActivity"
             android:label="@string/title_activity_new_game" >
+        </activity>
+        <activity
+            android:name="com.example.speechhelper.presentation.Notification"
+            android:label="@string/title_activity_notification" >
         </activity>
     </application>
 

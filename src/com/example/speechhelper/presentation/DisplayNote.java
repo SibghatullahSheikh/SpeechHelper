@@ -72,72 +72,70 @@ public class DisplayNote extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				if(c.getCount()!=0){
-				if (timer == null) {
-					c.moveToFirst();
-					startTime = c.getInt(1);
-					endTime = c.getInt(2);
-					timer = new Timer();
-					handler = new Handler() {
-						String content;
+				if (c.getCount() != 0) {
+					if (timer == null) {
+						c.moveToFirst();
+						startTime = c.getInt(1);
+						endTime = c.getInt(2);
+						timer = new Timer();
+						handler = new Handler() {
+							String content;
 
-						public void handleMessage(Message msg) {
-							// Log.d("count22", String.valueOf(msg.what));
+							public void handleMessage(Message msg) {
+								// Log.d("count22", String.valueOf(msg.what));
+								totalTime.setText(String.valueOf(msg.what));
 
-							totalTime.setText(String.valueOf(msg.what));
-
-							if (startTime == msg.what) {
-								content = c.getString(0);
-								text.setText(content);
-
-								if (!c.isLast()) {
-									c.moveToNext();
-
+								if (startTime == msg.what) {
 									content = c.getString(0);
-									nextNote.setText(content);
-								} else {
-									nextNote.setText(null);
+									text.setText(content);
+
+									if (!c.isLast()) {
+										c.moveToNext();
+
+										content = c.getString(0);
+										nextNote.setText(content);
+									} else {
+										nextNote.setText(null);
+									}
 								}
+								if (endTime == msg.what) {
+									text.setText(null);
+
+									startTime = c.getInt(1);
+									endTime = c.getInt(2);
+								}
+								if (projectTime * 60 == msg.what) {
+									Toast t = Toast.makeText(DisplayNote.this,
+											"Presentation Completed!",
+											Toast.LENGTH_SHORT);
+									t.show();
+									i = 0;
+
+									timer.cancel();
+									task.cancel(); // close timer
+
+									timer = null;
+									task = null;
+									handler = null;
+
+								}
+								super.handleMessage(msg);
 							}
-							if (endTime == msg.what) {
-								text.setText(null);
 
-								startTime = c.getInt(1);
-								endTime = c.getInt(2);
+						};
+
+						task = new TimerTask() {
+
+							public void run() {
+								i++;
+								Message message = new Message();
+								message.what = i;
+								handler.sendMessage(message);
 							}
-							if (projectTime * 60 == msg.what) {
-								Toast t = Toast.makeText(DisplayNote.this,
-										"Presentation Completed!",
-										Toast.LENGTH_SHORT);
-								t.show();
-								i = 0;
-
-								timer.cancel();
-								task.cancel(); // close timer
-
-								timer = null;
-								task = null;
-								handler = null;
-
-							}
-							super.handleMessage(msg);
-						}
-
-					};
-
-					task = new TimerTask() {
-
-						public void run() {
-							i++;
-							Message message = new Message();
-							message.what = i;
-							handler.sendMessage(message);
-						}
-					};
-
-					timer.schedule(task, 1000, 1000);
+						};
+						timer.schedule(task, 1000, 1000);
+					}
 				}
-			}
 			}
 		});
 

@@ -114,5 +114,12 @@
     <string name="some_new_game2">We will update for new games later</string>
     <string name="little_game2">This is a little game may help you relax</string>
     <string name="new_game2">Thank you for your support of our app!</string>
+    <string name="title_activity_notification">Notification</string>
+    <string name="end_time">End time:</string>
+    <string name="start_time">Start time:</string>
+    <string name="pre_date">Presentation date:</string>
+    <string name="description">Description:</string>
+    <string name="title">Title:</string>
+  
 
 </resources>

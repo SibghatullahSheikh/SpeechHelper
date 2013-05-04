@@ -32,6 +32,13 @@ public class NewNote extends Activity {
 		setContentView(R.layout.activity_new_note);
 
 		projectId = this.getIntent().getIntExtra("project_id", -1);
+		final DatabaseHelper db = new DatabaseHelper(
+				getApplicationContext());
+		Cursor c =db.getWritableDatabase().query("ProjectTable", new String[]{"project_time"}, "_id=?", new String[]{String.valueOf(projectId)}, null, null, null);
+		c.moveToFirst();
+		final int totalTime = c.getInt(0);
+		db.close();
+
 
 		noteContentText = (EditText) findViewById(R.id.noteContentText);
 		startTimeText = (EditText) findViewById(R.id.startTimeText);
@@ -58,11 +65,10 @@ public class NewNote extends Activity {
 			@Override
 			public void onClick(View view) {
 				try {
-					//Log.d("tag4", Integer.toString(projectId)); 
+					//Log.d("tag4", Integer.toString(projectId)); // log 4
 					if (projectId != -1) {
 						String noteContent = noteContentText.getText()
 								.toString();
-						
 						if(!noteContent.equals("")){
 							if(!startTimeText
 									.getText().toString().equals("")){
@@ -74,19 +80,16 @@ public class NewNote extends Activity {
 									int endTime = Integer.parseInt(endTimeText.getText()
 											.toString());
 
-									DatabaseHelper db = new DatabaseHelper(
-											getApplicationContext());
-									Cursor c =db.getWritableDatabase().query("ProjectTable", new String[]{"project_time"}, "_id=?", new String[]{String.valueOf(projectId)}, null, null, null);
-									c.moveToFirst();
-									int totalTime = c.getInt(0);
-									db.close();
-									if(startTime>totalTime*60||endTime>totalTime*60){
+								if(startTime>totalTime*60||endTime>totalTime*60){
+										
 										Toast t4 = Toast.makeText(NewNote.this,
 												"Start time or end time exceeds total time, check agian",
 												Toast.LENGTH_SHORT);
 										t4.setGravity(Gravity.CENTER, 0, 0);
 										t4.show();
+										
 									}else{
+										if(startTime<endTime){
 									db.addNoteData(noteContent, startTime, endTime,
 											projectId);
 									
@@ -95,6 +98,13 @@ public class NewNote extends Activity {
 									intent.putExtra("projectIdBack", projectId);
 									setResult(RESULT_OK, intent);
 									finish();
+										}else{
+											Toast t4 = Toast.makeText(NewNote.this,
+													"End time should follow start time, please check agian",
+													Toast.LENGTH_SHORT);
+											t4.setGravity(Gravity.CENTER, 0, 0);
+											t4.show();
+										}
 									}
 
 								}else{
@@ -122,8 +132,6 @@ public class NewNote extends Activity {
 						}
 
 					}
-
-						
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
