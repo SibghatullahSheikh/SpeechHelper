@@ -102,7 +102,7 @@ public class GameActivity extends Activity {
 	private class littleGame extends BaseItem {
 
 	    public littleGame(int requestCode) {
-	        super( GameActivity.this.getResources().getDrawable(R.drawable.sea_icon),
+	        super( GameActivity.this.getResources().getDrawable(R.drawable.mario),
 	        		 GameActivity.this.getResources().getString(R.string.little_game),
 	        		 GameActivity.this.getResources().getString(R.string.little_game2),
 	              requestCode);

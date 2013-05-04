@@ -124,7 +124,8 @@
         </activity>
         <activity
             android:name="com.example.speechhelper.relax.games.LittleGameActivity"
-            android:label="@string/title_activity_little_game" >
+            android:label="@string/title_activity_little_game"
+            android:screenOrientation="portrait"  >
         </activity>
         <activity
             android:name="com.example.speechhelper.relax.games.NewGameActivity"
@@ -132,7 +133,8 @@
         </activity>
         <activity
             android:name="com.example.speechhelper.presentation.Notification"
-            android:label="@string/title_activity_notification" >
+            android:label="@string/title_activity_notification"
+            >
         </activity>
     </application>
 

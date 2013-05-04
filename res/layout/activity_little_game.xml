@@ -8,14 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LittleGameActivity" >
 
-    <Button
-        android:id="@+id/littleGameBack"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/back" />
+    
 
    
 
@@ -23,8 +16,6 @@
         android:id="@+id/LittleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/littleGameBack"
-        android:layout_alignBottom="@+id/littleGameBack"
         android:layout_centerHorizontal="true"
         android:text="@string/little_game"  
         android:textAppearance="?android:attr/textAppearanceLarge" />
