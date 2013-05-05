@@ -48,13 +48,15 @@ public class LittleGameActivity extends Activity {
        private int Width = 0;  
        private int Height = 0;  
        private Bitmap background;  //background
+       private Bitmap location;  //location
        private Bitmap mario;  //mario icon
        private float MarioX = 0;  
        private float MarioY = 0;  
        private float GX = 0;  
        private float GY = 0;  
        private float GZ = 0;  
-
+       private int score = 0;
+       
        public MyView(Context context) {  
 
            super(context);  
@@ -66,7 +68,8 @@ public class LittleGameActivity extends Activity {
            myPaint = new Paint();  
            myPaint.setColor(Color.WHITE);  
            mario = BitmapFactory.decodeResource(this.getResources(), R.drawable.mario2);  
-           background = BitmapFactory.decodeResource(this.getResources(), R.drawable.back1);  
+           background = BitmapFactory.decodeResource(this.getResources(), R.drawable.back1); 
+           location = BitmapFactory.decodeResource(this.getResources(), R.drawable.action_location);
            sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);     
            sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);     
            sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);    
@@ -74,10 +77,13 @@ public class LittleGameActivity extends Activity {
 
        private void DrawText() {         
            myCanvas.drawBitmap(background,0,0, myPaint);  
-           myCanvas.drawBitmap(mario, MarioX,MarioY, myPaint);  
-           myCanvas.drawText("X-axis Gravity:" + GX, 20, 20, myPaint);  
-           myCanvas.drawText("Y-axis Gravity:" + GY, 20, 40, myPaint);  
-           myCanvas.drawText("Z-axis Gravity:" + GZ, 20, 60, myPaint);  
+           myCanvas.drawBitmap(location,200, 400, myPaint);  
+           myCanvas.drawBitmap(location,420, 730, myPaint);  
+           myCanvas.drawBitmap(mario, MarioX, MarioY, myPaint);  
+           myCanvas.drawText("X-axis Gravity: " + GX, 20, 20, myPaint);  
+           myCanvas.drawText("Y-axis Gravity: " + GY, 20, 40, myPaint);  
+           myCanvas.drawText("Z-axis Gravity: " + GZ, 20, 60, myPaint);  
+           myCanvas.drawText("Your Score: " + score, 20 , 80, myPaint);
        }  
 
        @Override  
@@ -112,8 +118,13 @@ public class LittleGameActivity extends Activity {
            long startTime = System.currentTimeMillis();  
            synchronized (mySurfaceHolder) {  
                myCanvas = mySurfaceHolder.lockCanvas();  
-               DrawText();  
+               try{
+               DrawText();
+               
                mySurfaceHolder.unlockCanvasAndPost(myCanvas);  
+               }catch(Exception e){
+            	   
+               }
            }  
            long endTime = System.currentTimeMillis();  
            int diffTime = (int) (endTime - startTime);  
@@ -151,6 +162,12 @@ public class LittleGameActivity extends Activity {
            } else if (MarioY > Height) {  
         	   MarioY = Height;  
            }  
+           if (MarioX > 200& MarioX<220 & MarioY> 400&MarioY<420){
+        	   score += 1;
+           }
+           if (MarioX > 420& MarioX<440 & MarioY> 730&MarioY<750){
+        	   score += 1;
+           }
        }  
     }
 	@Override
@@ -159,5 +176,10 @@ public class LittleGameActivity extends Activity {
 		getMenuInflater().inflate(R.menu.little_game, menu);
 		return true;
 	}
+	@Override
+	protected void onDestroy() {
+        super.onDestroy();
+      
+    }
 
 }
