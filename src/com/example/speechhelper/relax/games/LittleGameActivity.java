@@ -142,8 +142,7 @@ public class LittleGameActivity extends Activity {
            // TODO Auto-generated method stub  
              
        }  
-       @SuppressWarnings("deprecation")
-	   @Override  
+       @Override  
        public void onSensorChanged(SensorEvent event) {  
 
            GX = event.values[SensorManager.DATA_X];  

@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.view.Menu;
 import android.widget.TabHost;
 
-@SuppressWarnings("deprecation")
 public class RelaxActivity extends ActivityGroup {
 
     private TabHost relaxTabHost;

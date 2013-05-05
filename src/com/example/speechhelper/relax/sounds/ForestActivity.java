@@ -25,7 +25,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ViewSwitcher.ViewFactory;
 
-@SuppressWarnings("deprecation")
 public class ForestActivity extends Activity implements ViewFactory,OnItemSelectedListener {  
 	private Button forestBack;
     ImageSwitcher mSwitcher;  

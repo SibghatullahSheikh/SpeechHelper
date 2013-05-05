@@ -65,7 +65,6 @@ public class RecordVideo extends Activity implements Callback {
 	private Handler handler;
 	private TimerTask task;
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -25,7 +25,6 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-@SuppressWarnings("deprecation")
 public class Notification extends Activity {
 
 	private String title;

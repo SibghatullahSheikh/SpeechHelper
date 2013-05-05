@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.view.Menu;
 import android.widget.TabHost;
 
-@SuppressWarnings("deprecation")
 public class ProjectTabHost extends ActivityGroup {
 	
 	private TabHost projectTabHost;

@@ -25,7 +25,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ViewSwitcher.ViewFactory;
 
-@SuppressWarnings("deprecation")
 public class NightActivity extends Activity implements ViewFactory,OnItemSelectedListener {  
 	private Button nightBack;
     ImageSwitcher mSwitcher;  
